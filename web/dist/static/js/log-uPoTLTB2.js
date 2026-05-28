@@ -1,0 +1,1 @@
+import{b2 as t}from"./index-P7y_Ssvu.js";class s{static page(e){return t().get("/admin/user-login-log/list",{params:e})}static delete(e){return t().delete("/admin/user-login-log",{data:{ids:e}})}}class o{static page(e){return t().get("/admin/user-operation-log/list",{params:e})}static delete(e){return t().delete("/admin/user-operation-log",{data:{ids:e}})}}export{s as U,o as a};

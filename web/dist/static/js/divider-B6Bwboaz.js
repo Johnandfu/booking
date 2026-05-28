@@ -1,0 +1,1 @@
+import{d as e,f as r,h as o}from"./index-P7y_Ssvu.js";import"./__commonjsHelpers__-Cpj98o6Y.js";const a={class:"my-1 h-[1px] w-full bg-gray-1 dark-bg-dark-2"},i=e({name:"MDropdownDivider",__name:"divider",setup(t){return(n,s)=>(o(),r("div",a))}});export{i as default};

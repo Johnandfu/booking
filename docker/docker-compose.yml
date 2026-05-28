@@ -1,0 +1,86 @@
+version: "3.9"
+
+services:
+  nginx:
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
+    environment:
+      ENABLE_SSL: ${ENABLE_SSL}
+      ADMIN_EMAIL: ${ADMIN_EMAIL}
+      DOMAIN: ${DOMAIN}
+    ports:
+      - "80:80"
+      - "2888:2888"
+      - "443:443"
+    volumes:
+      - ./nginx/conf.d:/etc/nginx/conf.d
+      - ./nginx/ssl:/etc/nginx/ssl
+      - ./data/certbot:/etc/letsencrypt
+      - ./data/nginx/log:/var/nginx/log
+      - ../web/:/var/www/web/
+    depends_on:
+      - php
+    restart: always
+    networks:
+      - backend
+
+  php:
+    build:
+      context: ./php
+      dockerfile: Dockerfile
+    ports:
+      - "9501:9501"
+    volumes:
+      - ../:/var/www/api-service/
+      #- ./data/php/php.ini:/usr/local/etc/php/php.ini
+    depends_on:
+      - mysql
+      - redis
+    restart: always
+    privileged: true
+    networks:
+      - backend
+
+  mysql:
+    image: mysql:8.0
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-root}
+      MYSQL_ROOT_HOST: ${MYSQL_ROOT_HOST:-localhost}
+      MYSQL_DATABASE: ${MYSQL_DATABASE:-track_system}
+      MYSQL_USER: ${MYSQL_USER:-track_system}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-track_system}
+
+      TZ: Asia/Shanghai
+    command: "--default-authentication-plugin=mysql_native_password"
+    ports:
+      - "3309:3306"
+    volumes:
+      - ./data/mysql/data:/var/lib/mysql
+      - ./mysql/my.cnf:/etc/mysql/conf.d/my.cnf
+      - ./data/mysql/logs:/var/log/mysql
+    networks:
+      - backend
+
+  redis:
+    image: redis:7.2-alpine
+    restart: always
+    ports:
+      - "6379:6379"
+    command: redis-server
+      --requirepass ${REDIS_PASSWORD:-redis123}
+      --appendonly yes
+      --bind 0.0.0.0
+      --maxmemory-policy allkeys-lru
+    volumes:
+      - ./data/redis/data:/data
+      #- ./data/redis/redis.conf:/usr/local/etc/redis/redis.conf
+    environment:
+      - TZ=Asia/Shanghai
+    networks:
+      - backend
+
+networks:
+  backend:
+    driver: bridge
