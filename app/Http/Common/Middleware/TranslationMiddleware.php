@@ -26,17 +26,32 @@ class TranslationMiddleware implements MiddlewareInterface
 
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
-        $this->translator->setLocale($this->getLocale($request));
-        return $handler->handle($request);
+        $locale = $this->getLocale($request);
+        $this->translator->setLocale($locale);
+
+        return $handler->handle(
+            $request->withAttribute('frontend_locale', $locale)
+        );
     }
 
-    // 获取语言标识
     protected function getLocale(ServerRequestInterface $request): string
     {
-        $locale = null;
-        if ($request->hasHeader('Accept-Language')) {
-            $locale = $request->getHeaderLine('Accept-Language');
+        $cookieLang = (string) ($request->getCookieParams()['frontend_lang'] ?? '');
+        if ($cookieLang !== '') {
+            return $this->normalizeLocale($cookieLang);
         }
-        return $locale ?: 'en';
+
+        if ($request->hasHeader('Accept-Language')) {
+            return $this->normalizeLocale($request->getHeaderLine('Accept-Language'));
+        }
+
+        return 'en';
+    }
+
+    protected function normalizeLocale(string $locale): string
+    {
+        $locale = strtolower(substr($locale, 0, 2));
+
+        return $locale === 'zh' ? 'zh' : 'en';
     }
 }

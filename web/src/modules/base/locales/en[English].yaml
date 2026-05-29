@@ -126,3 +126,37 @@ baseMenu:
     attachmentList: Attachment List
     attachmentUpload: Attachment Upload
     attachmentDelete: Attachment Delete
+  cms:
+    index: CMS Management
+    category: Category Management
+    article: Article Management
+    banner: Banner Management
+    page: Page Management
+    contactMessage: Contact Message Management
+    mapSetting: Map Setting
+    frontendI18n: Frontend I18n
+    categoryList: Category List
+    categoryCreate: Create Category
+    categoryUpdate: Update Category
+    categoryDelete: Delete Category
+    articleList: Article List
+    articleCreate: Create Article
+    articleUpdate: Update Article
+    articleDelete: Delete Article
+    bannerList: Banner List
+    bannerCreate: Create Banner
+    bannerUpdate: Update Banner
+    bannerDelete: Delete Banner
+    pageList: Page List
+    pageCreate: Create Page
+    pageUpdate: Update Page
+    pageDelete: Delete Page
+    contactMessageList: Contact Message List
+    contactMessageUpdate: Handle Contact Message
+    contactMessageDelete: Delete Contact Message
+    mapSettingList: Map Setting
+    mapSettingUpdate: Update Map Setting
+    frontendI18nList: Frontend I18n List
+    frontendI18nCreate: Create Frontend I18n
+    frontendI18nUpdate: Update Frontend I18n
+    frontendI18nDelete: Delete Frontend I18n

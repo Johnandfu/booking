@@ -161,3 +161,37 @@ baseMenu:
     attachmentList: 附件列表
     attachmentUpload: 上传附件
     attachmentDelete: 删除附件
+  cms:
+    index: CMS 管理
+    category: 栏目管理
+    article: 文章管理
+    banner: 轮播管理
+    page: 单页管理
+    contactMessage: 留言管理
+    mapSetting: 地图配置
+    frontendI18n: 前台多语言
+    categoryList: 栏目列表
+    categoryCreate: 新增栏目
+    categoryUpdate: 更新栏目
+    categoryDelete: 删除栏目
+    articleList: 文章列表
+    articleCreate: 新增文章
+    articleUpdate: 更新文章
+    articleDelete: 删除文章
+    bannerList: 轮播列表
+    bannerCreate: 新增轮播
+    bannerUpdate: 更新轮播
+    bannerDelete: 删除轮播
+    pageList: 单页列表
+    pageCreate: 新增单页
+    pageUpdate: 更新单页
+    pageDelete: 删除单页
+    contactMessageList: 留言列表
+    contactMessageUpdate: 处理留言
+    contactMessageDelete: 删除留言
+    mapSettingList: 地图配置
+    mapSettingUpdate: 更新地图配置
+    frontendI18nList: 多语言列表
+    frontendI18nCreate: 新增多语言
+    frontendI18nUpdate: 更新多语言
+    frontendI18nDelete: 删除多语言

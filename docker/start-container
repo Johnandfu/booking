@@ -1,0 +1,88 @@
+#!/usr/bin/env bash
+set -e
+
+if [ ! -d /var/lib/mysql/mysql ]; then
+    mysql_install_db --user=mysql --datadir=/var/lib/mysql >/dev/null
+fi
+
+mysqld_safe --datadir=/var/lib/mysql --bind-address=0.0.0.0 &
+
+until mysqladmin ping --silent; do
+    sleep 1
+done
+
+mysql -uroot <<SQL
+ALTER USER 'root'@'localhost' IDENTIFIED BY '${MYSQL_ROOT_PASSWORD}';
+CREATE USER IF NOT EXISTS 'root'@'%' IDENTIFIED BY '${MYSQL_ROOT_PASSWORD}';
+GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' WITH GRANT OPTION;
+CREATE DATABASE IF NOT EXISTS \`${MYSQL_DATABASE}\` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+CREATE USER IF NOT EXISTS '${MYSQL_USER}'@'%' IDENTIFIED BY '${MYSQL_PASSWORD}';
+GRANT ALL PRIVILEGES ON \`${MYSQL_DATABASE}\`.* TO '${MYSQL_USER}'@'%';
+FLUSH PRIVILEGES;
+SQL
+
+if [ -n "${REDIS_PASSWORD}" ]; then
+    redis-server --daemonize yes --bind 0.0.0.0 --dir /data/redis --appendonly yes --requirepass "${REDIS_PASSWORD}"
+else
+    redis-server --daemonize yes --bind 0.0.0.0 --dir /data/redis --appendonly yes
+fi
+
+nginx
+
+if [ "${ENABLE_HTTPS}" = "true" ]; then
+    if [ -z "${DOMAIN}" ] || [ -z "${CERTBOT_EMAIL}" ]; then
+        echo "ENABLE_HTTPS=true requires DOMAIN and CERTBOT_EMAIL."
+        exit 1
+    fi
+
+    if [ ! -f "/etc/letsencrypt/live/${DOMAIN}/fullchain.pem" ]; then
+        certbot certonly \
+            --webroot \
+            --webroot-path /var/www/certbot \
+            --domain "${DOMAIN}" \
+            --email "${CERTBOT_EMAIL}" \
+            --agree-tos \
+            --non-interactive \
+            --keep-until-expiring
+    fi
+
+    cat > /etc/nginx/http.d/ssl.conf <<EOF
+server {
+    listen 443 ssl http2;
+    server_name ${DOMAIN};
+
+    ssl_certificate /etc/letsencrypt/live/${DOMAIN}/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/${DOMAIN}/privkey.pem;
+    ssl_protocols TLSv1.2 TLSv1.3;
+    ssl_ciphers HIGH:!aNULL:!MD5;
+
+    include /etc/nginx/app-locations.inc;
+}
+EOF
+
+    nginx -s reload
+
+    (
+        while true; do
+            certbot renew \
+                --webroot \
+                --webroot-path /var/www/certbot \
+                --quiet \
+                --deploy-hook "nginx -s reload"
+            sleep 12h
+        done
+    ) &
+fi
+
+if [ -f /opt/www/.env ]; then
+    sed -i \
+        -e "s/^DB_HOST=.*/DB_HOST=127.0.0.1/" \
+        -e "s/^DB_DATABASE=.*/DB_DATABASE=${MYSQL_DATABASE}/" \
+        -e "s/^DB_USERNAME=.*/DB_USERNAME=${MYSQL_USER}/" \
+        -e "s/^DB_PASSWORD=.*/DB_PASSWORD=${MYSQL_PASSWORD}/" \
+        -e "s/^REDIS_HOST=.*/REDIS_HOST=127.0.0.1/" \
+        -e "s/^REDIS_AUTH=.*/REDIS_AUTH=${REDIS_PASSWORD}/" \
+        /opt/www/.env
+fi
+
+exec php /opt/www/bin/hyperf.php start

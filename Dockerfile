@@ -1,4 +1,4 @@
-FROM hyperf/hyperf:8.1-alpine-v3.18-swoole
+FROM hyperf/hyperf:8.3-alpine-v3.18-swoole
 LABEL maintainer="MineManage Developers <group@stye.cn>" version="1.0" license="MIT" app.name="MineManage"
 
 ##
@@ -36,7 +36,7 @@ RUN set -ex \
 # update
 RUN set -ex \
     #  ---------- some config ----------
-    && cd /etc/php81 \
+    && cd /etc/php83 \
     # - config timezone
     && ln -sf /usr/share/zoneinfo/${TIMEZONE} /etc/localtime \
     && echo "${TIMEZONE}" > /etc/timezone \
@@ -45,7 +45,7 @@ RUN set -ex \
 RUN set -ex && \
     apk update \
     && apk add --no-cache libstdc++ openssl git bash autoconf pcre2-dev zlib-dev re2c gcc g++ make \
-    php81-pear php81-dev php81-tokenizer php81-fileinfo php81-simplexml php81-xmlwriter \
+    php83-pear php83-dev php83-tokenizer php83-fileinfo php83-simplexml php83-xmlwriter \
     && apk add --no-cache --virtual .build-deps $PHPIZE_DEPS zlib-dev libaio-dev openssl-dev curl-dev  c-ares-dev \
     && pecl channel-update pecl.php.net \
     && pecl install --configureoptions 'enable-reader="yes"' xlswriter \
