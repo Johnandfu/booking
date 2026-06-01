@@ -3,7 +3,7 @@
 @section('content')
     <main class="page-shell">
         <section class="page-hero container reveal">
-            <span class="landing-kicker">{{ $copy['pageKicker'] }}</span>
+            <span class="landing-kicker">{{ $copy['page-kicker'] ?? 'page-kicker' }}</span>
             <h1>{{ $page->title }}</h1>
         </section>
         <article class="container row justify-content-center mx-auto">
@@ -13,7 +13,7 @@
                         @if ($page->content)
                             {!! $page->content !!}
                         @else
-                            <p class="text-secondary">{{ $copy['pageEmptyContent'] }}</p>
+                            <p class="text-secondary">{{ $copy['page-emptyContent'] ?? 'page-emptyContent' }}</p>
                         @endif
                     </div>
                 </div>

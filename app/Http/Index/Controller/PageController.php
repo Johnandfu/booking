@@ -13,10 +13,7 @@ final class PageController extends BaseController
     {
         $page = $this->cmsContent->pageBySlug($slug);
         if ($page === null) {
-            return $this->view($render, 'index.not-found', [
-                'title' => '页面不存在',
-                'activeNav' => null,
-            ]);
+            return $this->notFound($render);
         }
 
         return $this->view($render, 'index.page', [

@@ -12,6 +12,7 @@ declare(strict_types=1);
 
 namespace App\Http\Common\Middleware;
 
+use App\Service\Cms\CmsContentService;
 use Hyperf\Contract\TranslatorInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -45,13 +46,21 @@ class TranslationMiddleware implements MiddlewareInterface
             return $this->normalizeLocale($request->getHeaderLine('Accept-Language'));
         }
 
-        return 'en';
+        return CmsContentService::frontendDefaultLocale();
     }
 
     protected function normalizeLocale(string $locale): string
     {
-        $locale = strtolower(substr($locale, 0, 2));
+        $locale = strtolower(str_replace('_', '-', $locale));
 
-        return $locale === 'zh' ? 'zh' : 'en';
+        foreach (CmsContentService::frontendLocales() as $frontendLocale => $config) {
+            foreach ($config['aliases'] ?? [$frontendLocale] as $alias) {
+                if (str_starts_with($locale, strtolower((string) $alias))) {
+                    return $frontendLocale;
+                }
+            }
+        }
+
+        return CmsContentService::frontendDefaultLocale();
     }
 }

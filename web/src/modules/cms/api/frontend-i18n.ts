@@ -2,8 +2,8 @@ import type { PageList, ResponseStruct } from '#/global'
 
 export interface CmsFrontendI18nVo {
   id?: number
+  group_type?: string
   key?: string
-  group_name?: string
   title?: string
   en?: string
   zh?: string
@@ -15,7 +15,7 @@ export interface CmsFrontendI18nVo {
 
 export interface CmsFrontendI18nSearchVo {
   keyword?: string
-  group_name?: string
+  group_type?: string
   status?: number
 }
 

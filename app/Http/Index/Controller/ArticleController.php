@@ -26,7 +26,7 @@ final class ArticleController extends BaseController
             'activeNav' => 'category:' . $category->slug,
             'category' => $category,
             'paginator' => $paginator,
-            'basePath' => $this->categoryPath('news'),
+            'basePath' => $this->cmsContent->categoryPath('news'),
         ]);
     }
 
@@ -52,7 +52,7 @@ final class ArticleController extends BaseController
             'activeNav' => 'category:' . $category->slug,
             'category' => $category,
             'paginator' => $paginator,
-            'basePath' => $this->categoryPath($slug),
+            'basePath' => $this->cmsContent->categoryPath($slug),
         ]);
     }
 
@@ -70,14 +70,6 @@ final class ArticleController extends BaseController
             'description' => $article->seo_description ?: $article->summary,
             'activeNav' => null,
             'article' => $article,
-        ]);
-    }
-
-    private function notFound(RenderInterface $render): ResponseInterface
-    {
-        return $this->view($render, 'index.not-found', [
-            'title' => '页面不存在',
-            'activeNav' => null,
         ]);
     }
 }

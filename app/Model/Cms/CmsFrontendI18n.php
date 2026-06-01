@@ -9,8 +9,8 @@ use Hyperf\DbConnection\Model\Model as MineModel;
 
 /**
  * @property int $id
+ * @property string $group_type
  * @property string $key
- * @property string $group_name
  * @property string $title
  * @property string|null $en
  * @property string|null $zh
@@ -28,7 +28,7 @@ final class CmsFrontendI18n extends MineModel
     protected ?string $table = 'cms_frontend_i18n';
 
     protected array $fillable = [
-        'id', 'key', 'group_name', 'title', 'en', 'zh', 'status', 'sort', 'created_at', 'updated_at',
+        'id', 'group_type', 'key', 'title', 'en', 'zh', 'status', 'sort', 'created_at', 'updated_at',
     ];
 
     protected array $casts = [

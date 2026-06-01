@@ -24,8 +24,8 @@ final class CmsFrontendI18nRepository extends IRepository
             $query->where('status', (int) $params['status']);
         }
 
-        if (! empty($params['group_name'])) {
-            $query->where('group_name', (string) $params['group_name']);
+        if (! empty($params['group_type'])) {
+            $query->where('group_type', (string) $params['group_type']);
         }
 
         if (! empty($params['keyword'])) {

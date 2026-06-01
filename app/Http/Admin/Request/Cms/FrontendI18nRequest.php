@@ -14,8 +14,8 @@ class FrontendI18nRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'group_type' => 'required|string|max:50',
             'key' => 'required|string|max:100',
-            'group_name' => 'required|string|max:50',
             'title' => 'required|string|max:100',
             'en' => 'sometimes|nullable|string',
             'zh' => 'sometimes|nullable|string',

@@ -11,38 +11,39 @@ class CmsFrontendI18nSeeder20260529 extends Seeder
     public function run(): void
     {
         $sort = 0;
-        foreach (CmsContentService::FRONTEND_I18N_DEFAULTS['en'] as $key => $en) {
-            CmsFrontendI18n::query()->updateOrCreate(
-                ['key' => $key],
-                [
-                    'group_name' => $this->group($key),
-                    'title' => $this->title($key),
-                    'en' => $en,
-                    'zh' => CmsContentService::FRONTEND_I18N_DEFAULTS['zh'][$key] ?? '',
-                    'status' => CmsFrontendI18n::STATUS_ENABLED,
-                    'sort' => $sort += 10,
-                ]
-            );
+        $defaultLocale = CmsContentService::frontendDefaultLocale();
+        $zhLocale = $this->localeByColumn('zh') ?? $defaultLocale;
+        $defaults = require __DIR__ . '/data/cms_frontend_i18n.php';
+
+        foreach (($defaults[$defaultLocale] ?? []) as $groupType => $messages) {
+            foreach ($messages as $key => $en) {
+                CmsFrontendI18n::query()->updateOrCreate(
+                    ['group_type' => $groupType, 'key' => $key],
+                    [
+                        'title' => $this->title($groupType, $key),
+                        'en' => $en,
+                        'zh' => $defaults[$zhLocale][$groupType][$key] ?? '',
+                        'status' => CmsFrontendI18n::STATUS_ENABLED,
+                        'sort' => $sort += 10,
+                    ]
+                );
+            }
         }
     }
 
-    private function group(string $key): string
+    private function title(string $groupType, string $key): string
     {
-        return match (true) {
-            str_starts_with($key, 'article') => 'article',
-            str_starts_with($key, 'about') => 'about',
-            str_starts_with($key, 'contact') || in_array($key, ['findUs', 'mapTitlePrefix', 'mapTitle', 'mapText', 'mapLocation', 'ready', 'address', 'emailBody', 'hotBody', 'hours', 'hoursBody', 'send', 'messageIntro', 'name', 'email', 'phone', 'message', 'submit'], true) => 'contact',
-            str_starts_with($key, 'category') => 'category',
-            str_starts_with($key, 'news') => 'news',
-            str_starts_with($key, 'service') || str_starts_with($key, 'listing') || $key === 'viewDetails' => 'service',
-            str_starts_with($key, 'page') || str_starts_with($key, 'notFound') => 'page',
-            str_starts_with($key, 'footer') || str_starts_with($key, 'social') || in_array($key, ['siteName', 'description', 'home', 'portal', 'book', 'signin', 'navToggle', 'paginationLabel'], true) => 'layout',
-            default => 'home',
-        };
+        return $groupType . ' / ' . ucwords((string) preg_replace('/(?<!^)[A-Z]/', ' $0', $key));
     }
 
-    private function title(string $key): string
+    private function localeByColumn(string $column): ?string
     {
-        return ucwords((string) preg_replace('/(?<!^)[A-Z]/', ' $0', $key));
+        foreach (CmsContentService::frontendLocales() as $locale => $config) {
+            if (($config['column'] ?? null) === $column) {
+                return $locale;
+            }
+        }
+
+        return null;
     }
 }

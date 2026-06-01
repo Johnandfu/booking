@@ -9,9 +9,9 @@
                 @endif
                 <h1>{{ $article->title }}</h1>
                 <div class="d-flex flex-wrap justify-content-center gap-3 text-secondary small">
-                    <span>{{ $copy['articleAuthor'] }}：{{ $article->author ?? $copy['articleDefaultAuthor'] }}</span>
-                    <span>{{ $copy['articlePublished'] }}：{{ $article->published_at?->format('d M Y') }}</span>
-                    <span>{{ $copy['articleViews'] }}：{{ (int) $article->views + 1 }}</span>
+                    <span>{{ $copy['article-author'] ?? 'article-author' }}：{{ $article->author ?? $copy['article-defaultAuthor'] ?? 'article-defaultAuthor' }}</span>
+                    <span>{{ $copy['article-published'] ?? 'article-published' }}：{{ $article->published_at?->format('d M Y') }}</span>
+                    <span>{{ $copy['article-views'] ?? 'article-views' }}：{{ (int) $article->views + 1 }}</span>
                 </div>
             </div>
             @if ($article->cover)
@@ -26,7 +26,7 @@
                             @if ($article->content)
                                 {!! $article->content !!}
                             @else
-                                <p class="text-secondary">{{ $copy['articleEmptyContent'] }}</p>
+                                <p class="text-secondary">{{ $copy['article-emptyContent'] ?? 'article-emptyContent' }}</p>
                             @endif
                         </div>
                     </div>

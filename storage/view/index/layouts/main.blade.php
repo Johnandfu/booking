@@ -3,8 +3,8 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{{ $pageTitle }} - {{ $copy['siteName'] }}</title>
-    <meta name="description" content="{{ $description ?? $copy['description'] }}">
+    <title>{{ $pageTitle }} - {{ $copy['main-siteName'] ?? 'main-siteName' }}</title>
+    <meta name="description" content="{{ $description ?? $copy['main-description'] ?? 'main-description' }}">
     @if (! empty($gaMeasurementId))
         <script async src="https://www.googletagmanager.com/gtag/js?id={{ $gaMeasurementId }}"></script>
         <script>
@@ -1378,9 +1378,9 @@
 </head>
 <body>
 @php
-    $siteName = $copy['siteName'];
-    $contactEmail = trim((string) ($copy['contactEmail'] ?? ''));
-    $contactPhone = trim((string) ($copy['contactPhone'] ?? ''));
+    $siteName = $copy['main-siteName'] ?? 'main-siteName' ;
+    $contactEmail = trim((string) ($copy['main-contactEmail'] ?? 'main-contactEmail'));
+    $contactPhone = trim((string) ($copy['main-contactPhone'] ?? 'main-contactPhone'));
 
     $socialIcons = [
         'instagram' => <<<'SVG'
@@ -1401,11 +1401,11 @@ SVG,
     ];
 
     $socialLinks = array_values(array_filter([
-        ['label' => $copy['socialInstagramLabel'], 'icon' => 'instagram', 'url' => trim((string) ($copy['socialInstagramUrl'] ?? ''))],
-        ['label' => $copy['socialFacebookLabel'], 'icon' => 'facebook', 'url' => trim((string) ($copy['socialFacebookUrl'] ?? ''))],
-        ['label' => $copy['socialLinkedinLabel'], 'icon' => 'linkedin', 'url' => trim((string) ($copy['socialLinkedinUrl'] ?? ''))],
-        ['label' => $copy['socialYoutubeLabel'], 'icon' => 'youtube', 'url' => trim((string) ($copy['socialYoutubeUrl'] ?? ''))],
-        ['label' => $copy['socialXLabel'], 'icon' => 'x', 'url' => trim((string) ($copy['socialXUrl'] ?? ''))],
+        ['label' => $copy['main-socialInstagramLabel'] ?? 'main-socialInstagramLabel', 'icon' => 'instagram', 'url' => trim((string) ($copy['main-socialInstagramUrl'] ?? ''))],
+        ['label' => $copy['main-socialFacebookLabel'] ?? 'main-socialFacebookLabel', 'icon' => 'facebook', 'url' => trim((string) ($copy['main-socialFacebookUrl'] ?? ''))],
+        ['label' => $copy['main-socialLinkedinLabel'] ?? 'main-socialLinkedinLabel', 'icon' => 'linkedin', 'url' => trim((string) ($copy['main-socialLinkedinUrl'] ?? ''))],
+        ['label' => $copy['main-socialYoutubeLabel'] ?? 'main-socialYoutubeLabel', 'icon' => 'youtube', 'url' => trim((string) ($copy['main-socialYoutubeUrl'] ?? ''))],
+        ['label' => $copy['main-socialXLabel'] ?? 'main-socialXLabel', 'icon' => 'x', 'url' => trim((string) ($copy['main-socialXUrl'] ?? ''))],
     ], static fn (array $item): bool => $item['url'] !== ''));
 @endphp
 <div class="topbar py-2">
@@ -1420,14 +1420,14 @@ SVG,
         </div>
         <div class="d-flex flex-wrap align-items-center gap-3">
             @if (! empty($socialLinks))
-                <div class="topbar-social" aria-label="{{ $copy['socialMedia'] }}">
+                <div class="topbar-social" aria-label="{{ $copy['main-socialMedia'] ?? 'main-socialMedia' }}">
                     @foreach ($socialLinks as $socialLink)
                         <a href="{{ $socialLink['url'] }}" target="_blank" rel="noopener noreferrer" aria-label="{{ $socialLink['label'] }}">{!! $socialIcons[$socialLink['icon']] ?? '' !!}</a>
                     @endforeach
                 </div>
             @endif
-            <!-- <a href="/contact">{{ $copy['book'] }}</a>
-            <a href="/admin">{{ $copy['signin'] }}</a> -->
+            <!-- <a href="/contact">{{ $copy['main-book'] ?? 'main-book' }}</a>
+            <a href="/admin">{{ $copy['main-signin'] ?? 'main-signin' }}</a> -->
         </div>
     </div>
 </div>
@@ -1437,12 +1437,12 @@ SVG,
             <span class="brand-mark material-symbols-rounded">holiday_village</span>
             <span>{{ $siteName }}</span>
         </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#cmsNavbar" aria-controls="cmsNavbar" aria-expanded="false" aria-label="{{ $copy['navToggle'] }}">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#cmsNavbar" aria-controls="cmsNavbar" aria-expanded="false" aria-label="{{ $copy['main-navToggle'] ?? 'main-navToggle' }}">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="cmsNavbar">
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                <li class="nav-item"><a class="nav-link {{ ($activeNav ?? null) === 'home' ? 'active' : '' }}" href="/">{{ $copy['home'] }}</a></li>
+                <li class="nav-item"><a class="nav-link {{ ($activeNav ?? null) === 'home' ? 'active' : '' }}" href="/">{{ $copy['main-home'] ?? 'main-home' }}</a></li>
                 @foreach ($categories as $navCategory)
                     <li class="nav-item">
                         <a class="nav-link {{ ($activeNav ?? null) === 'category:' . $navCategory->slug ? 'active' : '' }}" href="{{ $navCategory->frontend_path }}">
@@ -1451,17 +1451,18 @@ SVG,
                         </a>
                     </li>
                 @endforeach
-                <li class="nav-item"><a class="nav-link {{ ($activeNav ?? null) === 'about' ? 'active' : '' }}" href="/about">{{ $copy['about'] }}</a></li>
-                <li class="nav-item"><a class="nav-link {{ ($activeNav ?? null) === 'contact' ? 'active' : '' }}" href="/contact">{{ $copy['contact'] }}</a></li>
-                <li class="nav-item"><a class="nav-link" href="/admin">{{ $copy['portal'] }}</a></li>
+                <li class="nav-item"><a class="nav-link {{ ($activeNav ?? null) === 'about' ? 'active' : '' }}" href="/about">{{ $copy['main-about'] ?? 'main-about' }}</a></li>
+                <li class="nav-item"><a class="nav-link {{ ($activeNav ?? null) === 'contact' ? 'active' : '' }}" href="/contact">{{ $copy['main-contact'] ?? 'main-contact' }}</a></li>
+                <li class="nav-item"><a class="nav-link" href="/admin">{{ $copy['main-portal'] ?? 'main-portal' }}</a></li>
                 <li class="nav-item dropdown language-menu ms-lg-2 d-flex align-items-lg-center">
                     <button class="dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        {{ $langLabel }}
+                        {{ $htmlLang }}
 
                     </button>
                     <ul class="dropdown-menu dropdown-menu-end">
-                        <li><button class="dropdown-item {{ $locale === 'en' ? 'active' : '' }}" type="button" data-locale-option="en">EN</button></li>
-                        <li><button class="dropdown-item {{ $locale === 'zh' ? 'active' : '' }}" type="button" data-locale-option="zh">ZH</button></li>
+                        @foreach ($frontendLocales as $frontendLocale)
+                            <li><button class="dropdown-item {{ $htmlLang === $frontendLocale ? 'active' : '' }}" type="button" data-locale-option="{{ $frontendLocale }}">{{ $frontendLocale }}</button></li>
+                        @endforeach
                     </ul>
                 </li>
             </ul>
@@ -1481,10 +1482,10 @@ SVG,
                 <strong>{{ $siteName }}</strong>
             </a>
             <div class="footer-links">
-                <a href="/">{{ $copy['home'] }}</a>
-                <a href="/about">{{ $copy['about'] }}</a>
-                <a href="/contact">{{ $copy['contact'] }}</a>
-                <a href="/admin">{{ $copy['portal'] }}</a>
+                <a href="/">{{ $copy['main-home'] ?? 'main-home' }}</a>
+                <a href="/about">{{ $copy['main-about'] ?? 'main-about' }}</a>
+                <a href="/contact">{{ $copy['main-contact'] ?? 'main-contact' }}</a>
+                <a href="/admin">{{ $copy['main-portal'] ?? 'main-portal' }}</a>
             </div>
             @if (! empty($socialLinks))
                 <div class="footer-social">
@@ -1495,16 +1496,16 @@ SVG,
             @endif
         </div>
         <div class="footer-bottom mt-4 pt-4">
-            <span>© {{ date('Y') }} {{ $siteName }}. {{ $copy['footerCopyrightSuffix'] }}</span>
-            <span>{{ $copy['footerServices'] }}</span>
+            <span>© {{ date('Y') }} {{ $siteName }}. {{ $copy['main-footerCopyrightSuffix'] ?? 'main-footerCopyrightSuffix' }}</span>
+            <span>{{ $copy['main-footerServices'] ?? 'main-footerServices' }}</span>
         </div>
     </div>
 </footer>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
 @php
     $newsLoadMoreI18n = [
-        'loading' => $copy['newsLoadMoreLoading'],
-        'loadFailed' => $copy['newsLoadMoreFailed'],
+        'loading' => $copy['main-newsLoadMoreLoading'] ?? 'main-newsLoadMoreLoading',
+        'loadFailed' => $copy['main-newsLoadMoreFailed'] ?? 'main-newsLoadMoreFailed',
     ];
 @endphp
 <script type="application/json" id="news-load-more-i18n">{!! json_encode($newsLoadMoreI18n, JSON_UNESCAPED_UNICODE) !!}</script>
@@ -1582,7 +1583,7 @@ SVG,
 
     document.querySelectorAll('[data-locale-option]').forEach((button) => {
         button.addEventListener('click', () => {
-            const locale = button.getAttribute('data-locale-option') === 'zh' ? 'zh' : 'en';
+            const locale = button.getAttribute('data-locale-option') || 'en';
             const maxAge = 60 * 60 * 24 * 365;
             document.cookie = `frontend_lang=${locale};path=/;max-age=${maxAge};SameSite=Lax`;
             window.location.reload();
