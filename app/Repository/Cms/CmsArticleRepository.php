@@ -41,11 +41,12 @@ final class CmsArticleRepository extends IRepository
         return $query->orderByDesc('published_at')->orderByDesc('id');
     }
 
-    public function findPublishedBySlug(string $slug): ?CmsArticle
+    public function findPublishedBySlugAndCategory(string $slug, int $categoryId): ?CmsArticle
     {
         return $this->model->newQuery()
             ->with('category')
             ->where('slug', $slug)
+            ->where('category_id', $categoryId)
             ->where('status', CmsArticle::STATUS_PUBLISHED)
             ->first();
     }

@@ -4,24 +4,20 @@ declare(strict_types=1);
 
 namespace App\Http\Index\Controller;
 
+use App\Service\Cms\CmsContactMessageService;
+use Hyperf\Di\Annotation\Inject;
 use Hyperf\HttpServer\Contract\RequestInterface;
 use Hyperf\View\RenderInterface;
 use Psr\Http\Message\ResponseInterface;
 
 final class HomeController extends BaseController
 {
+    #[Inject]
+    protected CmsContactMessageService $cmsContactMessage;
+
     public function index(RenderInterface $render): ResponseInterface
     {
-        $serviceCategory = $this->cmsContent->categoryBySlug('service');
-        $newsCategory = $this->cmsContent->categoryBySlug('news');
-
         return $this->view($render, 'index.home', [
-            'title' => '首页',
-            'articles' => $this->cmsContent->categoryArticles('news', 12),
-            'serviceArticles' => $this->cmsContent->serviceArticles(12),
-            'banners' => $this->cmsContent->banners(),
-            'newsCategory' => $newsCategory,
-            'serviceCategory' => $serviceCategory,
             'activeNav' => 'home',
         ]);
     }
@@ -29,7 +25,7 @@ final class HomeController extends BaseController
     public function about(RenderInterface $render): ResponseInterface
     {
         return $this->view($render, 'index.about', [
-            'title' => '关于我们',
+            'title' => 'main-aboutTitle',
             'activeNav' => 'about',
         ]);
     }
@@ -57,8 +53,7 @@ final class HomeController extends BaseController
                 'messageType' => 'danger',
             ]);
         }
-
-        $this->cmsContent->createContactMessage([
+        $this->cmsContactMessage->createContactMessage([
             'name' => $name,
             'email' => (string) $request->input('email', ''),
             'phone' => (string) $request->input('phone', ''),

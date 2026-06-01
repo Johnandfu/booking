@@ -1,18 +1,22 @@
 <!doctype html>
 <html lang="{{ $htmlLang }}">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{ $pageTitle }} - {{ $copy['main-siteName'] ?? 'main-siteName' }}</title>
     <meta name="description" content="{{ $description ?? $copy['main-description'] ?? 'main-description' }}">
     @if (! empty($gaMeasurementId))
-        <script async src="https://www.googletagmanager.com/gtag/js?id={{ $gaMeasurementId }}"></script>
-        <script>
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', '{{ $gaMeasurementId }}');
-        </script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id={{ $gaMeasurementId }}"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+        gtag('config', '{{ $gaMeasurementId }}');
+    </script>
     @endif
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -303,6 +307,7 @@
         }
 
         @media (max-width: 767.98px) {
+
             .content-carousel .carousel-control-prev,
             .content-carousel .carousel-control-next {
                 opacity: 1;
@@ -536,16 +541,16 @@
             color: #fff;
         }
 
-        .luxe-feature-media > img,
-        .luxe-listing-media > img {
+        .luxe-feature-media>img,
+        .luxe-listing-media>img {
             width: 100%;
             height: 100%;
             object-fit: cover;
             transition: transform .3s ease-out;
         }
 
-        .luxe-feature-media > .material-symbols-rounded,
-        .luxe-listing-media > .material-symbols-rounded {
+        .luxe-feature-media>.material-symbols-rounded,
+        .luxe-listing-media>.material-symbols-rounded {
             display: flex;
             width: 100%;
             height: 100%;
@@ -588,7 +593,7 @@
             padding: 1.6rem;
         }
 
-        .luxe-feature-copy > span,
+        .luxe-feature-copy>span,
         .luxe-location,
         .luxe-price {
             color: #9b6d1e;
@@ -660,7 +665,7 @@
             padding-bottom: clamp(3rem, 6vw, 5rem);
         }
 
-        .luxe-category-section .col-md-4 > div {
+        .luxe-category-section .col-md-4>div {
             min-height: 10rem;
             display: flex;
             align-items: end;
@@ -1271,10 +1276,12 @@
                 opacity: 1;
                 transform: translateY(0);
             }
+
             70% {
                 opacity: .25;
                 transform: translateY(1.1rem);
             }
+
             100% {
                 opacity: 0;
                 transform: translateY(1.1rem);
@@ -1376,219 +1383,197 @@
         }
     </style>
 </head>
+
 <body>
-@php
-    $siteName = $copy['main-siteName'] ?? 'main-siteName' ;
-    $contactEmail = trim((string) ($copy['main-contactEmail'] ?? 'main-contactEmail'));
-    $contactPhone = trim((string) ($copy['main-contactPhone'] ?? 'main-contactPhone'));
-
-    $socialIcons = [
-        'instagram' => <<<'SVG'
-<svg class="social-icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M8 0C5.83 0 5.56.01 4.71.05c-.85.04-1.43.17-1.94.37a3.9 3.9 0 0 0-1.42.92A3.9 3.9 0 0 0 .43 2.76c-.2.51-.33 1.09-.37 1.94C.02 5.56 0 5.83 0 8s.01 2.44.05 3.29c.04.85.17 1.43.37 1.94.21.53.49.99.92 1.42.43.43.89.71 1.42.92.51.2 1.09.33 1.94.37.86.04 1.13.05 3.3.05s2.44-.01 3.29-.05c.85-.04 1.43-.17 1.94-.37a3.9 3.9 0 0 0 1.42-.92 3.9 3.9 0 0 0 .92-1.42c.2-.51.33-1.09.37-1.94.04-.86.05-1.13.05-3.29s-.01-2.44-.05-3.29c-.04-.85-.17-1.43-.37-1.94a3.9 3.9 0 0 0-.92-1.42 3.9 3.9 0 0 0-1.42-.92c-.51-.2-1.09-.33-1.94-.37C10.44.02 10.17 0 8 0Zm0 1.44c2.13 0 2.38.01 3.22.05.78.04 1.2.16 1.48.27.37.14.64.32.92.6.28.28.46.55.6.92.11.28.24.7.27 1.48.04.84.05 1.09.05 3.22s-.01 2.38-.05 3.22c-.04.78-.16 1.2-.27 1.48-.14.37-.32.64-.6.92-.28.28-.55.46-.92.6-.28.11-.7.24-1.48.27-.84.04-1.09.05-3.22.05s-2.38-.01-3.22-.05c-.78-.04-1.2-.16-1.48-.27a2.48 2.48 0 0 1-.92-.6 2.48 2.48 0 0 1-.6-.92c-.11-.28-.24-.7-.27-1.48-.04-.84-.05-1.09-.05-3.22s.01-2.38.05-3.22c.04-.78.16-1.2.27-1.48.14-.37.32-.64.6-.92.28-.28.55-.46.92-.6.28-.11.7-.24 1.48-.27.84-.04 1.09-.05 3.22-.05Zm0 2.45a4.11 4.11 0 1 0 0 8.22 4.11 4.11 0 0 0 0-8.22Zm0 6.78a2.67 2.67 0 1 1 0-5.34 2.67 2.67 0 0 1 0 5.34Zm4.27-6.94a.96.96 0 1 1-1.92 0 .96.96 0 0 1 1.92 0Z"/></svg>
-SVG,
-        'facebook' => <<<'SVG'
-<svg class="social-icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M16 8.05C16 3.61 12.42 0 8 0S0 3.61 0 8.05c0 4.02 2.93 7.35 6.75 7.95v-5.62H4.72V8.05h2.03V6.28c0-2.02 1.2-3.13 3.02-3.13.87 0 1.79.16 1.79.16v1.98h-1.01c-.99 0-1.3.62-1.3 1.26v1.5h2.22l-.36 2.33H9.25V16C13.07 15.4 16 12.07 16 8.05Z"/></svg>
-SVG,
-        'linkedin' => <<<'SVG'
-<svg class="social-icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M0 1.15C0 .51.53 0 1.18 0h13.64C15.47 0 16 .51 16 1.15v13.7c0 .64-.53 1.15-1.18 1.15H1.18C.53 16 0 15.49 0 14.85V1.15Zm4.95 12.24V6.17H2.55v7.22h2.4ZM3.75 5.18c.84 0 1.36-.55 1.36-1.24-.02-.7-.52-1.24-1.34-1.24-.82 0-1.36.54-1.36 1.24 0 .69.52 1.24 1.31 1.24h.03Zm4.91 8.21V9.36c0-.22.02-.43.08-.59.17-.43.56-.88 1.21-.88.86 0 1.2.66 1.2 1.62v3.88h2.4V9.23c0-2.23-1.19-3.27-2.78-3.27-1.28 0-1.85.7-2.17 1.2h.02v-1H6.25c.03.68 0 7.23 0 7.23h2.41Z"/></svg>
-SVG,
-        'youtube' => <<<'SVG'
-<svg class="social-icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M8.05 1.99h.09c.8.01 4.82.04 5.84.32.62.17 1.11.66 1.28 1.28.29 1.04.31 3.2.31 3.73v.13c0 .53-.02 2.69-.31 3.73a1.84 1.84 0 0 1-1.28 1.28c-1.06.29-5.35.31-5.98.31h-.13c-.63 0-4.92-.02-5.98-.31a1.84 1.84 0 0 1-1.28-1.28C.32 10.14.3 7.98.3 7.45v-.13c0-.53.02-2.69.31-3.73A1.84 1.84 0 0 1 1.9 2.31c1.02-.28 5.04-.31 5.84-.32h.31ZM6.4 5.45v3.88l3.39-1.94L6.4 5.45Z"/></svg>
-SVG,
-        'x' => <<<'SVG'
-<svg class="social-icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M12.6.75h2.45L9.69 6.89 16 15.25h-4.94L7.2 10.18l-4.43 5.07H.32l5.73-6.57L0 .75h5.06l3.5 4.63L12.6.75Zm-.86 13.03h1.36L4.32 2.15H2.87l8.87 11.63Z"/></svg>
-SVG,
-    ];
-
-    $socialLinks = array_values(array_filter([
-        ['label' => $copy['main-socialInstagramLabel'] ?? 'main-socialInstagramLabel', 'icon' => 'instagram', 'url' => trim((string) ($copy['main-socialInstagramUrl'] ?? ''))],
-        ['label' => $copy['main-socialFacebookLabel'] ?? 'main-socialFacebookLabel', 'icon' => 'facebook', 'url' => trim((string) ($copy['main-socialFacebookUrl'] ?? ''))],
-        ['label' => $copy['main-socialLinkedinLabel'] ?? 'main-socialLinkedinLabel', 'icon' => 'linkedin', 'url' => trim((string) ($copy['main-socialLinkedinUrl'] ?? ''))],
-        ['label' => $copy['main-socialYoutubeLabel'] ?? 'main-socialYoutubeLabel', 'icon' => 'youtube', 'url' => trim((string) ($copy['main-socialYoutubeUrl'] ?? ''))],
-        ['label' => $copy['main-socialXLabel'] ?? 'main-socialXLabel', 'icon' => 'x', 'url' => trim((string) ($copy['main-socialXUrl'] ?? ''))],
-    ], static fn (array $item): bool => $item['url'] !== ''));
-@endphp
-<div class="topbar py-2">
-    <div class="container d-flex flex-column flex-md-row justify-content-between gap-2">
-        <div class="d-flex flex-wrap align-items-center gap-3">
-            @if ($contactEmail !== '')
-                <span><span class="material-symbols-rounded me-1">mail</span> {{ $contactEmail }}</span>
-            @endif
-            @if ($contactPhone !== '')
-                <span><span class="material-symbols-rounded me-1">call</span> {{ $contactPhone }}</span>
-            @endif
-        </div>
-        <div class="d-flex flex-wrap align-items-center gap-3">
-            @if (! empty($socialLinks))
-                <div class="topbar-social" aria-label="{{ $copy['main-socialMedia'] ?? 'main-socialMedia' }}">
-                    @foreach ($socialLinks as $socialLink)
-                        <a href="{{ $socialLink['url'] }}" target="_blank" rel="noopener noreferrer" aria-label="{{ $socialLink['label'] }}">{!! $socialIcons[$socialLink['icon']] ?? '' !!}</a>
-                    @endforeach
-                </div>
-            @endif
-            <!-- <a href="/contact">{{ $copy['main-book'] ?? 'main-book' }}</a>
-            <a href="/admin">{{ $copy['main-signin'] ?? 'main-signin' }}</a> -->
-        </div>
-    </div>
-</div>
-<nav class="navbar navbar-expand-lg navbar-light navbar-au sticky-top">
-    <div class="container">
-        <a class="navbar-brand fw-bold d-flex align-items-center gap-2" href="/">
-            <span class="brand-mark material-symbols-rounded">holiday_village</span>
-            <span>{{ $siteName }}</span>
-        </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#cmsNavbar" aria-controls="cmsNavbar" aria-expanded="false" aria-label="{{ $copy['main-navToggle'] ?? 'main-navToggle' }}">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="cmsNavbar">
-            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                <li class="nav-item"><a class="nav-link {{ ($activeNav ?? null) === 'home' ? 'active' : '' }}" href="/">{{ $copy['main-home'] ?? 'main-home' }}</a></li>
-                @foreach ($categories as $navCategory)
-                    <li class="nav-item">
-                        <a class="nav-link {{ ($activeNav ?? null) === 'category:' . $navCategory->slug ? 'active' : '' }}" href="{{ $navCategory->frontend_path }}">
-                            {{ $navCategory->name }}
-
-                        </a>
-                    </li>
-                @endforeach
-                <li class="nav-item"><a class="nav-link {{ ($activeNav ?? null) === 'about' ? 'active' : '' }}" href="/about">{{ $copy['main-about'] ?? 'main-about' }}</a></li>
-                <li class="nav-item"><a class="nav-link {{ ($activeNav ?? null) === 'contact' ? 'active' : '' }}" href="/contact">{{ $copy['main-contact'] ?? 'main-contact' }}</a></li>
-                <li class="nav-item"><a class="nav-link" href="/admin">{{ $copy['main-portal'] ?? 'main-portal' }}</a></li>
-                <li class="nav-item dropdown language-menu ms-lg-2 d-flex align-items-lg-center">
-                    <button class="dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        {{ $htmlLang }}
-
-                    </button>
-                    <ul class="dropdown-menu dropdown-menu-end">
-                        @foreach ($frontendLocales as $frontendLocale)
-                            <li><button class="dropdown-item {{ $htmlLang === $frontendLocale ? 'active' : '' }}" type="button" data-locale-option="{{ $frontendLocale }}">{{ $frontendLocale }}</button></li>
-                        @endforeach
-                    </ul>
-                </li>
-            </ul>
-        </div>
-    </div>
-</nav>
-
-<div class="site-main">
-    @yield('content')
-</div>
-
-<footer class="footer-au py-5 mt-auto">
-    <div class="container">
-        <div class="d-flex flex-column flex-lg-row justify-content-between gap-4 align-items-lg-center">
-            <a class="footer-brand text-decoration-none" href="/">
-                <span class="brand-mark material-symbols-rounded">holiday_village</span>
-                <strong>{{ $siteName }}</strong>
-            </a>
-            <div class="footer-links">
-                <a href="/">{{ $copy['main-home'] ?? 'main-home' }}</a>
-                <a href="/about">{{ $copy['main-about'] ?? 'main-about' }}</a>
-                <a href="/contact">{{ $copy['main-contact'] ?? 'main-contact' }}</a>
-                <a href="/admin">{{ $copy['main-portal'] ?? 'main-portal' }}</a>
+    <div class="topbar py-2">
+        <div class="container d-flex flex-column flex-md-row justify-content-between gap-2">
+            <div class="d-flex flex-wrap align-items-center gap-3">
+               
+                <span><span class="material-symbols-rounded me-1">mail</span> {{ $copy['main-contactEmail'] ?? 'contact@example.com' }}</span>
+              
+                <span><span class="material-symbols-rounded me-1">call</span> {{ $copy['main-contactPhone'] ?? '+123 456 7890' }}</span>
+               
             </div>
-            @if (! empty($socialLinks))
-                <div class="footer-social">
-                    @foreach ($socialLinks as $socialLink)
-                        <a href="{{ $socialLink['url'] }}" target="_blank" rel="noopener noreferrer" aria-label="{{ $socialLink['label'] }}">{!! $socialIcons[$socialLink['icon']] ?? '' !!}</a>
-                    @endforeach
+            <div class="d-flex flex-wrap align-items-center gap-3">
+                <div class="topbar-social" aria-label="{{ $copy['main-socialMedia'] ?? 'main-socialMedia' }}">
+                    @if (! empty($copy['main-socialInstagramUrl']))
+                    <a href="{{ $copy['main-socialInstagramUrl'] }}" target="_blank" rel="noopener noreferrer" aria-label="{{ $copy['main-socialInstagramLabel'] ?? 'main-socialInstagramLabel' }}"><span class="social-icon">IG</span></a>
+                    @endif
+                    @if (! empty($copy['main-socialFacebookUrl']))
+                    <a href="{{ $copy['main-socialFacebookUrl'] }}" target="_blank" rel="noopener noreferrer" aria-label="{{ $copy['main-socialFacebookLabel'] ?? 'main-socialFacebookLabel' }}"><span class="social-icon">FB</span></a>
+                    @endif
+                    @if (! empty($copy['main-socialLinkedinUrl']))
+                    <a href="{{ $copy['main-socialLinkedinUrl'] }}" target="_blank" rel="noopener noreferrer" aria-label="{{ $copy['main-socialLinkedinLabel'] ?? 'main-socialLinkedinLabel' }}"><span class="social-icon">IN</span></a>
+                    @endif
+                    @if (! empty($copy['main-socialYoutubeUrl']))
+                    <a href="{{ $copy['main-socialYoutubeUrl'] }}" target="_blank" rel="noopener noreferrer" aria-label="{{ $copy['main-socialYoutubeLabel'] ?? 'main-socialYoutubeLabel' }}"><span class="social-icon">YT</span></a>
+                    @endif
+                    @if (! empty($copy['main-socialXUrl']))
+                    <a href="{{ $copy['main-socialXUrl'] }}" target="_blank" rel="noopener noreferrer" aria-label="{{ $copy['main-socialXLabel'] ?? 'main-socialXLabel' }}"><span class="social-icon">X</span></a>
+                    @endif
                 </div>
-            @endif
-        </div>
-        <div class="footer-bottom mt-4 pt-4">
-            <span>© {{ date('Y') }} {{ $siteName }}. {{ $copy['main-footerCopyrightSuffix'] ?? 'main-footerCopyrightSuffix' }}</span>
-            <span>{{ $copy['main-footerServices'] ?? 'main-footerServices' }}</span>
+                <!-- <a href="/contact">{{ $copy['main-book'] ?? 'main-book' }}</a><a href="/admin">{{ $copy['main-signin'] ?? 'main-signin' }}</a> -->
+            </div>
         </div>
     </div>
-</footer>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
-@php
-    $newsLoadMoreI18n = [
-        'loading' => $copy['main-newsLoadMoreLoading'] ?? 'main-newsLoadMoreLoading',
-        'loadFailed' => $copy['main-newsLoadMoreFailed'] ?? 'main-newsLoadMoreFailed',
-    ];
-@endphp
-<script type="application/json" id="news-load-more-i18n">{!! json_encode($newsLoadMoreI18n, JSON_UNESCAPED_UNICODE) !!}</script>
-<script>
-    const revealObserver = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('is-visible');
-                revealObserver.unobserve(entry.target);
-            }
+    <nav class="navbar navbar-expand-lg navbar-light navbar-au sticky-top">
+        <div class="container">
+            <a class="navbar-brand fw-bold d-flex align-items-center gap-2" href="/">
+                <span class="brand-mark material-symbols-rounded">holiday_village</span>
+                <span>{{ $copy['main-siteName'] ?? 'main-siteName' }}</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#cmsNavbar" aria-controls="cmsNavbar" aria-expanded="false" aria-label="{{ $copy['main-navToggle'] ?? 'main-navToggle' }}">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="cmsNavbar">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <li class="nav-item"><a class="nav-link @if (($activeNav ?? null) === 'home') active @endif" href="/">{{ $copy['main-home'] ?? 'main-home' }}</a></li>
+                    <li class="nav-item"><a class="nav-link @if (($activeNav ?? null) === 'services') active @endif" href="/services">{{ $copy['main-services'] ?? 'main-services' }}</a></li>
+                    <li class="nav-item"><a class="nav-link @if (($activeNav ?? null) === 'news') active @endif" href="/news">{{ $copy['main-news'] ?? 'main-news' }}</a></li>
+
+                    <li class="nav-item"><a class="nav-link @if (($activeNav ?? null) === 'about') active @endif" href="/about">{{ $copy['main-about'] ?? 'main-about' }}</a></li>
+                    <li class="nav-item"><a class="nav-link @if (($activeNav ?? null) === 'contact') active @endif" href="/contact">{{ $copy['main-contact'] ?? 'main-contact' }}</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/admin">{{ $copy['main-portal'] ?? 'main-portal' }}</a></li>
+                    <li class="nav-item dropdown language-menu ms-lg-2 d-flex align-items-lg-center">
+                        <button class="dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            {{ $htmlLang ?? 'en' }}
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            @foreach ($frontendLocales as $frontendLocale)
+                            <li><button class="dropdown-item @if ($htmlLang === $frontendLocale) active @endif" type="button" data-locale-option="{{ $frontendLocale }}">{{ $frontendLocale }}</button></li>
+                            @endforeach
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="site-main">
+        @yield('content')
+    </div>
+
+    <footer class="footer-au py-5 mt-auto">
+        <div class="container">
+            <div class="d-flex flex-column flex-lg-row justify-content-between gap-4 align-items-lg-center">
+                <a class="footer-brand text-decoration-none" href="/">
+                    <span class="brand-mark material-symbols-rounded">holiday_village</span>
+                    <strong>{{ $copy['main-siteName'] ?? 'main-siteName' }}</strong>
+                </a>
+                <div class="footer-links">
+                    <a href="/">{{ $copy['main-home'] ?? 'main-home' }}</a>
+                    <a href="/about">{{ $copy['main-about'] ?? 'main-about' }}</a>
+                    <a href="/contact">{{ $copy['main-contact'] ?? 'main-contact' }}</a>
+                    <a href="/admin">{{ $copy['main-portal'] ?? 'main-portal' }}</a>
+                </div>
+                <div class="footer-social" aria-label="{{ $copy['main-socialMedia'] ?? 'main-socialMedia' }}">
+                    @if (! empty($copy['main-socialInstagramUrl']))
+                    <a href="{{ $copy['main-socialInstagramUrl'] }}" target="_blank" rel="noopener noreferrer" aria-label="{{ $copy['main-socialInstagramLabel'] ?? 'main-socialInstagramLabel' }}"><span class="social-icon">IG</span></a>
+                    @endif
+                    @if (! empty($copy['main-socialFacebookUrl']))
+                    <a href="{{ $copy['main-socialFacebookUrl'] }}" target="_blank" rel="noopener noreferrer" aria-label="{{ $copy['main-socialFacebookLabel'] ?? 'main-socialFacebookLabel' }}"><span class="social-icon">FB</span></a>
+                    @endif
+                    @if (! empty($copy['main-socialLinkedinUrl']))
+                    <a href="{{ $copy['main-socialLinkedinUrl'] }}" target="_blank" rel="noopener noreferrer" aria-label="{{ $copy['main-socialLinkedinLabel'] ?? 'main-socialLinkedinLabel' }}"><span class="social-icon">IN</span></a>
+                    @endif
+                    @if (! empty($copy['main-socialYoutubeUrl']))
+                    <a href="{{ $copy['main-socialYoutubeUrl'] }}" target="_blank" rel="noopener noreferrer" aria-label="{{ $copy['main-socialYoutubeLabel'] ?? 'main-socialYoutubeLabel' }}"><span class="social-icon">YT</span></a>
+                    @endif
+                    @if (! empty($copy['main-socialXUrl']))
+                    <a href="{{ $copy['main-socialXUrl'] }}" target="_blank" rel="noopener noreferrer" aria-label="{{ $copy['main-socialXLabel'] ?? 'main-socialXLabel' }}"><span class="social-icon">X</span></a>
+                    @endif
+                </div>
+            </div>
+            <div class="footer-bottom mt-4 pt-4">
+                <span>© {{ date('Y') }} {{ $copy['main-siteName'] ?? 'main-siteName' }}. {{ $copy['main-footerCopyrightSuffix'] ?? 'main-footerCopyrightSuffix' }}</span>
+                <span>{{ $copy['main-footerServices'] ?? 'main-footerServices' }}</span>
+            </div>
+        </div>
+    </footer>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    revealObserver.unobserve(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.14
         });
-    }, { threshold: 0.14 });
 
-    document.querySelectorAll('.reveal').forEach((element) => {
-        revealObserver.observe(element);
-    });
+        document.querySelectorAll('.reveal').forEach((element) => {
+            revealObserver.observe(element);
+        });
 
-    const newsMasonry = document.querySelector('[data-news-masonry]');
-    const newsLoadMore = document.querySelector('[data-news-load-more]');
-    const newsLoadMoreI18nEl = document.getElementById('news-load-more-i18n');
-    const newsLoadMoreI18n = newsLoadMoreI18nEl
-        ? JSON.parse(newsLoadMoreI18nEl.textContent)
-        : { loading: 'Loading...', loadFailed: 'Retry loading' };
-    if (newsMasonry && newsLoadMore) {
-        newsLoadMore.addEventListener('click', async () => {
-            const currentPage = Number(newsMasonry.dataset.currentPage || '1');
-            const lastPage = Number(newsMasonry.dataset.lastPage || '1');
-            const nextPage = currentPage + 1;
+        const newsMasonry = document.querySelector('[data-news-masonry]');
+        const newsLoadMore = document.querySelector('[data-news-load-more]');
+        if (newsMasonry && newsLoadMore) {
+            newsLoadMore.addEventListener('click', async () => {
+                const currentPage = Number(newsMasonry.dataset.currentPage || '1');
+                const lastPage = Number(newsMasonry.dataset.lastPage || '1');
+                const nextPage = currentPage + 1;
 
-            if (nextPage > lastPage) {
-                newsLoadMore.remove();
-                return;
-            }
-
-            const originalText = newsLoadMore.textContent;
-            newsLoadMore.classList.add('is-loading');
-            newsLoadMore.textContent = newsLoadMoreI18n.loading;
-
-            try {
-                const basePath = newsMasonry.dataset.basePath || window.location.pathname;
-                const response = await fetch(`${basePath}?page=${nextPage}`, {
-                    headers: { 'X-Requested-With': 'XMLHttpRequest' },
-                });
-                const html = await response.text();
-                const doc = new DOMParser().parseFromString(html, 'text/html');
-                const cards = doc.querySelectorAll('[data-news-masonry] .news-masonry-card');
-
-                cards.forEach((card) => {
-                    const importedCard = document.importNode(card, true);
-                    importedCard.style.opacity = '0';
-                    importedCard.style.transform = 'translateY(18px)';
-                    newsMasonry.appendChild(importedCard);
-                    requestAnimationFrame(() => {
-                        importedCard.style.transition = 'opacity .45s ease-out, transform .45s ease-out';
-                        importedCard.style.opacity = '1';
-                        importedCard.style.transform = 'translateY(0)';
-                    });
-                });
-
-                newsMasonry.dataset.currentPage = String(nextPage);
-                if (nextPage >= lastPage) {
+                if (nextPage > lastPage) {
                     newsLoadMore.remove();
+                    return;
                 }
-            } catch (error) {
-                console.error(error);
-                newsLoadMore.textContent = newsLoadMoreI18n.loadFailed;
-            } finally {
-                newsLoadMore.classList.remove('is-loading');
-                if (document.body.contains(newsLoadMore) && newsLoadMore.textContent !== newsLoadMoreI18n.loadFailed) {
-                    newsLoadMore.textContent = originalText;
-                }
-            }
-        });
-    }
 
-    document.querySelectorAll('[data-locale-option]').forEach((button) => {
-        button.addEventListener('click', () => {
-            const locale = button.getAttribute('data-locale-option') || 'en';
-            const maxAge = 60 * 60 * 24 * 365;
-            document.cookie = `frontend_lang=${locale};path=/;max-age=${maxAge};SameSite=Lax`;
-            window.location.reload();
+                const originalText = newsLoadMore.textContent;
+                const loadingText = newsLoadMore.dataset.loadingText || 'Loading...';
+                const loadFailedText = newsLoadMore.dataset.loadFailedText || 'Retry loading';
+                newsLoadMore.classList.add('is-loading');
+                newsLoadMore.textContent = loadingText;
+
+                try {
+                    const basePath = newsMasonry.dataset.basePath || window.location.pathname;
+                    const response = await fetch(`${basePath}?page=${nextPage}`, {
+                        headers: {
+                            'X-Requested-With': 'XMLHttpRequest'
+                        },
+                    });
+                    const html = await response.text();
+                    const doc = new DOMParser().parseFromString(html, 'text/html');
+                    const cards = doc.querySelectorAll('[data-news-masonry] .news-masonry-card');
+
+                    cards.forEach((card) => {
+                        const importedCard = document.importNode(card, true);
+                        importedCard.style.opacity = '0';
+                        importedCard.style.transform = 'translateY(18px)';
+                        newsMasonry.appendChild(importedCard);
+                        requestAnimationFrame(() => {
+                            importedCard.style.transition = 'opacity .45s ease-out, transform .45s ease-out';
+                            importedCard.style.opacity = '1';
+                            importedCard.style.transform = 'translateY(0)';
+                        });
+                    });
+
+                    newsMasonry.dataset.currentPage = String(nextPage);
+                    if (nextPage >= lastPage) {
+                        newsLoadMore.remove();
+                    }
+                } catch (error) {
+                    console.error(error);
+                    newsLoadMore.textContent = loadFailedText;
+                } finally {
+                    newsLoadMore.classList.remove('is-loading');
+                    if (document.body.contains(newsLoadMore) && newsLoadMore.textContent !== loadFailedText) {
+                        newsLoadMore.textContent = originalText;
+                    }
+                }
+            });
+        }
+
+        document.querySelectorAll('[data-locale-option]').forEach((button) => {
+            button.addEventListener('click', () => {
+                const locale = button.getAttribute('data-locale-option') || 'en';
+                const maxAge = 60 * 60 * 24 * 365;
+                document.cookie = `frontend_lang=${locale};path=/;max-age=${maxAge};SameSite=Lax`;
+                window.location.reload();
+            });
         });
-    });
-</script>
+    </script>
 </body>
+
 </html>

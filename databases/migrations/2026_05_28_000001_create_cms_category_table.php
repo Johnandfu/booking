@@ -17,7 +17,7 @@ class CreateCmsCategoryTable extends Migration
             $table->string('slug', 100)->comment('URL 别名')->unique();
             $table->string('description', 500)->nullable()->comment('栏目描述');
             $table->unsignedInteger('sort')->default(0)->comment('排序');
-            $table->tinyInteger('status')->default(1)->comment('状态:0=禁用,1=启用');
+            $table->tinyInteger('status')->index()->default(1)->comment('状态:0=禁用,1=启用');
             $table->datetimes();
         });
     }

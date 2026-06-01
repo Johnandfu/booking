@@ -16,4 +16,18 @@ final class CmsCategoryService extends IService
     public function __construct(
         protected readonly CmsCategoryRepository $repository
     ) {}
+
+    public function categoryBySlug(string $slug): ?CmsCategory
+    {
+        return $this->repository->findBySlug($slug);
+    }
+
+    public function categoryPath(string $slug): string
+    {
+        return match ($slug) {
+            'news' => '/news',
+            'service' => '/service',
+            default => '/category/' . $slug,
+        };
+    }
 }

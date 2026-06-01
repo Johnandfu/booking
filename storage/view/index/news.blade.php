@@ -1,12 +1,6 @@
 @extends('index.layouts.main')
 
 @section('content')
-    @php
-        $items = $paginator->items();
-        $featuredItems = array_slice($items, 0, 2);
-        $listingItems = $paginator->currentPage() > 1 ? $items : array_slice($items, 2);
-    @endphp
-
     <main class="luxe-listing-page">
         <section class="luxe-listing-hero">
             <div class="container position-relative">
@@ -45,7 +39,7 @@
                 @forelse ($featuredItems as $article)
                     <div class="col-lg-6 reveal">
                         <article class="luxe-feature-card">
-                            <a href="/article/{{ $article->slug }}" class="luxe-feature-media">
+                            <a href="/news/{{ $article->slug }}" class="luxe-feature-media">
                                 @if ($article->cover)
                                     <img src="{{ $article->cover }}" alt="{{ $article->title }}">
                                 @else
@@ -56,9 +50,21 @@
                                 </div>
                             </a>
                             <div class="luxe-feature-copy">
-                                <span>{{ $article->published_at?->format('d M Y') ?: ($copy['news-listingLocation'] ?? 'news-listingLocation') }}</span>
-                                <h2><a href="/article/{{ $article->slug }}" class="text-decoration-none">{{ $article->title }}</a></h2>
-                                <p>{{ $article->summary ?: ($copy['news-defaultSummary'] ?? 'news-defaultSummary') }}</p>
+                                <span>
+                                    @if ($article->published_at)
+                                        {{ $article->published_at->format('d M Y') }}
+                                    @else
+                                        {{ $copy['news-listingLocation'] ?? 'news-listingLocation' }}
+                                    @endif
+                                </span>
+                                <h2><a href="/news/{{ $article->slug }}" class="text-decoration-none">{{ $article->title }}</a></h2>
+                                <p>
+                                    @if ($article->summary)
+                                        {{ $article->summary }}
+                                    @else
+                                        {{ $copy['news-defaultSummary'] ?? 'news-defaultSummary' }}
+                                    @endif
+                                </p>
                             </div>
                         </article>
                     </div>
@@ -84,7 +90,7 @@
             >
                 @forelse ($listingItems as $article)
                     <article class="luxe-listing-card news-masonry-card reveal">
-                        <a href="/article/{{ $article->slug }}" class="luxe-listing-media">
+                        <a href="/news/{{ $article->slug }}" class="luxe-listing-media">
                             @if ($article->cover)
                                 <img src="{{ $article->cover }}" alt="{{ $article->title }}">
                             @else
@@ -94,8 +100,14 @@
                         </a>
                         <div class="luxe-listing-copy">
                             <span class="luxe-location">{{ $copy['news-listingLocation'] ?? 'news-listingLocation' }}</span>
-                            <h3><a href="/article/{{ $article->slug }}" class="text-decoration-none stretched-link">{{ $article->title }}</a></h3>
-                            <div class="luxe-price">{{ $article->published_at?->format('d M Y') ?: ($copy['news-heroKicker'] ?? 'news-heroKicker') }}</div>
+                            <h3><a href="/news/{{ $article->slug }}" class="text-decoration-none stretched-link">{{ $article->title }}</a></h3>
+                            <div class="luxe-price">
+                                @if ($article->published_at)
+                                    {{ $article->published_at->format('d M Y') }}
+                                @else
+                                    {{ $copy['news-heroKicker'] ?? 'news-heroKicker' }}
+                                @endif
+                            </div>
                         </div>
                     </article>
                 @empty
@@ -116,7 +128,13 @@
 
         @if ($paginator->currentPage() < $paginator->lastPage())
             <div class="container text-center pb-5">
-                <button class="btn btn-au btn-lg px-5 news-load-more" type="button" data-news-load-more>
+                <button
+                    class="btn btn-au btn-lg px-5 news-load-more"
+                    type="button"
+                    data-news-load-more
+                    data-loading-text="{{ $copy['main-newsLoadMoreLoading'] ?? 'main-newsLoadMoreLoading' }}"
+                    data-load-failed-text="{{ $copy['main-newsLoadMoreFailed'] ?? 'main-newsLoadMoreFailed' }}"
+                >
                     {{ $copy['news-loadMore'] ?? 'news-loadMore' }}
                 </button>
             </div>

@@ -168,7 +168,6 @@ baseMenu:
     banner: 轮播管理
     page: 单页管理
     contactMessage: 留言管理
-    mapSetting: 地图配置
     frontendI18n: 前台多语言
     categoryList: 栏目列表
     categoryCreate: 新增栏目
@@ -189,8 +188,6 @@ baseMenu:
     contactMessageList: 留言列表
     contactMessageUpdate: 处理留言
     contactMessageDelete: 删除留言
-    mapSettingList: 地图配置
-    mapSettingUpdate: 更新地图配置
     frontendI18nList: 多语言列表
     frontendI18nCreate: 新增多语言
     frontendI18nUpdate: 更新多语言

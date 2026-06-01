@@ -33,7 +33,7 @@ const maDialog: UseDialogExpose = useDialog({
 
 const options = ref<MaProTableOptions>({
   adaptionOffsetBottom: 161,
-  header: { mainTitle: '前台多语言', subTitle: '管理前台 EN/ZH 静态文案' },
+  header: { mainTitle: '前台多语言', subTitle: '管理前台静态文案' },
   tableOptions: { on: { onSelectionChange: (selection: any[]) => selections.value = selection } },
   searchOptions: { fold: true },
   searchFormOptions: { labelWidth: '90px' },
@@ -44,16 +44,18 @@ const schema = ref<MaProTableSchema>({
   searchItems: [
     { label: '关键词', prop: 'keyword', render: 'input' },
     { label: '分组', prop: 'group_type', render: 'input' },
+    { label: '语言', prop: 'language_code', render: 'input' },
     { label: '状态', prop: 'status', render: 'inputNumber', renderProps: { min: 0, max: 1 } },
+    { label: '创建时间', prop: 'created_at', render: 'datePicker', renderProps: { type: 'daterange', valueFormat: 'YYYY-MM-DD HH:mm:ss' } },
   ],
   tableColumns: [
     { type: 'selection', showOverflowTooltip: false },
     { type: 'index' },
     { label: '分组', prop: 'group_type', width: 110 },
     { label: '配置键', prop: 'key', width: 180 },
+    { label: '语言', prop: 'language_code', width: 110 },
     { label: '说明', prop: 'title', width: 160 },
-    { label: '英文', prop: 'en', minWidth: 240 },
-    { label: '中文', prop: 'zh', minWidth: 240 },
+    { label: '文案', prop: 'value', minWidth: 280 },
     { label: '排序', prop: 'sort', width: 90 },
     { label: '状态', prop: 'status', width: 100, cellRender: ({ row }) => <ElTag type={row.status === 1 ? 'success' : 'info'}>{row.status === 1 ? '启用' : '禁用'}</ElTag> },
     {

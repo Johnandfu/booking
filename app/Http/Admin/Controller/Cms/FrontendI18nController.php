@@ -10,7 +10,7 @@ use App\Http\Admin\Request\Cms\FrontendI18nRequest;
 use App\Http\Common\Middleware\AccessTokenMiddleware;
 use App\Http\Common\Middleware\OperationMiddleware;
 use App\Http\Common\Result;
-use App\Service\Cms\CmsFrontendI18nService;
+use App\Service\Cms\CmsLanguageService;
 use Hyperf\HttpServer\Annotation\Middleware;
 use Hyperf\Swagger\Annotation\Delete;
 use Hyperf\Swagger\Annotation\Get;
@@ -26,7 +26,7 @@ use Mine\Access\Attribute\Permission;
 final class FrontendI18nController extends AbstractController
 {
     public function __construct(
-        private readonly CmsFrontendI18nService $service
+        private readonly CmsLanguageService $service
     ) {}
 
     #[Get(path: '/admin/cms/frontend-i18n/list', operationId: 'cmsFrontendI18nList', summary: 'CMS 前台多语言配置列表', tags: ['CMS'])]

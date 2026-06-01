@@ -133,7 +133,6 @@ baseMenu:
     banner: Banner Management
     page: Page Management
     contactMessage: Contact Message Management
-    mapSetting: Map Setting
     frontendI18n: Frontend I18n
     categoryList: Category List
     categoryCreate: Create Category
@@ -154,8 +153,6 @@ baseMenu:
     contactMessageList: Contact Message List
     contactMessageUpdate: Handle Contact Message
     contactMessageDelete: Delete Contact Message
-    mapSettingList: Map Setting
-    mapSettingUpdate: Update Map Setting
     frontendI18nList: Frontend I18n List
     frontendI18nCreate: Create Frontend I18n
     frontendI18nUpdate: Update Frontend I18n

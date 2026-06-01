@@ -133,7 +133,6 @@ baseMenu:
     banner: 輪播管理
     page: 單頁管理
     contactMessage: 留言管理
-    mapSetting: 地圖配置
     frontendI18n: 前台多語言
     categoryList: 欄目列表
     categoryCreate: 新增欄目
@@ -154,8 +153,6 @@ baseMenu:
     contactMessageList: 留言列表
     contactMessageUpdate: 處理留言
     contactMessageDelete: 刪除留言
-    mapSettingList: 地圖配置
-    mapSettingUpdate: 更新地圖配置
     frontendI18nList: 多語言列表
     frontendI18nCreate: 新增多語言
     frontendI18nUpdate: 更新多語言

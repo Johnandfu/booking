@@ -5,8 +5,8 @@ export interface CmsFrontendI18nVo {
   group_type?: string
   key?: string
   title?: string
-  en?: string
-  zh?: string
+  language_code?: string
+  value?: string
   status?: number
   sort?: number
   created_at?: string
@@ -16,6 +16,9 @@ export interface CmsFrontendI18nVo {
 export interface CmsFrontendI18nSearchVo {
   keyword?: string
   group_type?: string
+  language_code?: string
+  created_at?: string[]
+  updated_at?: string[]
   status?: number
 }
 

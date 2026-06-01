@@ -11,14 +11,14 @@
     <section class="container-fluid px-0 mb-5 reveal">
         <div class="coastal-map">
             <iframe
-                src="{{ $mapSetting['embed_url'] ?? '' }}"
+                src="https://www.google.com/maps?q={{$copy['contact-mapLocation'] ?? '-27.4698,153.0251'}}&z=16&output=embed"
                 width="100%"
                 height="560"
                 style="border:0; display:block;"
                 allowfullscreen
                 loading="lazy"
                 referrerpolicy="no-referrer-when-downgrade"
-                title="{{ $copy['contact-mapTitlePrefix'] ?? 'contact-mapTitlePrefix' }} - {{ $mapSetting['title'] ?? '' }}"></iframe>
+                title="{{ $copy['contact-mapTitlePrefix'] ?? 'contact-mapTitlePrefix' }}"></iframe>
         </div>
     </section>
 
@@ -27,7 +27,7 @@
             <div class="lux-card p-4 h-100 text-center">
                 <span class="service-icon material-symbols-rounded mb-3">location_on</span>
                 <h2 class="h5 fw-bold mb-2">{{ $copy['contact-address'] ?? 'contact-address' }}</h2>
-                <p class="text-secondary mb-0">{{ $mapSetting['address'] ?? '' }}</p>
+                <p class="text-secondary mb-0">Sydney Opera House, Bennelong Point, Sydney NSW 2000, Australia</p>
             </div>
         </div>
         <div class="col-md-6 col-lg-3 reveal">

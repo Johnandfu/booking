@@ -19,9 +19,8 @@ class CreateCmsContactMessageTable extends Migration
             $table->string('content', 2000)->comment('留言内容');
             $table->string('ip', 64)->nullable()->comment('IP');
             $table->string('user_agent', 500)->nullable()->comment('浏览器 UA');
-            $table->tinyInteger('status')->default(0)->comment('状态:0=未处理,1=已处理');
+            $table->tinyInteger('status')->index()->default(0)->comment('状态:0=未处理,1=已处理');
             $table->datetimes();
-            $table->index('status');
         });
     }
 

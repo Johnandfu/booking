@@ -19,6 +19,7 @@ const props = withDefaults(defineProps<{
 const maForm = ref<MaFormExpose>()
 const model = ref<CmsFrontendI18nVo>({
   group_type: 'home',
+  language_code: 'en',
   status: 1,
   sort: 0,
 })
@@ -27,9 +28,9 @@ function formItems(): MaFormItem[] {
   return [
     { label: '分组', prop: 'group_type', render: 'input', itemProps: { rules: [{ required: true, message: '请输入分组' }] } },
     { label: '配置键', prop: 'key', render: 'input', itemProps: { rules: [{ required: true, message: '请输入配置键' }] } },
-    { label: '说明', prop: 'title', render: 'input', itemProps: { rules: [{ required: true, message: '请输入说明' }] } },
-    { label: '英文', prop: 'en', render: 'input', renderProps: { type: 'textarea', rows: 4 } },
-    { label: '中文', prop: 'zh', render: 'input', renderProps: { type: 'textarea', rows: 4 } },
+    { label: '语言', prop: 'language_code', render: 'input', itemProps: { rules: [{ required: true, message: '请输入语言' }] } },
+    { label: '说明', prop: 'title', render: 'input' },
+    { label: '文案', prop: 'value', render: 'input', renderProps: { type: 'textarea', rows: 4 } },
     { label: '排序', prop: 'sort', render: 'inputNumber', renderProps: { class: 'w-full' } },
     { label: '状态', prop: 'status', render: 'inputNumber', renderProps: { class: 'w-full', min: 0, max: 1 } },
   ]
@@ -47,9 +48,9 @@ function fillModel(): void {
   Object.assign(model.value, {
     key: '',
     group_type: 'home',
+    language_code: 'en',
     title: '',
-    en: '',
-    zh: '',
+    value: '',
     status: 1,
     sort: 0,
   })

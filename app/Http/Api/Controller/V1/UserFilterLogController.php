@@ -32,24 +32,24 @@ final class UserFilterLogController extends AbstractController
 
     ) {}
 
-    #[Get(
-        path: '/api/v1/user-filter-log/list',
-        operationId: 'ApiV1UserFilterList',
-        summary: '获取滤镜使用列表',
-        tags: ['api'],
-    )]
-    public function list(): Result
-    {
+    // #[Get(
+    //     path: '/api/v1/user-filter-log/list',
+    //     operationId: 'ApiV1UserFilterList',
+    //     summary: '获取滤镜使用列表',
+    //     tags: ['api'],
+    // )]
+    // public function list(): Result
+    // {
 
-        if ($this->getRequest()->input('token') != 'tss') {
-            return $this->error('');
-        }
-        return $this->success(
-            $this->service->page(
-                $this->getRequestData(),
-                $this->getCurrentPage(),
-                $this->getPageSize()
-            )
-        );
-    }
+    //     if ($this->getRequest()->input('token') != 'tss') {
+    //         return $this->error('');
+    //     }
+    //     return $this->success(
+    //         $this->service->page(
+    //             $this->getRequestData(),
+    //             $this->getCurrentPage(),
+    //             $this->getPageSize()
+    //         )
+    //     );
+    // }
 }

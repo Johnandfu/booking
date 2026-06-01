@@ -16,9 +16,9 @@ class FrontendI18nRequest extends FormRequest
         return [
             'group_type' => 'required|string|max:50',
             'key' => 'required|string|max:100',
-            'title' => 'required|string|max:100',
-            'en' => 'sometimes|nullable|string',
-            'zh' => 'sometimes|nullable|string',
+            'title' => 'sometimes|nullable|string|max:100',
+            'language_code' => 'required|string|max:20',
+            'value' => 'sometimes|nullable|string',
             'status' => 'sometimes|integer',
             'sort' => 'sometimes|integer',
         ];

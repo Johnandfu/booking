@@ -16,4 +16,10 @@ final class CmsPageService extends IService
     public function __construct(
         protected readonly CmsPageRepository $repository
     ) {}
+
+
+    public function pageBySlug(string $slug): ?CmsPage
+    {
+        return $this->repository->findEnabledBySlug($slug);
+    }
 }

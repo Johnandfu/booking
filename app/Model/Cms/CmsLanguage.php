@@ -12,23 +12,32 @@ use Hyperf\DbConnection\Model\Model as MineModel;
  * @property string $group_type
  * @property string $key
  * @property string $title
- * @property string|null $en
- * @property string|null $zh
+ * @property string $language_code
+ * @property string|null $value
  * @property int $status
  * @property int $sort
  * @property Carbon $created_at
  * @property Carbon $updated_at
  */
-final class CmsFrontendI18n extends MineModel
+final class CmsLanguage extends MineModel
 {
     public const STATUS_DISABLED = 0;
 
     public const STATUS_ENABLED = 1;
 
-    protected ?string $table = 'cms_frontend_i18n';
+    protected ?string $table = 'cms_language';
 
     protected array $fillable = [
-        'id', 'group_type', 'key', 'title', 'en', 'zh', 'status', 'sort', 'created_at', 'updated_at',
+        'id',
+        'group_type',
+        'key',
+        'title',
+        'value',
+        'language_code',
+        'status',
+        'sort',
+        'created_at',
+        'updated_at',
     ];
 
     protected array $casts = [

@@ -16,4 +16,10 @@ final class CmsContactMessageService extends IService
     public function __construct(
         protected readonly CmsContactMessageRepository $repository
     ) {}
+
+
+    public function createContactMessage(array $data): CmsContactMessage
+    {
+        return $this->repository->create($data);
+    }
 }
