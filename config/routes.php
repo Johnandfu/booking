@@ -10,6 +10,7 @@ declare(strict_types=1);
  * @license  https://github.com/mineadmin/MineAdmin/blob/master/LICENSE
  */
 use App\Http\Index\Controller\HomeController;
+use App\Http\Index\Controller\CategoryController;
 use App\Http\Index\Controller\NewsController;
 use App\Http\Index\Controller\ServiceController;
 use Hyperf\HttpServer\Router\Router;
@@ -23,7 +24,8 @@ Router::get('/news', [NewsController::class, 'index']);
 Router::get('/news/{slug}', [NewsController::class, 'show']);
 Router::get('/services', [ServiceController::class, 'index']);
 Router::get('/services/{slug}', [ServiceController::class, 'show']);
-
 Router::get('/favicon.ico', static function () {
     return '';
 });
+Router::get('/{categorySlug}', [CategoryController::class, 'index']);
+Router::get('/{categorySlug}/{slug}', [CategoryController::class, 'show']);

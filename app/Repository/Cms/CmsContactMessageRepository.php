@@ -6,6 +6,7 @@ namespace App\Repository\Cms;
 
 use App\Model\Cms\CmsContactMessage;
 use App\Repository\IRepository;
+use Hyperf\Collection\Arr;
 use Hyperf\Database\Model\Builder;
 
 /**
@@ -19,18 +20,23 @@ final class CmsContactMessageRepository extends IRepository
 
     public function handleSearch(Builder $query, array $params): Builder
     {
-        if (isset($params['status'])) {
-            $query->where('status', (int) $params['status']);
-        }
-
-        if (! empty($params['keyword'])) {
-            $query->where(static function (Builder $query) use ($params): void {
-                $query->where('name', 'like', '%' . $params['keyword'] . '%')
-                    ->orWhere('email', 'like', '%' . $params['keyword'] . '%')
-                    ->orWhere('phone', 'like', '%' . $params['keyword'] . '%');
-            });
-        }
-
-        return $query->orderByDesc('id');
+        return $query
+            ->when(Arr::has($params, 'status'), static function (Builder $query) use ($params): void {
+                $query->where('status', (int) $params['status']);
+            })
+            ->when(Arr::get($params, 'keyword'), static function (Builder $query, string $keyword): void {
+                $query->where(static function (Builder $query) use ($keyword): void {
+                    $query->where('name', 'like', "%{$keyword}%")
+                        ->orWhere('email', 'like', "%{$keyword}%")
+                        ->orWhere('phone', 'like', "%{$keyword}%");
+                });
+            })
+            ->when(Arr::get($params, 'created_at'), static function (Builder $query, array $createdAt): void {
+                $query->whereBetween('created_at', $createdAt);
+            })
+            ->when(Arr::get($params, 'updated_at'), static function (Builder $query, array $updatedAt): void {
+                $query->whereBetween('updated_at', $updatedAt);
+            })
+            ->orderByDesc('id');
     }
 }

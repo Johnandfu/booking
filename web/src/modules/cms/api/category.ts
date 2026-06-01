@@ -14,6 +14,8 @@ export interface CmsCategoryVo {
 export interface CmsCategorySearchVo {
   keyword?: string
   status?: number
+  created_at?: string[]
+  updated_at?: string[]
 }
 
 export function page(data: CmsCategorySearchVo): Promise<ResponseStruct<PageList<CmsCategoryVo>>> {

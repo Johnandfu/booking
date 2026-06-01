@@ -4,8 +4,25 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{{ $pageTitle }} - {{ $copy['main-siteName'] ?? 'main-siteName' }}</title>
-    <meta name="description" content="{{ $description ?? $copy['main-description'] ?? 'main-description' }}">
+    <title>{{ $seoTitle ?? ($copy['main-title'] ?? 'main-title') }} - {{ $copy['main-siteName'] ?? 'main-siteName' }}</title>
+    <meta name="description" content="{{ $seoDescription ?? ($copy['main-description'] ?? 'main-description') }}">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="{{ $seoUrl ?? '' }}">
+    <meta property="og:locale" content="{{ $htmlLang ?? 'en' }}">
+    <meta property="og:type" content="@if (! empty($article)) article @else website @endif">
+    <meta property="og:site_name" content="{{ $copy['main-siteName'] ?? 'main-siteName' }}">
+    <meta property="og:title" content="{{ $seoTitle ?? ($copy['main-title'] ?? 'main-title') }}">
+    <meta property="og:description" content="{{ $seoDescription ?? ($copy['main-description'] ?? 'main-description') }}">
+    <meta property="og:url" content="{{ $seoUrl ?? '' }}">
+    @if (! empty($seoImage))
+    <meta property="og:image" content="{{ $seoImage }}">
+    @endif
+    <meta name="twitter:card" content="@if (! empty($seoImage)) summary_large_image @else summary @endif">
+    <meta name="twitter:title" content="{{ $seoTitle ?? ($copy['main-title'] ?? 'main-title') }}">
+    <meta name="twitter:description" content="{{ $seoDescription ?? ($copy['main-description'] ?? 'main-description') }}">
+    @if (! empty($seoImage))
+    <meta name="twitter:image" content="{{ $seoImage }}">
+    @endif
     @if (! empty($gaMeasurementId))
     <script async src="https://www.googletagmanager.com/gtag/js?id={{ $gaMeasurementId }}"></script>
     <script>
@@ -1381,6 +1398,17 @@
             color: rgba(255, 255, 255, .58);
             font-size: .875rem;
         }
+
+        .admin-entry {
+            color: rgba(255, 255, 255, .26);
+            font-size: 1rem;
+            line-height: 1;
+            text-decoration: none;
+        }
+
+        .admin-entry:hover {
+            color: rgba(255, 255, 255, .5);
+        }
     </style>
 </head>
 
@@ -1388,11 +1416,11 @@
     <div class="topbar py-2">
         <div class="container d-flex flex-column flex-md-row justify-content-between gap-2">
             <div class="d-flex flex-wrap align-items-center gap-3">
-               
+
                 <span><span class="material-symbols-rounded me-1">mail</span> {{ $copy['main-contactEmail'] ?? 'contact@example.com' }}</span>
-              
+
                 <span><span class="material-symbols-rounded me-1">call</span> {{ $copy['main-contactPhone'] ?? '+123 456 7890' }}</span>
-               
+
             </div>
             <div class="d-flex flex-wrap align-items-center gap-3">
                 <div class="topbar-social" aria-label="{{ $copy['main-socialMedia'] ?? 'main-socialMedia' }}">
@@ -1412,7 +1440,6 @@
                     <a href="{{ $copy['main-socialXUrl'] }}" target="_blank" rel="noopener noreferrer" aria-label="{{ $copy['main-socialXLabel'] ?? 'main-socialXLabel' }}"><span class="social-icon">X</span></a>
                     @endif
                 </div>
-                <!-- <a href="/contact">{{ $copy['main-book'] ?? 'main-book' }}</a><a href="/admin">{{ $copy['main-signin'] ?? 'main-signin' }}</a> -->
             </div>
         </div>
     </div>
@@ -1428,12 +1455,11 @@
             <div class="collapse navbar-collapse" id="cmsNavbar">
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                     <li class="nav-item"><a class="nav-link @if (($activeNav ?? null) === 'home') active @endif" href="/">{{ $copy['main-home'] ?? 'main-home' }}</a></li>
-                    <li class="nav-item"><a class="nav-link @if (($activeNav ?? null) === 'services') active @endif" href="/services">{{ $copy['main-services'] ?? 'main-services' }}</a></li>
-                    <li class="nav-item"><a class="nav-link @if (($activeNav ?? null) === 'news') active @endif" href="/news">{{ $copy['main-news'] ?? 'main-news' }}</a></li>
-
+                    @foreach (($frontendCategories ?? []) as $frontendCategory)
+                    <li class="nav-item"><a class="nav-link @if (($activeNav ?? null) === $frontendCategory->slug) active @endif" href="/{{ $frontendCategory->slug }}">{{ $frontendCategory->name }}</a></li>
+                    @endforeach
                     <li class="nav-item"><a class="nav-link @if (($activeNav ?? null) === 'about') active @endif" href="/about">{{ $copy['main-about'] ?? 'main-about' }}</a></li>
                     <li class="nav-item"><a class="nav-link @if (($activeNav ?? null) === 'contact') active @endif" href="/contact">{{ $copy['main-contact'] ?? 'main-contact' }}</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/admin">{{ $copy['main-portal'] ?? 'main-portal' }}</a></li>
                     <li class="nav-item dropdown language-menu ms-lg-2 d-flex align-items-lg-center">
                         <button class="dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                             {{ $htmlLang ?? 'en' }}
@@ -1464,7 +1490,6 @@
                     <a href="/">{{ $copy['main-home'] ?? 'main-home' }}</a>
                     <a href="/about">{{ $copy['main-about'] ?? 'main-about' }}</a>
                     <a href="/contact">{{ $copy['main-contact'] ?? 'main-contact' }}</a>
-                    <a href="/admin">{{ $copy['main-portal'] ?? 'main-portal' }}</a>
                 </div>
                 <div class="footer-social" aria-label="{{ $copy['main-socialMedia'] ?? 'main-socialMedia' }}">
                     @if (! empty($copy['main-socialInstagramUrl']))
@@ -1487,6 +1512,9 @@
             <div class="footer-bottom mt-4 pt-4">
                 <span>© {{ date('Y') }} {{ $copy['main-siteName'] ?? 'main-siteName' }}. {{ $copy['main-footerCopyrightSuffix'] ?? 'main-footerCopyrightSuffix' }}</span>
                 <span>{{ $copy['main-footerServices'] ?? 'main-footerServices' }}</span>
+                <a class="admin-entry" href="/admin" aria-label="{{ $copy['main-portal'] ?? 'main-portal' }}">
+                    <span class="material-symbols-rounded">settings</span>
+                </a>
             </div>
         </div>
     </footer>
@@ -1528,7 +1556,13 @@
 
                 try {
                     const basePath = newsMasonry.dataset.basePath || window.location.pathname;
-                    const response = await fetch(`${basePath}?page=${nextPage}`, {
+                    const query = new URLSearchParams({
+                        page: String(nextPage)
+                    });
+                    if (newsMasonry.dataset.name) {
+                        query.set('name', newsMasonry.dataset.name);
+                    }
+                    const response = await fetch(`${basePath}?${query.toString()}`, {
                         headers: {
                             'X-Requested-With': 'XMLHttpRequest'
                         },

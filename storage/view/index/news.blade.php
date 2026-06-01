@@ -11,20 +11,13 @@
                         <p>{{ $copy['news-heroText'] ?? 'news-heroText' }}</p>
                     </div>
                     <div class="col-lg-5 reveal">
-                        <div class="luxe-filter-panel">
-                            <label>{{ $copy['news-filterLocationLabel'] ?? 'news-filterLocationLabel' }}</label>
+                        <form class="luxe-filter-panel" method="get" action="{{ $basePath }}">
+                            <label for="news-name">{{ $copy['news-searchName'] ?? 'news-searchName' }}</label>
                             <div class="luxe-filter-row">
-                                <span>{{ $copy['news-listingLocation'] ?? 'news-listingLocation' }}</span>
-                                <span class="material-symbols-rounded">expand_more</span>
+                                <input id="news-name" class="form-control border-0 bg-transparent text-white shadow-none" name="name" value="{{ $name ?? '' }}" placeholder="{{ $copy['news-searchPlaceholder'] ?? 'news-searchPlaceholder' }}">
+                                <button class="btn btn-light rounded-pill px-4" type="submit">{{ $copy['news-searchSubmit'] ?? 'news-searchSubmit' }}</button>
                             </div>
-                            <label>{{ $copy['news-filterBudgetLabel'] ?? 'news-filterBudgetLabel' }}</label>
-                            <div class="luxe-range"><span style="width: 68%;"></span></div>
-                            <div class="luxe-tags">
-                                <span>{{ $copy['news-tagBeachfront'] ?? 'news-tagBeachfront' }}</span>
-                                <span>{{ $copy['news-tagRiverView'] ?? 'news-tagRiverView' }}</span>
-                                <span>{{ $copy['news-tagCityCoastal'] ?? 'news-tagCityCoastal' }}</span>
-                            </div>
-                        </div>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -39,7 +32,7 @@
                 @forelse ($featuredItems as $article)
                     <div class="col-lg-6 reveal">
                         <article class="luxe-feature-card">
-                            <a href="/news/{{ $article->slug }}" class="luxe-feature-media">
+                            <a href="{{ $basePath }}/{{ $article->slug }}" class="luxe-feature-media">
                                 @if ($article->cover)
                                     <img src="{{ $article->cover }}" alt="{{ $article->title }}">
                                 @else
@@ -57,7 +50,7 @@
                                         {{ $copy['news-listingLocation'] ?? 'news-listingLocation' }}
                                     @endif
                                 </span>
-                                <h2><a href="/news/{{ $article->slug }}" class="text-decoration-none">{{ $article->title }}</a></h2>
+                                <h2><a href="{{ $basePath }}/{{ $article->slug }}" class="text-decoration-none">{{ $article->title }}</a></h2>
                                 <p>
                                     @if ($article->summary)
                                         {{ $article->summary }}
@@ -85,12 +78,13 @@
                 class="luxe-listing-grid"
                 data-news-masonry
                 data-base-path="{{ $basePath }}"
+                data-name="{{ $name ?? '' }}"
                 data-current-page="{{ $paginator->currentPage() }}"
                 data-last-page="{{ $paginator->lastPage() }}"
             >
                 @forelse ($listingItems as $article)
                     <article class="luxe-listing-card news-masonry-card reveal">
-                        <a href="/news/{{ $article->slug }}" class="luxe-listing-media">
+                        <a href="{{ $basePath }}/{{ $article->slug }}" class="luxe-listing-media">
                             @if ($article->cover)
                                 <img src="{{ $article->cover }}" alt="{{ $article->title }}">
                             @else
@@ -100,7 +94,7 @@
                         </a>
                         <div class="luxe-listing-copy">
                             <span class="luxe-location">{{ $copy['news-listingLocation'] ?? 'news-listingLocation' }}</span>
-                            <h3><a href="/news/{{ $article->slug }}" class="text-decoration-none stretched-link">{{ $article->title }}</a></h3>
+                            <h3><a href="{{ $basePath }}/{{ $article->slug }}" class="text-decoration-none stretched-link">{{ $article->title }}</a></h3>
                             <div class="luxe-price">
                                 @if ($article->published_at)
                                     {{ $article->published_at->format('d M Y') }}

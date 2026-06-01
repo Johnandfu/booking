@@ -21,8 +21,8 @@ const maDialog: UseDialogExpose = useDialog({
   lgWidth: '680px',
   ok: (_, okLoadingState: (state: boolean) => void) => {
     okLoadingState(true)
-    formRef.value.maForm.getElFormRef().validate().then(() => {
-      formRef.value.edit().then((res: any) => {
+    formRef.value?.maForm?.getElFormRef().validate().then(() => {
+      formRef.value?.edit().then((res: any) => {
         res.code === ResultCode.SUCCESS ? msg.success('更新成功') : msg.error(res.message)
         maDialog.close()
         proTableRef.value.refresh()
@@ -44,6 +44,8 @@ const schema = ref<MaProTableSchema>({
   searchItems: [
     { label: '关键词', prop: 'keyword', render: 'input' },
     { label: '状态', prop: 'status', render: 'inputNumber', renderProps: { min: 0, max: 1 } },
+    { label: '创建时间', prop: 'created_at', render: 'datePicker', renderProps: { type: 'daterange', valueFormat: 'YYYY-MM-DD HH:mm:ss' } },
+    { label: '更新时间', prop: 'updated_at', render: 'datePicker', renderProps: { type: 'daterange', valueFormat: 'YYYY-MM-DD HH:mm:ss' } },
   ],
   tableColumns: [
     { type: 'selection', showOverflowTooltip: false },
@@ -60,7 +62,16 @@ const schema = ref<MaProTableSchema>({
       label: '操作',
       operationConfigure: {
         actions: [
-          { name: 'edit', icon: 'material-symbols:edit-square-outline', text: '处理', show: () => true, onClick: ({ row }) => { maDialog.setTitle('处理留言'); maDialog.open({ data: row }) } },
+          {
+            name: 'edit',
+            icon: 'material-symbols:edit-square-outline',
+            text: '处理',
+            show: () => true,
+            onClick: ({ row }) => {
+              maDialog.setTitle('处理留言')
+              maDialog.open({ data: row })
+            },
+          },
           { name: 'delete', icon: 'mdi:delete', text: '删除', show: () => true, onClick: ({ row }, proxy) => {
             msg.delConfirm('确认删除该留言？').then(async () => {
               const response = await deleteByIds([row.id])
@@ -99,7 +110,7 @@ function handleDelete() {
     </MaProTable>
     <component :is="maDialog.Dialog">
       <template #default="{ data }">
-        <MessageForm ref="formRef" :data="data" />
+        <MessageForm ref="formRef" :key="`edit-${data?.id ?? 'new'}`" :data="data" />
       </template>
     </component>
   </div>

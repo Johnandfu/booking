@@ -6,17 +6,21 @@ namespace App\Http\Index\Controller;
 
 use App\Service\Cms\CmsArticleService;
 use App\Service\Cms\CmsCategoryService;
-use Hyperf\Di\Annotation\Inject;
+use App\Service\Cms\CmsLanguageService;
 use Hyperf\HttpServer\Contract\RequestInterface;
 use Hyperf\View\RenderInterface;
 use Psr\Http\Message\ResponseInterface;
 
 final class ServiceController extends BaseController
 {
-    #[Inject]
-    protected CmsArticleService $cmsArticle;
-    #[Inject]
-    protected CmsCategoryService $cmsCategory;
+    public function __construct(
+        CmsLanguageService $cmsLangcode,
+        CmsCategoryService $cmsCategory,
+        RequestInterface $request,
+        protected readonly CmsArticleService $cmsArticle,
+    ) {
+        parent::__construct($cmsLangcode, $cmsCategory, $request);
+    }
 
     public function index(RequestInterface $request, RenderInterface $render): ResponseInterface
     {
@@ -26,14 +30,16 @@ final class ServiceController extends BaseController
         }
 
         $page = max(1, (int) $request->input('page', 1));
-        $data = $this->cmsArticle->serviceList($category->id, $page);
+        $name = trim((string) $request->input('name', ''));
+        $data = $this->cmsArticle->serviceList($category->id, $page, $name);
 
         return $this->view($render, 'index.category', array_merge($data, [
             'title' => $category->name,
             'description' => $category->description,
-            'activeNav' => 'services',
+            'activeNav' => $category->slug,
             'category' => $category,
-            'basePath' => $this->cmsCategory->categoryPath('service'),
+            'basePath' => '/' . $category->slug,
+            'name' => $name,
         ]));
     }
 
@@ -54,7 +60,7 @@ final class ServiceController extends BaseController
         return $this->view($render, 'index.article', [
             'title' => $article->seo_title ?: $article->title,
             'description' => $article->seo_description ?: $article->summary,
-            'activeNav' => 'services',
+            'activeNav' => $category->slug,
             'article' => $article,
         ]);
     }

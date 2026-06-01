@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { MaFormExpose, MaFormItem } from '@mineadmin/form'
-import { ref } from 'vue'
+import { h, ref } from 'vue'
+import { ElOption } from 'element-plus'
 import type { CmsFrontendI18nVo } from '../../api/frontend-i18n'
 import { create, save } from '../../api/frontend-i18n'
 import useForm from '../../../../hooks/useForm'
@@ -16,8 +17,8 @@ const props = withDefaults(defineProps<{
   data: null,
 })
 
-const maForm = ref<MaFormExpose>()
-const model = ref<CmsFrontendI18nVo>({
+const frontendI18nForm = ref<MaFormExpose>()
+const frontendI18nModel = ref<CmsFrontendI18nVo>({
   group_type: 'home',
   language_code: 'en',
   status: 1,
@@ -32,54 +33,54 @@ function formItems(): MaFormItem[] {
     { label: '说明', prop: 'title', render: 'input' },
     { label: '文案', prop: 'value', render: 'input', renderProps: { type: 'textarea', rows: 4 } },
     { label: '排序', prop: 'sort', render: 'inputNumber', renderProps: { class: 'w-full' } },
-    { label: '状态', prop: 'status', render: 'inputNumber', renderProps: { class: 'w-full', min: 0, max: 1 } },
+    {
+      label: '状态',
+      prop: 'status',
+      render: 'select',
+      renderProps: { class: 'w-full' },
+      renderSlots: {
+        default: () => [
+          h(ElOption, { label: '启用', value: 1 }),
+          h(ElOption, { label: '禁用', value: 0 }),
+        ],
+      },
+    },
   ]
 }
 
-function fillModel(): void {
+useForm('frontendI18nForm').then((form: MaFormExpose) => {
   if (props.formType === 'edit' && props.data) {
-    Object.keys(model.value).forEach((key) => {
-      delete model.value[key as keyof CmsFrontendI18nVo]
+    const data = props.data as Record<string, any>
+    const model = frontendI18nModel.value as Record<string, any>
+    Object.keys(props.data).map((key: string) => {
+      model[key] = data[key]
     })
-    Object.assign(model.value, props.data)
-    return
   }
-
-  Object.assign(model.value, {
-    key: '',
-    group_type: 'home',
-    language_code: 'en',
-    title: '',
-    value: '',
-    status: 1,
-    sort: 0,
-  })
-  delete model.value.id
-}
-
-fillModel()
-
-useForm('maForm').then((form: MaFormExpose) => {
-  fillModel()
+  if (props.formType === 'add') {
+    frontendI18nModel.value.group_type = 'home'
+    frontendI18nModel.value.language_code = 'en'
+    frontendI18nModel.value.status = 1
+    frontendI18nModel.value.sort = 0
+  }
   form.setItems(formItems())
   form.setOptions({ labelWidth: '90px' })
 })
 
 function add(): Promise<any> {
   return new Promise((resolve, reject) => {
-    create(model.value).then(res => res.code === ResultCode.SUCCESS ? resolve(res) : reject(res)).catch(reject)
+    create(frontendI18nModel.value).then(res => res.code === ResultCode.SUCCESS ? resolve(res) : reject(res)).catch(reject)
   })
 }
 
 function edit(): Promise<any> {
   return new Promise((resolve, reject) => {
-    save(model.value.id as number, model.value).then(res => res.code === ResultCode.SUCCESS ? resolve(res) : reject(res)).catch(reject)
+    save(frontendI18nModel.value.id as number, frontendI18nModel.value).then(res => res.code === ResultCode.SUCCESS ? resolve(res) : reject(res)).catch(reject)
   })
 }
 
-defineExpose({ add, edit, maForm })
+defineExpose({ add, edit, maForm: frontendI18nForm })
 </script>
 
 <template>
-  <ma-form ref="maForm" v-model="model" />
+  <ma-form ref="frontendI18nForm" v-model="frontendI18nModel" />
 </template>

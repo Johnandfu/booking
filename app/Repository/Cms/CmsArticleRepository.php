@@ -6,6 +6,7 @@ namespace App\Repository\Cms;
 
 use App\Model\Cms\CmsArticle;
 use App\Repository\IRepository;
+use Hyperf\Collection\Arr;
 use Hyperf\Collection\Collection;
 use Hyperf\Contract\LengthAwarePaginatorInterface;
 use Hyperf\Database\Model\Builder;
@@ -21,24 +22,27 @@ final class CmsArticleRepository extends IRepository
 
     public function handleSearch(Builder $query, array $params): Builder
     {
-        $query->with('category');
-
-        if (isset($params['category_id'])) {
-            $query->where('category_id', (int) $params['category_id']);
-        }
-
-        if (isset($params['status'])) {
-            $query->where('status', (int) $params['status']);
-        }
-
-        if (! empty($params['keyword'])) {
-            $query->where(static function (Builder $query) use ($params): void {
-                $query->where('title', 'like', '%' . $params['keyword'] . '%')
-                    ->orWhere('slug', 'like', '%' . $params['keyword'] . '%');
-            });
-        }
-
-        return $query->orderByDesc('published_at')->orderByDesc('id');
+        return $query->with('category')
+            ->when(Arr::has($params, 'category_id'), static function (Builder $query) use ($params): void {
+                $query->where('category_id', (int) $params['category_id']);
+            })
+            ->when(Arr::has($params, 'status'), static function (Builder $query) use ($params): void {
+                $query->where('status', (int) $params['status']);
+            })
+            ->when(Arr::get($params, 'keyword'), static function (Builder $query, string $keyword): void {
+                $query->where(static function (Builder $query) use ($keyword): void {
+                    $query->where('title', 'like', "%{$keyword}%")
+                        ->orWhere('slug', 'like', "%{$keyword}%");
+                });
+            })
+            ->when(Arr::get($params, 'created_at'), static function (Builder $query, array $createdAt): void {
+                $query->whereBetween('created_at', $createdAt);
+            })
+            ->when(Arr::get($params, 'updated_at'), static function (Builder $query, array $updatedAt): void {
+                $query->whereBetween('updated_at', $updatedAt);
+            })
+            ->orderByDesc('published_at')
+            ->orderByDesc('id');
     }
 
     public function findPublishedBySlugAndCategory(string $slug, int $categoryId): ?CmsArticle
@@ -65,11 +69,17 @@ final class CmsArticleRepository extends IRepository
             ->get();
     }
 
-    public function paginatePublishedByCategory(int $categoryId, int $page, int $pageSize): LengthAwarePaginatorInterface
+    public function paginatePublishedByCategory(int $categoryId, int $page, int $pageSize, string $name = ''): LengthAwarePaginatorInterface
     {
-        return $this->model->newQuery()
+        $query = $this->model->newQuery()
             ->where('category_id', $categoryId)
-            ->where('status', CmsArticle::STATUS_PUBLISHED)
+            ->where('status', CmsArticle::STATUS_PUBLISHED);
+
+        if ($name !== '') {
+            $query->where('title', 'like', '%' . $name . '%');
+        }
+
+        return $query
             ->orderByDesc('published_at')
             ->orderByDesc('id')
             ->paginate(perPage: $pageSize, page: $page);

@@ -16,6 +16,8 @@ export interface CmsContactMessageVo {
 export interface CmsContactMessageSearchVo {
   keyword?: string
   status?: number
+  created_at?: string[]
+  updated_at?: string[]
 }
 
 export function page(data: CmsContactMessageSearchVo): Promise<ResponseStruct<PageList<CmsContactMessageVo>>> {

@@ -18,14 +18,14 @@ final class CmsArticleService extends IService
         protected readonly CmsArticleRepository $repository
     ) {}
 
-    public function articlesByCategory(int $categoryId, int $page, int $pageSize = 10): LengthAwarePaginatorInterface
+    public function articlesByCategory(int $categoryId, int $page, int $pageSize = 10, string $name = ''): LengthAwarePaginatorInterface
     {
-        return $this->repository->paginatePublishedByCategory($categoryId, $page, $pageSize);
+        return $this->repository->paginatePublishedByCategory($categoryId, $page, $pageSize, $name);
     }
 
-    public function newsList(int $categoryId, int $page): array
+    public function newsList(int $categoryId, int $page, string $name = ''): array
     {
-        $paginator = $this->articlesByCategory($categoryId, $page, 10);
+        $paginator = $this->articlesByCategory($categoryId, $page, 10, $name);
         $items = $paginator->items();
 
         return [
@@ -35,9 +35,9 @@ final class CmsArticleService extends IService
         ];
     }
 
-    public function serviceList(int $categoryId, int $page): array
+    public function serviceList(int $categoryId, int $page, string $name = ''): array
     {
-        $paginator = $this->articlesByCategory($categoryId, $page, 12);
+        $paginator = $this->articlesByCategory($categoryId, $page, 12, $name);
         $items = $paginator->items();
 
         return [

@@ -50,6 +50,8 @@ const schema = ref<MaProTableSchema>({
   searchItems: [
     { label: '关键词', prop: 'keyword', render: 'input' },
     { label: '状态', prop: 'status', render: 'inputNumber', renderProps: { min: 0, max: 1 } },
+    { label: '创建时间', prop: 'created_at', render: 'datePicker', renderProps: { type: 'daterange', valueFormat: 'YYYY-MM-DD HH:mm:ss' } },
+    { label: '更新时间', prop: 'updated_at', render: 'datePicker', renderProps: { type: 'daterange', valueFormat: 'YYYY-MM-DD HH:mm:ss' } },
   ],
   tableColumns: [
     { type: 'selection', showOverflowTooltip: false },

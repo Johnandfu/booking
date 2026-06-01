@@ -15,6 +15,8 @@ export interface CmsPageVo {
 export interface CmsPageSearchVo {
   keyword?: string
   status?: number
+  created_at?: string[]
+  updated_at?: string[]
 }
 
 export function page(data: CmsPageSearchVo): Promise<ResponseStruct<PageList<CmsPageVo>>> {

@@ -354,6 +354,278 @@ class MenuSeeder20240926 extends Seeder
                     ],
                 ],
             ],
+            [
+                'name' => 'cms',
+                'path' => '/cms',
+                'meta' => new Meta([
+                    'title' => 'CMS 管理',
+                    'i18n' => 'baseMenu.cms.index',
+                    'icon' => 'ri:article-line',
+                    'type' => 'M',
+                    'hidden' => 0,
+                    'componentPath' => 'modules/',
+                    'componentSuffix' => '.vue',
+                    'breadcrumbEnable' => 1,
+                    'copyright' => 1,
+                    'cache' => 1,
+                    'affix' => 0,
+                ]),
+                'children' => [
+                    [
+                        'name' => 'cms:category',
+                        'path' => '/cms/category',
+                        'component' => 'cms/views/category/index',
+                        'meta' => new Meta([
+                            'title' => '栏目管理',
+                            'i18n' => 'baseMenu.cms.category',
+                            'icon' => 'ri:file-list-line',
+                            'type' => 'M',
+                            'hidden' => 0,
+                            'componentPath' => 'modules/',
+                            'componentSuffix' => '.vue',
+                            'breadcrumbEnable' => 1,
+                            'copyright' => 1,
+                            'cache' => 1,
+                            'affix' => 0,
+                        ]),
+                        'children' => [
+                            [
+                                'name' => 'cms:category:list',
+                                'meta' => new Meta([
+                                    'title' => '栏目列表',
+                                    'type' => 'B',
+                                    'i18n' => 'baseMenu.cms.categoryList',
+                                ]),
+                            ],
+                            [
+                                'name' => 'cms:category:create',
+                                'meta' => new Meta([
+                                    'title' => '栏目新增',
+                                    'type' => 'B',
+                                    'i18n' => 'baseMenu.cms.categoryCreate',
+                                ]),
+                            ],
+                            [
+                                'name' => 'cms:category:update',
+                                'meta' => new Meta([
+                                    'title' => '栏目更新',
+                                    'type' => 'B',
+                                    'i18n' => 'baseMenu.cms.categoryUpdate',
+                                ]),
+                            ],
+                            [
+                                'name' => 'cms:category:delete',
+                                'meta' => new Meta([
+                                    'title' => '栏目删除',
+                                    'type' => 'B',
+                                    'i18n' => 'baseMenu.cms.categoryDelete',
+                                ]),
+                            ],
+                        ],
+                    ],
+                    [
+                        'name' => 'cms:article',
+                        'path' => '/cms/article',
+                        'component' => 'cms/views/article/index',
+                        'meta' => new Meta([
+                            'title' => '文章管理',
+                            'i18n' => 'baseMenu.cms.article',
+                            'icon' => 'ri:file-list-line',
+                            'type' => 'M',
+                            'hidden' => 0,
+                            'componentPath' => 'modules/',
+                            'componentSuffix' => '.vue',
+                            'breadcrumbEnable' => 1,
+                            'copyright' => 1,
+                            'cache' => 1,
+                            'affix' => 0,
+                        ]),
+                        'children' => [
+                            [
+                                'name' => 'cms:article:list',
+                                'meta' => new Meta([
+                                    'title' => '文章列表',
+                                    'type' => 'B',
+                                    'i18n' => 'baseMenu.cms.articleList',
+                                ]),
+                            ],
+                            [
+                                'name' => 'cms:article:create',
+                                'meta' => new Meta([
+                                    'title' => '文章新增',
+                                    'type' => 'B',
+                                    'i18n' => 'baseMenu.cms.articleCreate',
+                                ]),
+                            ],
+                            [
+                                'name' => 'cms:article:update',
+                                'meta' => new Meta([
+                                    'title' => '文章更新',
+                                    'type' => 'B',
+                                    'i18n' => 'baseMenu.cms.articleUpdate',
+                                ]),
+                            ],
+                            [
+                                'name' => 'cms:article:delete',
+                                'meta' => new Meta([
+                                    'title' => '文章删除',
+                                    'type' => 'B',
+                                    'i18n' => 'baseMenu.cms.articleDelete',
+                                ]),
+                            ],
+                        ],
+                    ],
+                  
+                    [
+                        'name' => 'cms:banner',
+                        'path' => '/cms/banner',
+                        'component' => 'cms/views/banner/index',
+                        'meta' => new Meta([
+                            'title' => '轮播管理',
+                            'i18n' => 'baseMenu.cms.banner',
+                            'icon' => 'ri:file-list-line',
+                            'type' => 'M',
+                            'hidden' => 0,
+                            'componentPath' => 'modules/',
+                            'componentSuffix' => '.vue',
+                            'breadcrumbEnable' => 1,
+                            'copyright' => 1,
+                            'cache' => 1,
+                            'affix' => 0,
+                        ]),
+                        'children' => [
+                            [
+                                'name' => 'cms:banner:list',
+                                'meta' => new Meta([
+                                    'title' => '轮播列表',
+                                    'type' => 'B',
+                                    'i18n' => 'baseMenu.cms.bannerList',
+                                ]),
+                            ],
+                            [
+                                'name' => 'cms:banner:create',
+                                'meta' => new Meta([
+                                    'title' => '轮播新增',
+                                    'type' => 'B',
+                                    'i18n' => 'baseMenu.cms.bannerCreate',
+                                ]),
+                            ],
+                            [
+                                'name' => 'cms:banner:update',
+                                'meta' => new Meta([
+                                    'title' => '轮播更新',
+                                    'type' => 'B',
+                                    'i18n' => 'baseMenu.cms.bannerUpdate',
+                                ]),
+                            ],
+                            [
+                                'name' => 'cms:banner:delete',
+                                'meta' => new Meta([
+                                    'title' => '轮播删除',
+                                    'type' => 'B',
+                                    'i18n' => 'baseMenu.cms.bannerDelete',
+                                ]),
+                            ],
+                        ],
+                    ],
+                    [
+                        'name' => 'cms:contact-message',
+                        'path' => '/cms/contact-message',
+                        'component' => 'cms/views/contact-message/index',
+                        'meta' => new Meta([
+                            'title' => '留言管理',
+                            'i18n' => 'baseMenu.cms.contactMessage',
+                            'icon' => 'ri:file-list-line',
+                            'type' => 'M',
+                            'hidden' => 0,
+                            'componentPath' => 'modules/',
+                            'componentSuffix' => '.vue',
+                            'breadcrumbEnable' => 1,
+                            'copyright' => 1,
+                            'cache' => 1,
+                            'affix' => 0,
+                        ]),
+                        'children' => [
+                            [
+                                'name' => 'cms:contact-message:list',
+                                'meta' => new Meta([
+                                    'title' => '留言列表',
+                                    'type' => 'B',
+                                    'i18n' => 'baseMenu.cms.contactMessageList',
+                                ]),
+                            ],
+                            [
+                                'name' => 'cms:contact-message:update',
+                                'meta' => new Meta([
+                                    'title' => '留言更新',
+                                    'type' => 'B',
+                                    'i18n' => 'baseMenu.cms.contactMessageUpdate',
+                                ]),
+                            ],
+                            [
+                                'name' => 'cms:contact-message:delete',
+                                'meta' => new Meta([
+                                    'title' => '留言删除',
+                                    'type' => 'B',
+                                    'i18n' => 'baseMenu.cms.contactMessageDelete',
+                                ]),
+                            ],
+                        ],
+                    ],
+                    [
+                        'name' => 'cms:frontend-i18n',
+                        'path' => '/cms/frontend-i18n',
+                        'component' => 'cms/views/frontend-i18n/index',
+                        'meta' => new Meta([
+                            'title' => '前台多语言',
+                            'i18n' => 'baseMenu.cms.frontendI18n',
+                            'icon' => 'ri:file-list-line',
+                            'type' => 'M',
+                            'hidden' => 0,
+                            'componentPath' => 'modules/',
+                            'componentSuffix' => '.vue',
+                            'breadcrumbEnable' => 1,
+                            'copyright' => 1,
+                            'cache' => 1,
+                            'affix' => 0,
+                        ]),
+                        'children' => [
+                            [
+                                'name' => 'cms:frontend-i18n:list',
+                                'meta' => new Meta([
+                                    'title' => '前台多语言列表',
+                                    'type' => 'B',
+                                    'i18n' => 'baseMenu.cms.frontendI18nList',
+                                ]),
+                            ],
+                            [
+                                'name' => 'cms:frontend-i18n:create',
+                                'meta' => new Meta([
+                                    'title' => '前台多语言新增',
+                                    'type' => 'B',
+                                    'i18n' => 'baseMenu.cms.frontendI18nCreate',
+                                ]),
+                            ],
+                            [
+                                'name' => 'cms:frontend-i18n:update',
+                                'meta' => new Meta([
+                                    'title' => '前台多语言更新',
+                                    'type' => 'B',
+                                    'i18n' => 'baseMenu.cms.frontendI18nUpdate',
+                                ]),
+                            ],
+                            [
+                                'name' => 'cms:frontend-i18n:delete',
+                                'meta' => new Meta([
+                                    'title' => '前台多语言删除',
+                                    'type' => 'B',
+                                    'i18n' => 'baseMenu.cms.frontendI18nDelete',
+                                ]),
+                            ],
+                        ],
+                    ],
+                ],
+            ],
             /* [
                 'name' => '工具',
                 'code' => 'devTools',

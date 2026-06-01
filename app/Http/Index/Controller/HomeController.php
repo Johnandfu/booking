@@ -5,15 +5,22 @@ declare(strict_types=1);
 namespace App\Http\Index\Controller;
 
 use App\Service\Cms\CmsContactMessageService;
-use Hyperf\Di\Annotation\Inject;
+use App\Service\Cms\CmsCategoryService;
+use App\Service\Cms\CmsLanguageService;
 use Hyperf\HttpServer\Contract\RequestInterface;
 use Hyperf\View\RenderInterface;
 use Psr\Http\Message\ResponseInterface;
 
 final class HomeController extends BaseController
 {
-    #[Inject]
-    protected CmsContactMessageService $cmsContactMessage;
+    public function __construct(
+        CmsLanguageService $cmsLangcode,
+        CmsCategoryService $cmsCategory,
+        RequestInterface $request,
+        protected readonly CmsContactMessageService $cmsContactMessage,
+    ) {
+        parent::__construct($cmsLangcode, $cmsCategory, $request);
+    }
 
     public function index(RenderInterface $render): ResponseInterface
     {
@@ -33,7 +40,7 @@ final class HomeController extends BaseController
     public function contact(RenderInterface $render): ResponseInterface
     {
         return $this->view($render, 'index.contact', [
-            'title' => '联系我们',
+            'title' => 'contact-title',
             'activeNav' => 'contact',
             'message' => null,
             'messageType' => 'success',
@@ -47,9 +54,9 @@ final class HomeController extends BaseController
 
         if ($name === '' || $contentValue === '') {
             return $this->view($render, 'index.contact', [
-                'title' => '联系我们',
+                'title' => 'contact-title',
                 'activeNav' => 'contact',
-                'message' => '请填写姓名和留言内容。',
+                'message' => 'contact-message',
                 'messageType' => 'danger',
             ]);
         }
@@ -63,9 +70,9 @@ final class HomeController extends BaseController
         ]);
 
         return $this->view($render, 'index.contact', [
-            'title' => '联系我们',
+            'title' => 'contact-title',
             'activeNav' => 'contact',
-            'message' => '留言已提交，我们会尽快联系你。',
+            'message' => 'contact-message',
             'messageType' => 'success',
         ]);
     }

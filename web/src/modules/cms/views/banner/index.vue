@@ -45,6 +45,8 @@ const schema = ref<MaProTableSchema>({
   searchItems: [
     { label: '关键词', prop: 'keyword', render: 'input' },
     { label: '状态', prop: 'status', render: 'inputNumber', renderProps: { min: 0, max: 1 } },
+    { label: '创建时间', prop: 'created_at', render: 'datePicker', renderProps: { type: 'daterange', valueFormat: 'YYYY-MM-DD HH:mm:ss' } },
+    { label: '更新时间', prop: 'updated_at', render: 'datePicker', renderProps: { type: 'daterange', valueFormat: 'YYYY-MM-DD HH:mm:ss' } },
   ],
   tableColumns: [
     { type: 'selection', showOverflowTooltip: false },
@@ -60,7 +62,16 @@ const schema = ref<MaProTableSchema>({
       label: '操作',
       operationConfigure: {
         actions: [
-          { name: 'edit', icon: 'material-symbols:edit-square-outline', text: '编辑', show: () => true, onClick: ({ row }) => { maDialog.setTitle('编辑轮播'); maDialog.open({ formType: 'edit', data: row }) } },
+          {
+            name: 'edit',
+            icon: 'material-symbols:edit-square-outline',
+            text: '编辑',
+            show: () => true,
+            onClick: ({ row }) => {
+              maDialog.setTitle('编辑轮播')
+              maDialog.open({ formType: 'edit', data: row })
+            },
+          },
           { name: 'delete', icon: 'mdi:delete', text: '删除', show: () => true, onClick: ({ row }, proxy) => {
             msg.delConfirm('确认删除该轮播？').then(async () => {
               const response = await deleteByIds([row.id])
@@ -104,7 +115,7 @@ function handleDelete() {
     </MaProTable>
     <component :is="maDialog.Dialog">
       <template #default="{ formType, data }">
-        <BannerForm ref="formRef" :form-type="formType" :data="data" />
+        <BannerForm ref="formRef" :key="`${formType}-${data?.id ?? 'new'}`" :form-type="formType" :data="data" />
       </template>
     </component>
   </div>

@@ -40,7 +40,7 @@
                     @forelse ($featuredItems as $article)
                         <div class="col-lg-6 reveal">
                             <article class="luxe-feature-card">
-                                <a href="/services/{{ $article->slug }}" class="luxe-feature-media">
+                                <a href="{{ $basePath }}/{{ $article->slug }}" class="luxe-feature-media">
                                     @if ($article->cover)
                                         <img src="{{ $article->cover }}" alt="{{ $article->title }}">
                                     @else
@@ -52,7 +52,7 @@
                                 </a>
                                 <div class="luxe-feature-copy">
                                     <span>{{ $copy['category-serviceCardEyebrow'] ?? 'category-serviceCardEyebrow' }}</span>
-                                    <h2><a href="/services/{{ $article->slug }}" class="text-decoration-none">{{ $article->title }}</a></h2>
+                                    <h2><a href="{{ $basePath }}/{{ $article->slug }}" class="text-decoration-none">{{ $article->title }}</a></h2>
                                     <p>
                                         @if ($article->summary)
                                             {{ $article->summary }}
@@ -79,7 +79,7 @@
                 <div class="luxe-listing-grid">
                     @forelse ($listingItems as $article)
                         <article class="luxe-listing-card reveal">
-                            <a href="/services/{{ $article->slug }}" class="luxe-listing-media">
+                            <a href="{{ $basePath }}/{{ $article->slug }}" class="luxe-listing-media">
                                 @if ($article->cover)
                                     <img src="{{ $article->cover }}" alt="{{ $article->title }}">
                                 @else
@@ -89,7 +89,7 @@
                             </a>
                             <div class="luxe-listing-copy">
                                 <span class="luxe-location">{{ $copy['category-listingLocation'] ?? 'category-listingLocation' }}</span>
-                                <h3><a href="/services/{{ $article->slug }}" class="text-decoration-none stretched-link">{{ $article->title }}</a></h3>
+                                <h3><a href="{{ $basePath }}/{{ $article->slug }}" class="text-decoration-none stretched-link">{{ $article->title }}</a></h3>
                                 <div class="luxe-price">{{ $copy['category-serviceCardEyebrow'] ?? 'category-serviceCardEyebrow' }}</div>
                             </div>
                         </article>
@@ -132,7 +132,7 @@
                 @forelse ($paginator->items() as $article)
                     <div class="lux-card reveal">
                         <div class="card-body p-4">
-                            <h2 class="h5 fw-bold mb-2"><a href="/services/{{ $article->slug }}" class="text-decoration-none">{{ $article->title }}</a></h2>
+                            <h2 class="h5 fw-bold mb-2"><a href="{{ $basePath }}/{{ $article->slug }}" class="text-decoration-none">{{ $article->title }}</a></h2>
                             @if ($article->summary)
                                 <p class="text-secondary mb-2">{{ $article->summary }}</p>
                             @endif

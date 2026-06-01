@@ -4,22 +4,23 @@ import type { MaFormExpose, MaFormItem } from '@mineadmin/form'
 import { create, save } from '../../api/category'
 import useForm from '../../../../hooks/useForm'
 import { ResultCode } from '../../../../utils/ResultCode'
-import { ref } from 'vue'
+import { h, ref } from 'vue'
+import { ElOption } from 'element-plus'
 
 defineOptions({ name: 'cms:category:form' })
 
 const { formType = 'add', data = null } = defineProps<{
-  formType: 'add' | 'edit'
+  formType?: 'add' | 'edit'
   data?: CmsCategoryVo | null
 }>()
 
-const maForm = ref<MaFormExpose>()
-const model = ref<CmsCategoryVo>({})
+const categoryForm = ref<MaFormExpose>()
+const categoryModel = ref<CmsCategoryVo>({})
 
 function formItems(): MaFormItem[] {
   if (formType === 'add') {
-    model.value.status = 1
-    model.value.sort = 0
+    categoryModel.value.status = 1
+    categoryModel.value.sort = 0
   }
 
   return [
@@ -52,16 +53,25 @@ function formItems(): MaFormItem[] {
     {
       label: '状态',
       prop: 'status',
-      render: 'inputNumber',
+      render: 'select',
       cols: { md: 12, xs: 24 },
-      renderProps: { class: 'w-full', min: 0, max: 1 },
+      renderProps: { class: 'w-full' },
+      renderSlots: {
+        default: () => [
+          h(ElOption, { label: '启用', value: 1 }),
+          h(ElOption, { label: '禁用', value: 0 }),
+        ],
+      },
     },
   ]
 }
 
-useForm('maForm').then((form: MaFormExpose) => {
+useForm('categoryForm').then((form: MaFormExpose) => {
   if (formType === 'edit' && data) {
-    model.value = { ...data }
+    const model = categoryModel.value as Record<string, any>
+    Object.keys(data).map((key: string) => {
+      model[key] = (data as Record<string, any>)[key]
+    })
   }
   form.setItems(formItems())
   form.setOptions({ labelWidth: '90px' })
@@ -69,7 +79,7 @@ useForm('maForm').then((form: MaFormExpose) => {
 
 function add(): Promise<any> {
   return new Promise((resolve, reject) => {
-    create(model.value).then((res) => {
+    create(categoryModel.value).then((res) => {
       res.code === ResultCode.SUCCESS ? resolve(res) : reject(res)
     }).catch(reject)
   })
@@ -77,15 +87,15 @@ function add(): Promise<any> {
 
 function edit(): Promise<any> {
   return new Promise((resolve, reject) => {
-    save(model.value.id as number, model.value).then((res) => {
+    save(categoryModel.value.id as number, categoryModel.value).then((res) => {
       res.code === ResultCode.SUCCESS ? resolve(res) : reject(res)
     }).catch(reject)
   })
 }
 
-defineExpose({ add, edit, maForm })
+defineExpose({ add, edit, maForm: categoryForm })
 </script>
 
 <template>
-  <ma-form ref="maForm" v-model="model" />
+  <ma-form ref="categoryForm" v-model="categoryModel" />
 </template>

@@ -7,6 +7,7 @@ namespace App\Service\Cms;
 use App\Model\Cms\CmsCategory;
 use App\Repository\Cms\CmsCategoryRepository;
 use App\Service\IService;
+use Hyperf\Collection\Collection;
 
 /**
  * @extends IService<CmsCategory>
@@ -22,12 +23,11 @@ final class CmsCategoryService extends IService
         return $this->repository->findBySlug($slug);
     }
 
-    public function categoryPath(string $slug): string
+    /**
+     * @return Collection<int, CmsCategory>
+     */
+    public function enabledCategories(): Collection
     {
-        return match ($slug) {
-            'news' => '/news',
-            'service' => '/service',
-            default => '/category/' . $slug,
-        };
+        return $this->repository->listEnabled();
     }
 }

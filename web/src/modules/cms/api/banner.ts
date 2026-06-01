@@ -15,6 +15,8 @@ export interface CmsBannerVo {
 export interface CmsBannerSearchVo {
   keyword?: string
   status?: number
+  created_at?: string[]
+  updated_at?: string[]
 }
 
 export function page(data: CmsBannerSearchVo): Promise<ResponseStruct<PageList<CmsBannerVo>>> {

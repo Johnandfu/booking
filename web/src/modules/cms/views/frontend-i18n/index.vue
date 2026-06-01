@@ -1,6 +1,7 @@
 <script setup lang="tsx">
 import type { MaProTableExpose, MaProTableOptions, MaProTableSchema } from '@mineadmin/pro-table'
-import { ref, type Ref } from 'vue'
+import type { Ref } from 'vue'
+import { ref } from 'vue'
 import type { UseDialogExpose } from '../../../../hooks/useDialog'
 import { ElTag } from 'element-plus'
 import { deleteByIds, page } from '../../api/frontend-i18n'
@@ -47,6 +48,7 @@ const schema = ref<MaProTableSchema>({
     { label: '语言', prop: 'language_code', render: 'input' },
     { label: '状态', prop: 'status', render: 'inputNumber', renderProps: { min: 0, max: 1 } },
     { label: '创建时间', prop: 'created_at', render: 'datePicker', renderProps: { type: 'daterange', valueFormat: 'YYYY-MM-DD HH:mm:ss' } },
+    { label: '更新时间', prop: 'updated_at', render: 'datePicker', renderProps: { type: 'daterange', valueFormat: 'YYYY-MM-DD HH:mm:ss' } },
   ],
   tableColumns: [
     { type: 'selection', showOverflowTooltip: false },
@@ -64,7 +66,16 @@ const schema = ref<MaProTableSchema>({
       width: 160,
       operationConfigure: {
         actions: [
-          { name: 'edit', icon: 'material-symbols:edit-square-outline', text: '编辑', show: () => true, onClick: ({ row }) => { maDialog.setTitle('编辑多语言'); maDialog.open({ formType: 'edit', data: row }) } },
+          {
+            name: 'edit',
+            icon: 'material-symbols:edit-square-outline',
+            text: '编辑',
+            show: () => true,
+            onClick: ({ row }) => {
+              maDialog.setTitle('编辑多语言')
+              maDialog.open({ formType: 'edit', data: row })
+            },
+          },
           { name: 'delete', icon: 'mdi:delete', text: '删除', show: () => true, onClick: ({ row }, proxy) => {
             msg.delConfirm('确认删除该配置？').then(async () => {
               const response = await deleteByIds([row.id])
