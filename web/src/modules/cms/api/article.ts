@@ -12,6 +12,7 @@ export interface CmsArticleVo {
   cover?: string
   author?: string
   views?: number
+  sort?: number
   status?: number
   published_at?: string
   seo_title?: string

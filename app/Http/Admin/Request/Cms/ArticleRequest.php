@@ -21,6 +21,7 @@ class ArticleRequest extends FormRequest
             'content' => 'sometimes|nullable|string',
             'cover' => 'sometimes|nullable|string|max:500',
             'author' => 'sometimes|nullable|string|max:50',
+            'sort' => 'sometimes|integer',
             'status' => 'sometimes|integer',
             'published_at' => 'sometimes|nullable|date',
             'seo_title' => 'sometimes|nullable|string|max:200',

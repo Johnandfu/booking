@@ -1088,7 +1088,7 @@
         .landing-hero {
             position: relative;
             display: flex;
-            min-height: calc(100vh - 92px);
+            min-height: clamp(28rem, 58vh, 40rem);
             align-items: center;
             overflow: hidden;
             background:
@@ -1108,8 +1108,42 @@
         }
 
         .landing-hero-content {
+            position: relative;
+            z-index: 2;
             max-width: 760px;
             padding-block: 7rem;
+        }
+
+        .landing-hero-carousel {
+            position: relative;
+            min-height: clamp(28rem, 58vh, 40rem);
+            color: #fff;
+        }
+
+        .landing-hero-carousel .carousel-inner,
+        .landing-hero-carousel .carousel-item {
+            min-height: clamp(28rem, 58vh, 40rem);
+        }
+
+        .landing-hero-slide {
+            position: relative;
+            display: flex;
+            min-height: clamp(28rem, 58vh, 40rem);
+            align-items: center;
+            overflow: hidden;
+            background-position: center;
+            background-size: cover;
+        }
+
+        .landing-hero-slide::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background:
+                linear-gradient(115deg, rgba(3, 39, 48, .68), rgba(15, 143, 147, .25), rgba(255, 208, 126, .20)),
+                radial-gradient(circle at 76% 16%, rgba(255, 231, 175, .38), transparent 22rem),
+                linear-gradient(180deg, rgba(2, 28, 34, .12), rgba(2, 28, 34, .36));
+            pointer-events: none;
         }
 
         .landing-kicker {
@@ -1258,6 +1292,12 @@
             box-shadow: var(--md-shadow-1);
         }
 
+        a.landing-gallery-item {
+            display: block;
+            color: inherit;
+            text-decoration: none;
+        }
+
         .landing-gallery-item.tall {
             grid-row: span 2;
         }
@@ -1312,8 +1352,12 @@
         }
 
         @media (max-width: 575.98px) {
-            .landing-hero {
-                min-height: calc(100vh - 130px);
+            .landing-hero,
+            .landing-hero-carousel,
+            .landing-hero-carousel .carousel-inner,
+            .landing-hero-carousel .carousel-item,
+            .landing-hero-slide {
+                min-height: 28rem;
             }
 
             .landing-gallery {

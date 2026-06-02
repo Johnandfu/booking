@@ -98,6 +98,7 @@ function formItems(): MaFormItem[] {
         ],
       },
     },
+    { label: '排序', prop: 'sort', render: 'inputNumber', cols: { md: 12, xs: 24 }, renderProps: { class: 'w-full', min: 0 } },
     { label: 'SEO标题', prop: 'seo_title', render: 'input' },
     { label: 'SEO描述', prop: 'seo_description', render: 'input', renderProps: { type: 'textarea', rows: 3 } },
   ]
@@ -114,6 +115,7 @@ useForm('articleForm').then((form: MaFormExpose) => {
   if (props.formType === 'add') {
     articleModel.value.status = 1
     articleModel.value.views = 0
+    articleModel.value.sort = 0
   }
   form.setItems(formItems())
   form.setOptions({ labelWidth: '100px' })

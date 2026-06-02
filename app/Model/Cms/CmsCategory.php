@@ -12,6 +12,7 @@ use Hyperf\DbConnection\Model\Model as MineModel;
  * @property int $id
  * @property string $name
  * @property string $slug
+ * @property string|null $image
  * @property string|null $description
  * @property int $sort
  * @property int $status
@@ -27,7 +28,7 @@ final class CmsCategory extends MineModel
     protected ?string $table = 'cms_category';
 
     protected array $fillable = [
-        'id', 'name', 'slug', 'description', 'sort', 'status', 'created_at', 'updated_at',
+        'id', 'name', 'slug', 'image', 'description', 'sort', 'status', 'created_at', 'updated_at',
     ];
 
     protected array $casts = [

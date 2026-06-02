@@ -41,6 +41,7 @@ final class CmsArticleRepository extends IRepository
             ->when(Arr::get($params, 'updated_at'), static function (Builder $query, array $updatedAt): void {
                 $query->whereBetween('updated_at', $updatedAt);
             })
+            ->orderByDesc('sort')
             ->orderByDesc('published_at')
             ->orderByDesc('id');
     }
@@ -63,6 +64,7 @@ final class CmsArticleRepository extends IRepository
         return $this->model->newQuery()
             ->with('category')
             ->where('status', CmsArticle::STATUS_PUBLISHED)
+            ->orderByDesc('sort')
             ->orderByDesc('published_at')
             ->orderByDesc('id')
             ->limit($limit)
@@ -80,6 +82,7 @@ final class CmsArticleRepository extends IRepository
         }
 
         return $query
+            ->orderByDesc('sort')
             ->orderByDesc('published_at')
             ->orderByDesc('id')
             ->paginate(perPage: $pageSize, page: $page);
@@ -94,6 +97,7 @@ final class CmsArticleRepository extends IRepository
             ->with('category')
             ->where('category_id', $categoryId)
             ->where('status', CmsArticle::STATUS_PUBLISHED)
+            ->orderByDesc('sort')
             ->orderByDesc('published_at')
             ->orderByDesc('id')
             ->limit($limit)

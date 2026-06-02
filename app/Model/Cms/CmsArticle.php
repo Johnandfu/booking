@@ -18,6 +18,7 @@ use Hyperf\DbConnection\Model\Model as MineModel;
  * @property string|null $cover
  * @property string|null $author
  * @property int $views
+ * @property int $sort
  * @property int $status
  * @property Carbon|null $published_at
  * @property string|null $seo_title
@@ -35,13 +36,14 @@ final class CmsArticle extends MineModel
 
     protected array $fillable = [
         'id', 'category_id', 'title', 'slug', 'summary', 'content', 'cover', 'author',
-        'views', 'status', 'published_at', 'seo_title', 'seo_description', 'created_at', 'updated_at',
+        'views', 'sort', 'status', 'published_at', 'seo_title', 'seo_description', 'created_at', 'updated_at',
     ];
 
     protected array $casts = [
         'id' => 'integer',
         'category_id' => 'integer',
         'views' => 'integer',
+        'sort' => 'integer',
         'status' => 'integer',
         'published_at' => 'datetime',
         'created_at' => 'datetime',

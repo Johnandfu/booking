@@ -7,6 +7,7 @@ namespace App\Service\Cms;
 use App\Model\Cms\CmsArticle;
 use App\Repository\Cms\CmsArticleRepository;
 use App\Service\IService;
+use Hyperf\Collection\Collection;
 use Hyperf\Contract\LengthAwarePaginatorInterface;
 
 /**
@@ -51,6 +52,14 @@ final class CmsArticleService extends IService
     public function articleBySlugAndCategory(string $slug, int $categoryId): ?CmsArticle
     {
         return $this->repository->findPublishedBySlugAndCategory($slug, $categoryId);
+    }
+
+    /**
+     * @return Collection<int, CmsArticle>
+     */
+    public function latestArticlesByCategory(int $categoryId, int $limit = 1): Collection
+    {
+        return $this->repository->latestPublishedByCategory($categoryId, $limit);
     }
 
     public function incrementViews(int $id): void

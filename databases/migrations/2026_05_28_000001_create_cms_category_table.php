@@ -15,6 +15,7 @@ class CreateCmsCategoryTable extends Migration
             $table->bigIncrements('id')->comment('主键');
             $table->string('name', 100)->comment('栏目名称');
             $table->string('slug', 100)->comment('URL 别名')->unique();
+            $table->string('image', 500)->nullable()->comment('栏目图片');
             $table->string('description', 500)->nullable()->comment('栏目描述');
             $table->unsignedInteger('sort')->default(0)->comment('排序');
             $table->tinyInteger('status')->index()->default(1)->comment('状态:0=禁用,1=启用');

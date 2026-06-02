@@ -16,6 +16,7 @@ class CategoryRequest extends FormRequest
         return [
             'name' => 'required|string|max:100',
             'slug' => 'required|string|max:100',
+            'image' => 'sometimes|nullable|string|max:500',
             'description' => 'sometimes|nullable|string|max:500',
             'sort' => 'sometimes|integer',
             'status' => 'sometimes|integer',

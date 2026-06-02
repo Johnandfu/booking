@@ -4,6 +4,7 @@ export interface CmsCategoryVo {
   id?: number
   name?: string
   slug?: string
+  image?: string
   description?: string
   sort?: number
   status?: number

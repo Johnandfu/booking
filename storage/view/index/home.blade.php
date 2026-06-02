@@ -1,19 +1,57 @@
 @extends('index.layouts.main')
 
 @section('content')
-    <header class="landing-hero">
-        <div class="container position-relative">
-            <div class="landing-hero-content reveal">
-                <span class="landing-kicker">{{ $copy['home-heroKicker'] ?? 'home-heroKicker' }}</span>
-                <h1>{{ $copy['home-heroTitle'] ?? 'home-heroTitle' }}</h1>
-                <p>{{ $copy['home-heroSubtitle'] ?? 'home-heroSubtitle' }}</p>
-                <a href="/service" class="btn btn-light btn-lg rounded-pill px-5">{{ $copy['home-heroCta'] ?? 'home-heroCta' }}</a>
+    @if (! empty($banners) && $banners->isNotEmpty())
+        <header id="homeBannerCarousel" class="carousel slide landing-hero-carousel" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                @foreach ($banners as $banner)
+                    <div class="carousel-item @if ($loop->first) active @endif">
+                        <div class="landing-hero-slide" style="background-image: url('{{ $banner->image }}');">
+                            <div class="container position-relative">
+                                <div class="landing-hero-content reveal">
+                                    <span class="landing-kicker">{{ $copy['home-heroKicker'] ?? 'home-heroKicker' }}</span>
+                                    <h1>{{ $banner->title }}</h1>
+                                    @if ($banner->description)
+                                        <p>{{ $banner->description }}</p>
+                                    @endif
+                                    @if ($banner->link)
+                                        <a href="{{ $banner->link }}" class="btn btn-light btn-lg rounded-pill px-5">{{ $copy['home-heroCta'] ?? 'home-heroCta' }}</a>
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
             </div>
-        </div>
-        <a href="#features" class="scroll-indicator" aria-label="{{ $copy['home-scrollLabel'] ?? 'home-scrollLabel' }}">
-            <span></span>
-        </a>
-    </header>
+            @if ($banners->count() > 1)
+                <button class="carousel-control-prev" type="button" data-bs-target="#homeBannerCarousel" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#homeBannerCarousel" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            @endif
+            <a href="#features" class="scroll-indicator" aria-label="{{ $copy['home-scrollLabel'] ?? 'home-scrollLabel' }}">
+                <span></span>
+            </a>
+        </header>
+    @else
+        <header class="landing-hero">
+            <div class="container position-relative">
+                <div class="landing-hero-content reveal">
+                    <span class="landing-kicker">{{ $copy['home-heroKicker'] ?? 'home-heroKicker' }}</span>
+                    <h1>{{ $copy['home-heroTitle'] ?? 'home-heroTitle' }}</h1>
+                    <p>{{ $copy['home-heroSubtitle'] ?? 'home-heroSubtitle' }}</p>
+                    <a href="/service" class="btn btn-light btn-lg rounded-pill px-5">{{ $copy['home-heroCta'] ?? 'home-heroCta' }}</a>
+                </div>
+            </div>
+            <a href="#features" class="scroll-indicator" aria-label="{{ $copy['home-scrollLabel'] ?? 'home-scrollLabel' }}">
+                <span></span>
+            </a>
+        </header>
+    @endif
 
     <main class="landing-page">
         <section id="features" class="landing-section container">
@@ -22,31 +60,50 @@
                 <h2>{{ $copy['home-featuresTitle'] ?? 'home-featuresTitle' }}</h2>
             </div>
             <div class="row g-4">
-                <div class="col-md-4 reveal">
-                    <article class="landing-feature-card h-100">
-                        <span class="material-symbols-rounded">beach_access</span>
-                        <h3>{{ $copy['home-featureBeachTitle'] ?? 'home-featureBeachTitle' }}</h3>
-                        <p>{{ $copy['home-featureBeachText'] ?? 'home-featureBeachText' }}</p>
-                    </article>
-                </div>
-                <div class="col-md-4 reveal">
-                    <article class="landing-feature-card h-100">
-                        <span class="material-symbols-rounded">apartment</span>
-                        <h3>{{ $copy['home-featureUrbanTitle'] ?? 'home-featureUrbanTitle' }}</h3>
-                        <p>{{ $copy['home-featureUrbanText'] ?? 'home-featureUrbanText' }}</p>
-                    </article>
-                </div>
-                <div class="col-md-4 reveal">
-                    <article class="landing-feature-card h-100">
-                        <span class="material-symbols-rounded">kayaking</span>
-                        <h3>{{ $copy['home-featureOutdoorTitle'] ?? 'home-featureOutdoorTitle' }}</h3>
-                        <p>{{ $copy['home-featureOutdoorText'] ?? 'home-featureOutdoorText' }}</p>
-                    </article>
-                </div>
+                @if (! empty($featureArticles))
+                    @foreach ($featureArticles as $featureItem)
+                        <div class="col-lg-3 col-md-6 reveal">
+                            <article class="landing-feature-card h-100">
+                                <span class="material-symbols-rounded">article</span>
+                                <small class="d-inline-flex mb-3 text-secondary">{{ $featureItem['category']->name }}</small>
+                                <h3><a href="{{ $featureItem['url'] }}" class="text-decoration-none">{{ $featureItem['article']->title }}</a></h3>
+                                <p>
+                                    @if ($featureItem['article']->summary)
+                                        {{ $featureItem['article']->summary }}
+                                    @else
+                                        {{ $featureItem['category']->description ?? $featureItem['category']->name }}
+                                    @endif
+                                </p>
+                            </article>
+                        </div>
+                    @endforeach
+                @else
+                    <div class="col-md-4 reveal">
+                        <article class="landing-feature-card h-100">
+                            <span class="material-symbols-rounded">beach_access</span>
+                            <h3>{{ $copy['home-featureBeachTitle'] ?? 'home-featureBeachTitle' }}</h3>
+                            <p>{{ $copy['home-featureBeachText'] ?? 'home-featureBeachText' }}</p>
+                        </article>
+                    </div>
+                    <div class="col-md-4 reveal">
+                        <article class="landing-feature-card h-100">
+                            <span class="material-symbols-rounded">apartment</span>
+                            <h3>{{ $copy['home-featureUrbanTitle'] ?? 'home-featureUrbanTitle' }}</h3>
+                            <p>{{ $copy['home-featureUrbanText'] ?? 'home-featureUrbanText' }}</p>
+                        </article>
+                    </div>
+                    <div class="col-md-4 reveal">
+                        <article class="landing-feature-card h-100">
+                            <span class="material-symbols-rounded">kayaking</span>
+                            <h3>{{ $copy['home-featureOutdoorTitle'] ?? 'home-featureOutdoorTitle' }}</h3>
+                            <p>{{ $copy['home-featureOutdoorText'] ?? 'home-featureOutdoorText' }}</p>
+                        </article>
+                    </div>
+                @endif
             </div>
         </section>
 
-        <section class="landing-section container">
+        <!-- <section class="landing-section container">
             <div class="row align-items-center g-5">
                 <div class="col-lg-6 reveal">
                     <div class="landing-about-image">
@@ -60,7 +117,7 @@
                     <a href="/about" class="btn btn-au px-4">{{ $copy['home-aboutCta'] ?? 'home-aboutCta' }}</a>
                 </div>
             </div>
-        </section>
+        </section> -->
 
         <section class="landing-section container">
             <div class="landing-section-heading reveal">
@@ -68,18 +125,14 @@
                 <h2>{{ $copy['home-galleryTitle'] ?? 'home-galleryTitle' }}</h2>
             </div>
             <div class="landing-gallery">
-                <div class="landing-gallery-item tall reveal">
-                    <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=900&q=85" alt="{{ $copy['home-galleryBeachAlt'] ?? 'home-galleryBeachAlt' }}">
-                </div>
-                <div class="landing-gallery-item reveal">
-                    <img src="https://images.unsplash.com/photo-1519046904884-53103b34b206?auto=format&fit=crop&w=900&q=85" alt="{{ $copy['home-galleryHolidayAlt'] ?? 'home-galleryHolidayAlt' }}">
-                </div>
-                <div class="landing-gallery-item reveal">
-                    <img src="https://images.unsplash.com/photo-1500375592092-40eb2168fd21?auto=format&fit=crop&w=900&q=85" alt="{{ $copy['home-galleryWavesAlt'] ?? 'home-galleryWavesAlt' }}">
-                </div>
-                <div class="landing-gallery-item wide reveal">
-                    <img src="https://images.unsplash.com/photo-1499793983690-e29da59ef1c2?auto=format&fit=crop&w=1200&q=85" alt="{{ $copy['home-galleryPoolAlt'] ?? 'home-galleryPoolAlt' }}">
-                </div>
+                @if (! empty($galleryArticles))
+                    @foreach ($galleryArticles as $galleryItem)
+                        <a href="{{ $galleryItem['url'] }}" class="landing-gallery-item @if ($loop->first) tall @elseif ($loop->iteration === 4) wide @endif reveal">
+                            <img src="{{ $galleryItem['article']->cover }}" alt="{{ $galleryItem['article']->title }}">
+                        </a>
+                    @endforeach
+               
+                @endif
             </div>
         </section>
     </main>

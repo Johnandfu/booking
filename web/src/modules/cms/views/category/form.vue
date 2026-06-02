@@ -6,6 +6,7 @@ import useForm from '../../../../hooks/useForm'
 import { ResultCode } from '../../../../utils/ResultCode'
 import { h, ref } from 'vue'
 import { ElOption } from 'element-plus'
+import MaUploadImage from '../../../../components/ma-upload-image/index.vue'
 
 defineOptions({ name: 'cms:category:form' })
 
@@ -42,6 +43,11 @@ function formItems(): MaFormItem[] {
       prop: 'description',
       render: 'input',
       renderProps: { type: 'textarea', rows: 3 },
+    },
+    {
+      label: '栏目图片',
+      prop: 'image',
+      render: () => MaUploadImage,
     },
     {
       label: '排序',

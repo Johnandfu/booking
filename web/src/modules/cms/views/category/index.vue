@@ -3,7 +3,7 @@ import type { MaProTableExpose, MaProTableOptions, MaProTableSchema } from '@min
 import type { Ref } from 'vue'
 import { ref } from 'vue'
 import type { UseDialogExpose } from '../../../../hooks/useDialog'
-import { ElTag } from 'element-plus'
+import { ElImage, ElTag } from 'element-plus'
 import { deleteByIds, page } from '../../api/category'
 import CategoryForm from './form.vue'
 import useDialog from '../../../../hooks/useDialog'
@@ -56,6 +56,14 @@ const schema = ref<MaProTableSchema>({
   tableColumns: [
     { type: 'selection', showOverflowTooltip: false },
     { type: 'index' },
+    {
+      label: '图片',
+      prop: 'image',
+      width: 110,
+      cellRender: ({ row }) => row.image
+        ? <ElImage src={row.image} fit="cover" style="width:72px;height:42px;border-radius:6px;" preview-src-list={[row.image]} />
+        : '-',
+    },
     { label: '名称', prop: 'name' },
     { label: 'Slug', prop: 'slug' },
     { label: '描述', prop: 'description' },
