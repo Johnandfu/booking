@@ -21,13 +21,12 @@ final class CmsCategoryRepository extends IRepository
 
     public function handleSearch(Builder $query, array $params): Builder
     {
-        return $query
-            ->when(Arr::has($params, 'status'), static function (Builder $query) use ($params): void {
-                $query->where('status', (int) $params['status']);
-            })
+        return $query->when(Arr::has($params, 'status'), static function (Builder $query) use ($params): void {
+            $query->where('status', (int) $params['status']);
+        })
             ->when(Arr::get($params, 'keyword'), static function (Builder $query, string $keyword): void {
                 $query->where(static function (Builder $query) use ($keyword): void {
-                    $query->where('name', 'like', "%{$keyword}%")
+                     $query->where('name', 'like', "%{$keyword}%")
                         ->orWhere('slug', 'like', "%{$keyword}%");
                 });
             })

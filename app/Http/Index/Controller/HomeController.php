@@ -10,6 +10,7 @@ use App\Service\Cms\CmsContactMessageService;
 use App\Service\Cms\CmsCategoryService;
 use App\Service\Cms\CmsLanguageService;
 use Hyperf\HttpServer\Contract\RequestInterface;
+use Hyperf\HttpServer\Contract\ResponseInterface as HttpResponseInterface;
 use Hyperf\View\RenderInterface;
 use Psr\Http\Message\ResponseInterface;
 
@@ -28,57 +29,46 @@ final class HomeController extends BaseController
 
     public function index(RenderInterface $render): ResponseInterface
     {
+        $featuredArticles = $galleryArticles = [];
+
+        $category = $this->cmsCategory->enabledCategories()->first();
+        if ($category) {
+            $featuredArticles = $this->cmsArticle->latestArticlesByCategory($category->id, 4)
+                ->map(static function ($article) use ($category): array {
+                    return [
+                        'category' => $category,
+                        'article' => $article,
+                        'url' => '/' . $category->slug . '/' . $article->id,
+                    ];
+                })->values()->all();
+        }
+
+        $category = $this->cmsCategory->enabledCategories()->last();
+        if ($category) {
+            $galleryArticles = $this->cmsArticle->latestArticlesByCategory($category->id, 6)
+                ->map(static function ($article) use ($category): array {
+                    return [
+                        'category' => $category,
+                        'article' => $article,
+                        'url' => '/' . $category->slug . '/' . $article->id,
+                    ];
+                })->values()->all();
+        }
         return $this->view($render, 'index.home', [
             'activeNav' => 'home',
+            'pageTitle' => 'home-title',
+            'pageDescription' => 'home-description',
             'banners' => $this->cmsBanner->banners(),
-            'featureArticles' => $this->featureArticles(),
-            'galleryArticles' => $this->galleryArticles(),
+            'featureArticles' => $featuredArticles,
+            'galleryArticles' => $galleryArticles,
         ]);
-    }
-
-    private function featureArticles(): array
-    {
-        $category = $this->cmsCategory->enabledCategories()->first();
-        if ($category === null) {
-            return [];
-        }
-
-        return $this->cmsArticle->latestArticlesByCategory($category->id, 4)
-            ->map(static function ($article) use ($category): array {
-                return [
-                    'category' => $category,
-                    'article' => $article,
-                    'url' => '/' . $category->slug . '/' . $article->slug,
-                ];
-            })
-            ->values()
-            ->all();
-    }
-
-    private function galleryArticles(): array
-    {
-        $category = $this->cmsCategory->enabledCategories()->last();
-        if ($category === null) {
-            return [];
-        }
-
-        return $this->cmsArticle->latestArticlesByCategory($category->id, 6)
-            ->filter(static fn ($article): bool => ! empty($article->cover))
-            ->map(static function ($article) use ($category): array {
-                return [
-                    'category' => $category,
-                    'article' => $article,
-                    'url' => '/' . $category->slug . '/' . $article->slug,
-                ];
-            })
-            ->values()
-            ->all();
     }
 
     public function about(RenderInterface $render): ResponseInterface
     {
         return $this->view($render, 'index.about', [
-            'title' => 'main-aboutTitle',
+            'pageTitle' => 'about-title',
+            'pageDescription' => 'about-description',
             'activeNav' => 'about',
         ]);
     }
@@ -86,26 +76,24 @@ final class HomeController extends BaseController
     public function contact(RenderInterface $render): ResponseInterface
     {
         return $this->view($render, 'index.contact', [
-            'title' => 'contact-title',
+            'pageTitle' => 'contact-title',
+            'pageDescription' => 'contact-description',
             'activeNav' => 'contact',
-            'message' => null,
-            'messageType' => 'success',
         ]);
     }
 
-    public function submitContact(RequestInterface $request, RenderInterface $render): ResponseInterface
+    public function submitContact(RequestInterface $request, HttpResponseInterface $response): ResponseInterface
     {
         $name = trim((string) $request->input('name', ''));
         $contentValue = trim((string) $request->input('content', ''));
 
         if ($name === '' || $contentValue === '') {
-            return $this->view($render, 'index.contact', [
-                'title' => 'contact-title',
-                'activeNav' => 'contact',
-                'message' => 'contact-message',
-                'messageType' => 'danger',
+            return $response->json([
+                'success' => false,
+                'message' => 'contact-submitRequired',
             ]);
         }
+
         $this->cmsContactMessage->createContactMessage([
             'name' => $name,
             'email' => (string) $request->input('email', ''),
@@ -115,11 +103,9 @@ final class HomeController extends BaseController
             'user_agent' => (string) $request->header('user-agent', ''),
         ]);
 
-        return $this->view($render, 'index.contact', [
-            'title' => 'contact-title',
-            'activeNav' => 'contact',
-            'message' => 'contact-message',
-            'messageType' => 'success',
+        return $response->json([
+            'success' => true,
+            'message' => 'contact-submitSuccess',
         ]);
     }
 }

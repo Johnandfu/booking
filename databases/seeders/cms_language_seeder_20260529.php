@@ -85,6 +85,9 @@ class CmsLanguageSeeder20260529 extends Seeder
                     'servicePropertyText' => 'Short-term rental and leasing services',
                     'servicePropertyTitle' => 'Property Management',
                     'submit' => 'Submit',
+                    'submitFailed' => 'Failed to send your message. Please try again.',
+                    'submitRequired' => 'Please enter your name and message.',
+                    'submitSuccess' => 'Your message has been sent.',
                     'us' => 'Contact Us',
                 ],
                 'home' => [
@@ -277,6 +280,9 @@ class CmsLanguageSeeder20260529 extends Seeder
                     'servicePropertyText' => '短租管理与租赁服务',
                     'servicePropertyTitle' => '物业管理',
                     'submit' => '提交留言',
+                    'submitFailed' => '提交失败，请稍后重试。',
+                    'submitRequired' => '请填写姓名和留言内容。',
+                    'submitSuccess' => '留言已提交。',
                     'us' => '联系我们',
                 ],
                 'home' => [
@@ -469,6 +475,9 @@ class CmsLanguageSeeder20260529 extends Seeder
                     'servicePropertyText' => '短租管理與租賃服務',
                     'servicePropertyTitle' => '物業管理',
                     'submit' => '提交留言',
+                    'submitFailed' => '提交失敗，請稍後重試。',
+                    'submitRequired' => '請填寫姓名和留言內容。',
+                    'submitSuccess' => '留言已提交。',
                     'us' => '聯絡我們',
                 ],
                 'home' => [

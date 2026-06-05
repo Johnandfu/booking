@@ -10,7 +10,9 @@ use App\Http\Admin\Request\Cms\FrontendI18nRequest;
 use App\Http\Common\Middleware\AccessTokenMiddleware;
 use App\Http\Common\Middleware\OperationMiddleware;
 use App\Http\Common\Result;
+use App\Service\Cms\CmsContentService;
 use App\Service\Cms\CmsLanguageService;
+use Hyperf\Collection\Arr;
 use Hyperf\HttpServer\Annotation\Middleware;
 use Hyperf\Swagger\Annotation\Delete;
 use Hyperf\Swagger\Annotation\Get;
@@ -36,11 +38,18 @@ final class FrontendI18nController extends AbstractController
         return $this->success($this->service->page($this->getRequestData(), $this->getCurrentPage(), $this->getPageSize()));
     }
 
+    #[Get(path: '/admin/cms/frontend-i18n/languages', operationId: 'cmsFrontendI18nLanguages', summary: 'CMS 前台语言列表', tags: ['CMS'])]
+    #[Permission(code: 'cms:frontend-i18n:list')]
+    public function languages(): Result
+    {
+        return $this->success(CmsContentService::FRONTEND_LOCALES);
+    }
+
     #[Post(path: '/admin/cms/frontend-i18n', operationId: 'cmsFrontendI18nCreate', summary: '创建 CMS 前台多语言配置', tags: ['CMS'])]
     #[Permission(code: 'cms:frontend-i18n:create')]
     public function create(FrontendI18nRequest $request): Result
     {
-        $this->service->create($request->validated());
+        $this->service->updateOrCreate(Arr::only($request->validated(), ['language_code', 'key', 'group_type']), Arr::except($request->validated(), ['language_code', 'key', 'group_type']));
         return $this->success();
     }
 

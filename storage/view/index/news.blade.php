@@ -32,7 +32,7 @@
                 @forelse ($featuredItems as $article)
                     <div class="col-lg-6 reveal">
                         <article class="luxe-feature-card">
-                            <a href="{{ $basePath }}/{{ $article->slug }}" class="luxe-feature-media">
+                            <a href="{{ $basePath }}/{{ $article->id }}" class="luxe-feature-media">
                                 @if ($article->cover)
                                     <img src="{{ $article->cover }}" alt="{{ $article->title }}">
                                 @else
@@ -50,7 +50,7 @@
                                         {{ $copy['news-listingLocation'] ?? 'news-listingLocation' }}
                                     @endif
                                 </span>
-                                <h2><a href="{{ $basePath }}/{{ $article->slug }}" class="text-decoration-none">{{ $article->title }}</a></h2>
+                                <h2><a href="{{ $basePath }}/{{ $article->id }}" class="text-decoration-none">{{ $article->title }}</a></h2>
                                 <p>
                                     @if ($article->summary)
                                         {{ $article->summary }}
@@ -84,7 +84,7 @@
             >
                 @forelse ($listingItems as $article)
                     <article class="luxe-listing-card news-masonry-card reveal">
-                        <a href="{{ $basePath }}/{{ $article->slug }}" class="luxe-listing-media">
+                        <a href="{{ $basePath }}/{{ $article->id }}" class="luxe-listing-media">
                             @if ($article->cover)
                                 <img src="{{ $article->cover }}" alt="{{ $article->title }}">
                             @else
@@ -94,7 +94,7 @@
                         </a>
                         <div class="luxe-listing-copy">
                             <span class="luxe-location">{{ $copy['news-listingLocation'] ?? 'news-listingLocation' }}</span>
-                            <h3><a href="{{ $basePath }}/{{ $article->slug }}" class="text-decoration-none stretched-link">{{ $article->title }}</a></h3>
+                            <h3><a href="{{ $basePath }}/{{ $article->id }}" class="text-decoration-none stretched-link">{{ $article->title }}</a></h3>
                             <div class="luxe-price">
                                 @if ($article->published_at)
                                     {{ $article->published_at->format('d M Y') }}

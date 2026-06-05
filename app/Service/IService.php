@@ -72,13 +72,30 @@ abstract class IService
     /**
      * @return null|T
      */
-    public function findById(mixed $id): mixed
+    public function findById(mixed $id, array|string $with = []): mixed
     {
-        return $this->repository->findById($id);
+        return $this->repository->findById($id, $with);
     }
 
     public function existsById(mixed $id): bool
     {
         return $this->repository->existsById($id);
+    }
+
+
+    /**
+     * @return T
+     */
+    public function firstOrCreate(array $data, array $update = []): mixed
+    {
+        return $this->repository->firstOrCreate($data, $update);
+    }
+
+    /**
+     * @return T
+     */
+    public function updateOrCreate(array $data, array $update = []): mixed
+    {
+        return $this->repository->updateOrCreate($data, $update);
     }
 }

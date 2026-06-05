@@ -118,9 +118,14 @@ abstract class IRepository
     /**
      * @return null|T
      */
-    public function findById(mixed $id): mixed
+    public function findById(mixed $id, array|string $with = []): mixed
     {
-        return $this->getQuery()->whereKey($id)->first();
+        $query = $this->getQuery();
+        if (! empty($with)) {
+            $query->with($with);
+        }
+
+        return $query->whereKey($id)->first();
     }
 
     public function findByField(mixed $id, string $field): mixed
@@ -158,5 +163,22 @@ abstract class IRepository
     public function getModel()
     {
         return $this->model;
+    }
+
+    /**
+     * @return T
+     */
+    public function firstOrCreate(array $data, array $update = []): Builder
+    {
+        return $this->getQuery()->firstOrCreate($data, $update);
+    }
+
+
+    /**
+     * @return T
+     */
+    public function updateOrCreate(array $data, array $update = []): Builder
+    {
+        return $this->getQuery()->updateOrCreate($data, $update);
     }
 }

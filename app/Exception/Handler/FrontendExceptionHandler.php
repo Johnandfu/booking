@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Exception\Handler;
 
+use App\Factory\Log;
 use App\Service\Cms\CmsContentService;
 use Hyperf\Database\Model\ModelNotFoundException;
 use Hyperf\ExceptionHandler\ExceptionHandler;
@@ -26,7 +27,7 @@ final class FrontendExceptionHandler extends ExceptionHandler
 
         $statusCode = $this->statusCode($throwable);
         $locale = (string) $this->request->getAttribute('frontend_locale', CmsContentService::DEFAULT_FRONTEND_LOCALE);
-
+        Log::error('error', ['throwable' => $throwable]);
         return $this->render->render('index.error', [
             'activeNav' => null,
             'locale' => $locale,

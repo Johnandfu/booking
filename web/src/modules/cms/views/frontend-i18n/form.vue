@@ -3,7 +3,7 @@ import type { MaFormExpose, MaFormItem } from '@mineadmin/form'
 import { h, ref } from 'vue'
 import { ElOption } from 'element-plus'
 import type { CmsFrontendI18nVo } from '../../api/frontend-i18n'
-import { create, save } from '../../api/frontend-i18n'
+import { create, languages, save } from '../../api/frontend-i18n'
 import useForm from '../../../../hooks/useForm'
 import { ResultCode } from '../../../../utils/ResultCode'
 
@@ -24,12 +24,22 @@ const frontendI18nModel = ref<CmsFrontendI18nVo>({
   status: 1,
   sort: 0,
 })
+const languageOptions = ref<Record<string, string>>({})
 
 function formItems(): MaFormItem[] {
   return [
     { label: '分组', prop: 'group_type', render: 'input', itemProps: { rules: [{ required: true, message: '请输入分组' }] } },
     { label: '配置键', prop: 'key', render: 'input', itemProps: { rules: [{ required: true, message: '请输入配置键' }] } },
-    { label: '语言', prop: 'language_code', render: 'input', itemProps: { rules: [{ required: true, message: '请输入语言' }] } },
+    {
+      label: '语言',
+      prop: 'language_code',
+      render: 'select',
+      renderProps: { class: 'w-full' },
+      renderSlots: {
+        default: () => Object.entries(languageOptions.value).map(([value, label]) => h(ElOption, { label, value })),
+      },
+      itemProps: { rules: [{ required: true, message: '请选择语言' }] },
+    },
     { label: '说明', prop: 'title', render: 'input' },
     { label: '文案', prop: 'value', render: 'input', renderProps: { type: 'textarea', rows: 4 } },
     { label: '排序', prop: 'sort', render: 'inputNumber', renderProps: { class: 'w-full' } },
@@ -48,7 +58,12 @@ function formItems(): MaFormItem[] {
   ]
 }
 
-useForm('frontendI18nForm').then((form: MaFormExpose) => {
+useForm('frontendI18nForm').then(async (form: MaFormExpose) => {
+  const res = await languages()
+  if (res.code === ResultCode.SUCCESS) {
+    languageOptions.value = res.data || {}
+  }
+
   if (props.formType === 'edit' && props.data) {
     const data = props.data as Record<string, any>
     const model = frontendI18nModel.value as Record<string, any>

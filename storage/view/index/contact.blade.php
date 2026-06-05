@@ -67,10 +67,15 @@
             </div>
         </div>
         <div class="col-lg-6 reveal">
-            <form class="lux-card p-4 p-lg-5 h-100" method="post" action="/contact/message">
-                @if ($message)
-                <div class="alert alert-{{ $messageType }}">{{ $message ?? '' }}</div>
-                @endif
+            <form
+                class="lux-card p-4 p-lg-5 h-100"
+                method="post"
+                action="/contact/message"
+                id="contactForm"
+                data-submit-required="{{ $copy['contact-submitRequired'] ?? 'Please enter your name and message.' }}"
+                data-submit-success="{{ $copy['contact-submitSuccess'] ?? 'Your message has been sent.' }}"
+                data-submit-failed="{{ $copy['contact-submitFailed'] ?? 'Failed to send your message. Please try again.' }}"
+            >
                 <div class="mb-3">
                     <label class="form-label" for="name">{{ $copy['contact-name'] ?? 'contact-name' }}</label>
                     <input class="form-control" id="name" name="name" type="text" placeholder="{{ $copy['contact-name'] ?? 'contact-name' }}" required>
@@ -92,4 +97,63 @@
         </div>
     </section>
 </main>
+
+<div class="toast-container position-fixed top-0 end-0 p-3">
+    <div id="contactToast" class="toast text-bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="d-flex">
+            <div class="toast-body" data-contact-toast-message></div>
+            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.getElementById('contactForm')?.addEventListener('submit', async (event) => {
+        event.preventDefault();
+
+        const form = event.currentTarget;
+        const submitButton = form.querySelector('button[type="submit"]');
+        const toastEl = document.getElementById('contactToast');
+        const toastMessage = toastEl.querySelector('[data-contact-toast-message]');
+        const toast = bootstrap.Toast.getOrCreateInstance(toastEl, {
+            autohide: true,
+            delay: 5000,
+        });
+        const messages = {
+            'contact-submitRequired': form.dataset.submitRequired || 'Please enter your name and message.',
+            'contact-submitSuccess': form.dataset.submitSuccess || 'Your message has been sent.',
+            'contact-submitFailed': form.dataset.submitFailed || 'Failed to send your message. Please try again.',
+        };
+        const showToast = (message, type) => {
+            toastEl.className = `toast text-bg-${type} border-0`;
+            toastMessage.textContent = message;
+            toast.show();
+        };
+
+        submitButton.disabled = true;
+
+        try {
+            const response = await fetch(form.action, {
+                method: 'POST',
+                body: new FormData(form),
+                headers: {
+                    Accept: 'application/json',
+                },
+            });
+            const result = await response.json();
+
+            showToast(
+                messages[result.message] || result.message || messages['contact-submitFailed'],
+                result.success ? 'success' : 'danger'
+            );
+            if (result.success) {
+                form.reset();
+            }
+        } catch (error) {
+            showToast(messages['contact-submitFailed'], 'danger');
+        } finally {
+            submitButton.disabled = false;
+        }
+    });
+</script>
 @endsection

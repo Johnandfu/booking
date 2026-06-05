@@ -13,7 +13,6 @@
     <meta property="og:site_name" content="{{ $copy['main-siteName'] ?? 'main-siteName' }}">
     <meta property="og:title" content="{{ $seoTitle ?? ($copy['main-title'] ?? 'main-title') }}">
     <meta property="og:description" content="{{ $seoDescription ?? ($copy['main-description'] ?? 'main-description') }}">
-    <meta property="og:url" content="{{ $seoUrl ?? '' }}">
 
     <meta name="twitter:card" content="@if (! empty($seoImage)) summary_large_image @else summary @endif">
     <meta name="twitter:title" content="{{ $seoTitle ?? ($copy['main-title'] ?? 'main-title') }}">
@@ -36,6 +35,7 @@
     <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
     <style>
         :root {
             --md-primary: #0f8f93;
@@ -371,7 +371,7 @@
         }
 
         .topbar-social a:hover {
-            color: #ffe5a8;
+            color:rgb(255, 168, 168);
             border-color: rgba(255, 229, 168, .72);
             transform: translateY(-1px);
         }
@@ -814,6 +814,7 @@
         .service-list-body p {
             display: -webkit-box;
             overflow: hidden;
+            line-clamp: 3;
             -webkit-line-clamp: 3;
             -webkit-box-orient: vertical;
             font-size: .92rem;
@@ -1145,7 +1146,7 @@
         .landing-kicker {
             display: inline-flex;
             margin-bottom: 1.25rem;
-            color: #ffe5a8;
+            color:rgb(255, 178, 168);
             font-size: .76rem;
             font-weight: 800;
             letter-spacing: .22em;
@@ -1416,7 +1417,7 @@
 
         .footer-links a:hover,
         .footer-social a:hover {
-            color: #ffe5a8;
+            color:rgb(255, 184, 168);
             transform: translateY(-1px);
         }
 
@@ -1450,113 +1451,610 @@
         .admin-entry:hover {
             color: rgba(255, 255, 255, .5);
         }
+
+        .brissy-header {
+            background: #fff;
+            box-shadow: 0 10px 30px rgba(23, 43, 54, .08);
+            position: sticky;
+            top: 0;
+            z-index: 1040;
+        }
+
+        .brissy-header .navbar {
+            min-height: 84px;
+            background: #0d2330;
+            box-shadow: 0 12px 32px rgba(13, 35, 48, .20);
+        }
+
+        .brissy-brand {
+            color: #fff;
+            font-size: 1.5rem;
+            font-weight: 800;
+            letter-spacing: -.03em;
+            text-decoration: none;
+        }
+
+        .brissy-brand:hover {
+            color: #fff;
+        }
+
+        .brissy-brand .brand-mark {
+            display: inline-flex;
+            width: 2.65rem;
+            height: 2.65rem;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: #fff;
+            color: #0d2330;
+            box-shadow: 0 12px 24px rgba(0, 0, 0, .18);
+        }
+
+        .brissy-header .nav-link {
+            color: rgba(255, 255, 255, .82);
+            font-size: .96rem;
+            font-weight: 700;
+            border-radius: 0;
+            padding: .5rem .85rem !important;
+        }
+
+        .brissy-header .nav-link:hover,
+        .brissy-header .nav-link.active {
+            color: #f4c76b;
+            background: transparent;
+        }
+
+        .brissy-header .navbar-toggler {
+            border-color: rgba(255, 255, 255, .35);
+        }
+
+        .brissy-header .navbar-toggler-icon {
+            filter: invert(1) grayscale(1) brightness(2);
+        }
+
+        .brissy-meta-bar {
+            border-bottom: 1px solid rgba(255, 255, 255, .10);
+            background: #0d2330;
+            color: rgba(255, 255, 255, .74);
+            font-size: .9rem;
+        }
+
+        .brissy-meta-bar a {
+            color: rgba(255, 255, 255, .74);
+            text-decoration: none;
+        }
+
+        .brissy-meta-bar a:hover {
+            color: #f4c76b;
+        }
+
+        .brissy-meta-bar .language-menu .dropdown-toggle {
+            color: rgba(255, 255, 255, .88);
+            background: rgba(255, 255, 255, .08);
+            border: 1px solid rgba(255, 255, 255, .22);
+        }
+
+        .brissy-meta-bar .language-menu .dropdown-toggle:hover {
+            color: #0d2330;
+            background: #f4c76b;
+            border-color: #f4c76b;
+        }
+
+        .brissy-meta-item {
+            display: inline-flex;
+            align-items: center;
+            gap: .45rem;
+        }
+
+        .brissy-social {
+            display: inline-flex;
+            align-items: center;
+            gap: .45rem;
+        }
+
+        .brissy-social a {
+            display: inline-flex;
+            width: 2rem;
+            height: 2rem;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            border: 1px solid rgba(255, 255, 255, .22);
+            background: rgba(255, 255, 255, .08);
+            color: rgba(255, 255, 255, .88);
+            font-size: .88rem;
+            font-weight: 800;
+        }
+
+        .brissy-social a:hover {
+            border-color: #f4c76b;
+            background: #f4c76b;
+            color: #0d2330;
+        }
+
+        .brissy-footer {
+            background: #0d2330;
+            color: rgba(255, 255, 255, .72);
+        }
+
+        .brissy-footer h3,
+        .brissy-footer strong {
+            color: #fff;
+        }
+
+        .brissy-footer h3 {
+            font-size: 1.25rem;
+            font-weight: 800;
+            margin-bottom: 1.25rem;
+        }
+
+        .brissy-footer p {
+            line-height: 1.8;
+        }
+
+        .brissy-footer a {
+            color: rgba(255, 255, 255, .72);
+            text-decoration: none;
+        }
+
+        .brissy-footer a:hover {
+            color: #fff;
+        }
+
+        .brissy-footer-links {
+            display: grid;
+            gap: .75rem;
+        }
+
+        .brissy-footer-contact {
+            display: grid;
+            gap: .85rem;
+        }
+
+        .brissy-footer-contact span {
+            display: inline-flex;
+            align-items: flex-start;
+            gap: .55rem;
+        }
+
+        .brissy-footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, .12);
+            color: rgba(255, 255, 255, .55);
+            font-size: .9rem;
+        }
+
+        .footer-contact-card {
+            margin-top: -5.25rem;
+            margin-bottom: 3.5rem;
+            padding: clamp(1.25rem, 3vw, 2rem);
+            border: 1px solid rgba(255, 255, 255, .22);
+            border-radius: 28px;
+            background: #e3572b;
+            box-shadow: 0 22px 55px rgba(13, 35, 48, .20);
+            color: #fff;
+        }
+
+        .footer-contact-card-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            height: 100%;
+            padding: 1rem;
+        }
+
+        .footer-contact-card-icon {
+            display: inline-flex;
+            width: 3.4rem;
+            height: 3.4rem;
+            flex: 0 0 3.4rem;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: #fff;
+            color: #e3572b;
+            font-size: 1.25rem;
+        }
+
+        .footer-contact-card-label {
+            margin-bottom: .25rem;
+            color: rgba(255, 255, 255, .72);
+            font-size: .9rem;
+            font-weight: 700;
+        }
+
+        .footer-contact-card-value {
+            margin: 0;
+            color: #fff;
+            font-weight: 800;
+            line-height: 1.35;
+        }
+
+        .services-page {
+            background: #f3f7f8;
+        }
+
+        .about-page {
+            background: #fff;
+        }
+
+        .about-title-bar {
+            padding-block: clamp(3.5rem, 7vw, 6rem);
+            background:
+                linear-gradient(120deg, rgba(13, 35, 48, .88), rgba(13, 35, 48, .72)),
+                url("https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=1800&q=85") center/cover;
+            color: #fff;
+        }
+
+        .about-title-bar h1 {
+            margin-bottom: 1rem;
+            font-size: clamp(2.4rem, 5vw, 4.5rem);
+            font-weight: 800;
+            letter-spacing: -.045em;
+        }
+
+        .about-section,
+        .about-story-section,
+        .about-muted-section {
+            padding-block: clamp(4rem, 7vw, 6rem);
+        }
+
+        .about-story-section,
+        .about-muted-section {
+            background: #FFF8F2;
+        }
+
+        .about-section h2,
+        .about-muted-section h2 {
+            margin-bottom: 1.25rem;
+            color: #102b3a;
+            font-size: clamp(2rem, 4vw, 3.6rem);
+            font-weight: 800;
+            letter-spacing: -.055em;
+            line-height: 1.05;
+        }
+
+        .about-copy {
+            color: #4b5d67;
+            font-size: 1.04rem;
+            line-height: 1.85;
+        }
+
+        .about-image-card,
+        .about-founder-card,
+        .about-image-stack {
+            overflow: hidden;
+            border-radius: 30px;
+            box-shadow: 0 22px 55px rgba(13, 35, 48, .14);
+        }
+
+        .about-image-card img,
+        .about-founder-card img,
+        .about-image-stack img {
+            display: block;
+            width: 100%;
+            min-height: 30rem;
+            object-fit: cover;
+        }
+
+        .about-image-stack {
+            position: relative;
+        }
+
+        .about-stat-card {
+            position: absolute;
+            right: 1.25rem;
+            bottom: 1.25rem;
+            min-width: 8.5rem;
+            padding: 1rem 1.25rem;
+            border-radius: 18px;
+            background: #e3572b;
+            color: #fff;
+            box-shadow: 0 16px 35px rgba(13, 35, 48, .18);
+        }
+
+        .about-stat-card-secondary {
+            right: auto;
+            left: 1.25rem;
+            bottom: 1.25rem;
+            background: #0d2330;
+        }
+
+        .about-stat-card strong {
+            display: block;
+            font-size: 1.8rem;
+            line-height: 1;
+        }
+
+        .about-stat-card span {
+            font-size: .9rem;
+            opacity: .84;
+        }
+
+        .about-team-card,
+        .about-feedback-card {
+            height: 100%;
+            padding: 1.5rem;
+            border: 1px solid #ead8c8;
+            border-radius: 22px;
+            background: #fff;
+            box-shadow: 0 14px 32px rgba(104, 73, 45, .08);
+        }
+
+        .about-team-avatar {
+            display: inline-flex;
+            width: 4rem;
+            height: 4rem;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.25rem;
+            border-radius: 50%;
+            background: #0d2330;
+            color: #fff;
+            font-size: 1.6rem;
+        }
+
+        .about-team-card h3,
+        .about-feedback-card h3 {
+            margin-bottom: .35rem;
+            color: #102b3a;
+            font-size: 1.2rem;
+            font-weight: 800;
+        }
+
+        .about-team-card p,
+        .about-feedback-card p,
+        .about-feedback-card span {
+            color: #63737c;
+        }
+
+        .services-title-bar {
+            padding-block: clamp(3.5rem, 7vw, 6rem);
+            background:
+                linear-gradient(120deg, rgba(13, 35, 48, .88), rgba(13, 35, 48, .74)),
+                url("https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1800&q=85") center/cover;
+            color: #fff;
+        }
+
+        .services-title-bar h1 {
+            margin-bottom: 1rem;
+            font-size: clamp(2.4rem, 5vw, 4.5rem);
+            font-weight: 800;
+            letter-spacing: -.045em;
+        }
+
+        .services-breadcrumb {
+            display: inline-flex;
+            align-items: center;
+            gap: .75rem;
+            color: rgba(255, 255, 255, .76);
+            font-weight: 700;
+        }
+
+        .services-breadcrumb a {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .services-breadcrumb a::after {
+            content: "/";
+            margin-left: .75rem;
+            color: rgba(255, 255, 255, .52);
+        }
+
+        .services-content {
+            padding-block: clamp(3rem, 6vw, 5.5rem);
+        }
+
+        .service-card {
+            display: grid;
+            grid-template-columns: minmax(280px, 38%) 1fr;
+            overflow: hidden;
+            border: 1px solid #f1e3d8;
+            border-radius: 24px;
+            background: #FFF8F2;
+            box-shadow: 0 16px 38px rgba(104, 73, 45, .08);
+            transition: transform .25s ease-out, box-shadow .25s ease-out, border-color .25s ease-out;
+        }
+
+        .service-card:hover {
+            transform: translateY(-4px);
+            border-color: #e7d0bd;
+            box-shadow: 0 22px 52px rgba(104, 73, 45, .12);
+        }
+
+        .service-card-media {
+            min-height: 100%;
+            background: #f4e7dc;
+        }
+
+        .service-card-media img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            min-height: 22rem;
+            object-fit: cover;
+        }
+
+        .service-card-copy {
+            padding: clamp(1.5rem, 3vw, 2.5rem);
+        }
+
+        .service-card h2 {
+            margin-bottom: 1rem;
+            color: #102b3a;
+            font-size: clamp(1.35rem, 2.4vw, 1.9rem);
+            font-weight: 800;
+            letter-spacing: -.035em;
+        }
+
+        .service-section-body {
+            color: #415160;
+        }
+
+        .service-section-body p {
+            margin-bottom: 1rem;
+        }
+
+        .service-section-body ul {
+            margin: .8rem 0 0;
+            padding-left: 1.35rem;
+        }
+
+        .service-section-body li {
+            margin-bottom: .55rem;
+            line-height: 1.75;
+        }
+
+        @media (max-width: 991.98px) {
+            .service-card {
+                grid-template-columns: 1fr;
+            }
+
+            .service-card-media img {
+                min-height: 15rem;
+            }
+        }
     </style>
 </head>
 
 <body>
-    <div class="topbar py-2">
-        <div class="container d-flex flex-column flex-md-row justify-content-between gap-2">
+    <div class="brissy-meta-bar py-2" data-header-meta>
+        <div class="container d-flex flex-column flex-lg-row align-items-lg-center justify-content-between gap-2">
             <div class="d-flex flex-wrap align-items-center gap-3">
-
-                <span><span class="material-symbols-rounded me-1">mail</span> {{ $copy['main-contactEmail'] ?? 'contact@example.com' }}</span>
-
-                <span><span class="material-symbols-rounded me-1">call</span> {{ $copy['main-contactPhone'] ?? '+123 456 7890' }}</span>
-
+                <span class="brissy-meta-item"><span class="material-symbols-rounded">mail</span>{{ $copy['main-contactEmail'] ?? 'contact@example.com' }}</span>
+                <span class="brissy-meta-item"><span class="material-symbols-rounded">call</span>{{ $copy['main-contactPhone'] ?? '123465789' }}</span>
             </div>
             <div class="d-flex flex-wrap align-items-center gap-3">
-                <div class="topbar-social" aria-label="{{ $copy['main-socialMedia'] ?? 'main-socialMedia' }}">
-                    @if (! empty($copy['main-socialInstagramUrl']))
-                    <a href="{{ $copy['main-socialInstagramUrl'] }}" target="_blank" rel="noopener noreferrer" aria-label="{{ $copy['main-socialInstagramLabel'] ?? 'main-socialInstagramLabel' }}"><span class="social-icon">IG</span></a>
-                    @endif
-                    @if (! empty($copy['main-socialFacebookUrl']))
-                    <a href="{{ $copy['main-socialFacebookUrl'] }}" target="_blank" rel="noopener noreferrer" aria-label="{{ $copy['main-socialFacebookLabel'] ?? 'main-socialFacebookLabel' }}"><span class="social-icon">FB</span></a>
-                    @endif
-                    @if (! empty($copy['main-socialLinkedinUrl']))
-                    <a href="{{ $copy['main-socialLinkedinUrl'] }}" target="_blank" rel="noopener noreferrer" aria-label="{{ $copy['main-socialLinkedinLabel'] ?? 'main-socialLinkedinLabel' }}"><span class="social-icon">IN</span></a>
-                    @endif
-                    @if (! empty($copy['main-socialYoutubeUrl']))
-                    <a href="{{ $copy['main-socialYoutubeUrl'] }}" target="_blank" rel="noopener noreferrer" aria-label="{{ $copy['main-socialYoutubeLabel'] ?? 'main-socialYoutubeLabel' }}"><span class="social-icon">YT</span></a>
-                    @endif
-                    @if (! empty($copy['main-socialXUrl']))
-                    <a href="{{ $copy['main-socialXUrl'] }}" target="_blank" rel="noopener noreferrer" aria-label="{{ $copy['main-socialXLabel'] ?? 'main-socialXLabel' }}"><span class="social-icon">X</span></a>
-                    @endif
+                <div class="brissy-social" aria-label="{{ $copy['main-socialMedia'] ?? 'Follow on' }}">
+                    <a href="{{ $copy['main-socialFacebookUrl'] ?? '#' }}" target="_blank" rel="noopener noreferrer" aria-label="{{ $copy['main-socialFacebookLabel'] ?? 'Facebook' }}"><i class="bi bi-facebook"></i></a>
+                    <a href="{{ $copy['main-socialXUrl'] ?? '#' }}" target="_blank" rel="noopener noreferrer" aria-label="{{ $copy['main-socialXLabel'] ?? 'Twitter' }}"><i class="bi bi-twitter-x"></i></a>
+                    <a href="{{ $copy['main-socialInstagramUrl'] ?? '#' }}" target="_blank" rel="noopener noreferrer" aria-label="{{ $copy['main-socialInstagramLabel'] ?? 'Instagram' }}"><i class="bi bi-instagram"></i></a>
+                    <a href="{{ $copy['main-socialPinterestUrl'] ?? '#' }}" target="_blank" rel="noopener noreferrer" aria-label="{{ $copy['main-socialPinterestLabel'] ?? 'Pinterest' }}"><i class="bi bi-pinterest"></i></a>
                 </div>
+                <div class="dropdown language-menu d-flex align-items-center">
+                    <button class="dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        {{ $frontendLocales[$htmlLang] ?? 'English' }}
+                    </button>
+                    <ul class="dropdown-menu">
+                        @foreach ($frontendLocales as $frontendLocale => $frontendLocaleName)
+                        <li><button class="dropdown-item @if ($htmlLang === $frontendLocale) active @endif" type="button" data-locale-option="{{ $frontendLocale }}">{{ $frontendLocaleName }}</button></li>
+                        @endforeach
+                    </ul>
+                </div>
+
             </div>
         </div>
     </div>
-    <nav class="navbar navbar-expand-lg navbar-light navbar-au sticky-top">
-        <div class="container">
-            <a class="navbar-brand fw-bold d-flex align-items-center gap-2" href="/">
-                <span class="brand-mark material-symbols-rounded">holiday_village</span>
-                <span>{{ $copy['main-siteName'] ?? 'main-siteName' }}</span>
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#cmsNavbar" aria-controls="cmsNavbar" aria-expanded="false" aria-label="{{ $copy['main-navToggle'] ?? 'main-navToggle' }}">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="cmsNavbar">
-                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                    <li class="nav-item"><a class="nav-link @if (($activeNav ?? null) === 'home') active @endif" href="/">{{ $copy['main-home'] ?? 'main-home' }}</a></li>
-                    @foreach (($frontendCategories ?? []) as $frontendCategory)
-                    <li class="nav-item"><a class="nav-link @if (($activeNav ?? null) === $frontendCategory->slug) active @endif" href="/{{ $frontendCategory->slug }}">{{ $frontendCategory->name }}</a></li>
-                    @endforeach
-                    <li class="nav-item"><a class="nav-link @if (($activeNav ?? null) === 'about') active @endif" href="/about">{{ $copy['main-about'] ?? 'main-about' }}</a></li>
-                    <li class="nav-item"><a class="nav-link @if (($activeNav ?? null) === 'contact') active @endif" href="/contact">{{ $copy['main-contact'] ?? 'main-contact' }}</a></li>
-                    <li class="nav-item dropdown language-menu ms-lg-2 d-flex align-items-lg-center">
-                        <button class="dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            {{ $frontendLocales[$htmlLang] ?? 'English' }}
-                        </button>
-                        <ul class="dropdown-menu dropdown-menu-end">
-                            @foreach ($frontendLocales as $frontendLocale => $frontendLocaleName)
-                          
-                            <li><button class="dropdown-item @if ($htmlLang === $frontendLocale) active @endif" type="button" data-locale-option="{{ $frontendLocale }}">{{ $frontendLocaleName }}</button></li>
-                            @endforeach
-                        </ul>
-                    </li>
-                </ul>
+    <header class="brissy-header">
+        <nav class="navbar navbar-expand-lg navbar-light">
+            <div class="container">
+                <a class="brissy-brand d-flex align-items-center gap-2" href="/">
+                    <span class="brand-mark material-symbols-rounded">holiday_village</span>
+                    <span>{{ $copy['main-siteName'] ?? 'Brissy Breeze' }}</span>
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#cmsNavbar" aria-controls="cmsNavbar" aria-expanded="false" aria-label="{{ $copy['main-navToggle'] ?? 'Toggle navigation' }}">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="cmsNavbar">
+                    <ul class="navbar-nav ms-auto align-items-lg-center mb-2 mb-lg-0">
+                        <li class="nav-item"><a class="nav-link @if (($activeNav ?? null) === 'home') active @endif" href="/">{{ $copy['main-home'] ?? 'Home' }}</a></li>
+
+                        @foreach (($frontendCategories ?? []) as $frontendCategory)
+                        <li class="nav-item"><a class="nav-link @if (($activeNav ?? null) === $frontendCategory->slug) active @endif" href="/{{ $frontendCategory->slug }}">{{ $copy['main-'.$frontendCategory->slug] ?? 'main-'.$frontendCategory->slug }}</a></li>
+                        @endforeach
+                        <li class="nav-item"><a class="nav-link @if (($activeNav ?? null) === 'about') active @endif" href="/about">{{ $copy['main-about'] ?? 'About' }}</a></li>
+                        <li class="nav-item"><a class="nav-link @if (($activeNav ?? null) === 'contact') active @endif" href="/contact">{{ $copy['main-contact'] ?? 'Contact' }}</a></li>
+                    </ul>
+                </div>
             </div>
-        </div>
-    </nav>
+        </nav>
+    </header>
 
     <div class="site-main">
         @yield('content')
     </div>
 
-    <footer class="footer-au py-5 mt-auto">
+    <footer class="brissy-footer pt-5 mt-auto">
         <div class="container">
-            <div class="d-flex flex-column flex-lg-row justify-content-between gap-4 align-items-lg-center">
-                <a class="footer-brand text-decoration-none" href="/">
-                    <span class="brand-mark material-symbols-rounded">holiday_village</span>
-                    <strong>{{ $copy['main-siteName'] ?? 'main-siteName' }}</strong>
-                </a>
-                <div class="footer-links">
-                    <a href="/">{{ $copy['main-home'] ?? 'main-home' }}</a>
-                    <a href="/about">{{ $copy['main-about'] ?? 'main-about' }}</a>
-                    <a href="/contact">{{ $copy['main-contact'] ?? 'main-contact' }}</a>
-                </div>
-                <div class="footer-social" aria-label="{{ $copy['main-socialMedia'] ?? 'main-socialMedia' }}">
-                    @if (! empty($copy['main-socialInstagramUrl']))
-                    <a href="{{ $copy['main-socialInstagramUrl'] }}" target="_blank" rel="noopener noreferrer" aria-label="{{ $copy['main-socialInstagramLabel'] ?? 'main-socialInstagramLabel' }}"><span class="social-icon">IG</span></a>
-                    @endif
-                    @if (! empty($copy['main-socialFacebookUrl']))
-                    <a href="{{ $copy['main-socialFacebookUrl'] }}" target="_blank" rel="noopener noreferrer" aria-label="{{ $copy['main-socialFacebookLabel'] ?? 'main-socialFacebookLabel' }}"><span class="social-icon">FB</span></a>
-                    @endif
-                    @if (! empty($copy['main-socialLinkedinUrl']))
-                    <a href="{{ $copy['main-socialLinkedinUrl'] }}" target="_blank" rel="noopener noreferrer" aria-label="{{ $copy['main-socialLinkedinLabel'] ?? 'main-socialLinkedinLabel' }}"><span class="social-icon">IN</span></a>
-                    @endif
-                    @if (! empty($copy['main-socialYoutubeUrl']))
-                    <a href="{{ $copy['main-socialYoutubeUrl'] }}" target="_blank" rel="noopener noreferrer" aria-label="{{ $copy['main-socialYoutubeLabel'] ?? 'main-socialYoutubeLabel' }}"><span class="social-icon">YT</span></a>
-                    @endif
-                    @if (! empty($copy['main-socialXUrl']))
-                    <a href="{{ $copy['main-socialXUrl'] }}" target="_blank" rel="noopener noreferrer" aria-label="{{ $copy['main-socialXLabel'] ?? 'main-socialXLabel' }}"><span class="social-icon">X</span></a>
-                    @endif
+            <div class="footer-contact-card">
+                <div class="row g-3">
+                    <div class="col-lg-4">
+                        <div class="footer-contact-card-item">
+                            <span class="footer-contact-card-icon"><i class="bi bi-geo-alt-fill"></i></span>
+                            <div>
+                                <div class="footer-contact-card-label">{{ $copy['contact-address'] ?? 'Address' }}</div>
+                                <p class="footer-contact-card-value">{{ $copy['contact-mapTitle'] ?? '6391 Elgin St, Delaware' }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="footer-contact-card-item">
+                            <span class="footer-contact-card-icon"><i class="bi bi-envelope-fill"></i></span>
+                            <div>
+                                <div class="footer-contact-card-label">{{ $copy['contact-email'] ?? 'Send Email' }}</div>
+                                <p class="footer-contact-card-value">{{ $copy['main-contactEmail'] ?? 'contact@example.com' }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="footer-contact-card-item">
+                            <span class="footer-contact-card-icon"><i class="bi bi-telephone-fill"></i></span>
+                            <div>
+                                <div class="footer-contact-card-label">{{ $copy['contact-phone'] ?? 'Call Emergency' }}</div>
+                                <p class="footer-contact-card-value">{{ $copy['main-contactPhone'] ?? '+88 0123 654 99' }}</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="footer-bottom mt-4 pt-4">
-                <span>© {{ date('Y') }} {{ $copy['main-siteName'] ?? 'main-siteName' }}. {{ $copy['main-footerCopyrightSuffix'] ?? 'main-footerCopyrightSuffix' }}</span>
-                <span>{{ $copy['main-footerServices'] ?? 'main-footerServices' }}</span>
-                <a class="admin-entry" href="/admin" aria-label="{{ $copy['main-portal'] ?? 'main-portal' }}">
-                    <span class="material-symbols-rounded">settings</span>
-                </a>
+        </div>
+        <div class="container py-4">
+            <div class="row g-5">
+                <div class="col-lg-4">
+                    <a class="brissy-brand d-inline-flex align-items-center gap-2 mb-3" href="/">
+                        <span class="brand-mark material-symbols-rounded">holiday_village</span>
+                        <span>{{ $copy['main-siteName'] ?? 'Brissy Breeze' }}</span>
+                    </a>
+                    <p class="mb-4">{{ $copy['main-description'] ?? 'Nullam interdum libero vitae pretium aliquam donec nibh purus laoreet in ullamcorper vel malesuada sit amet enim.' }}</p>
+                    <h3>{{ $copy['main-socialMedia'] ?? 'Follow on' }}</h3>
+                    <div class="brissy-social">
+                        <a href="{{ $copy['main-socialFacebookUrl'] ?? '#' }}" target="_blank" rel="noopener noreferrer" aria-label="{{ $copy['main-socialFacebookLabel'] ?? 'Facebook' }}"><i class="bi bi-facebook"></i></a>
+                        <a href="{{ $copy['main-socialXUrl'] ?? '#' }}" target="_blank" rel="noopener noreferrer" aria-label="{{ $copy['main-socialXLabel'] ?? 'Twitter' }}"><i class="bi bi-twitter-x"></i></a>
+                        <a href="{{ $copy['main-socialLinkedinUrl'] ?? '#' }}" target="_blank" rel="noopener noreferrer" aria-label="{{ $copy['main-socialLinkedinLabel'] ?? 'LinkedIn' }}"><i class="bi bi-linkedin"></i></a>
+                        <a href="{{ $copy['main-socialInstagramUrl'] ?? '#' }}" target="_blank" rel="noopener noreferrer" aria-label="{{ $copy['main-socialInstagramLabel'] ?? 'Instagram' }}"><i class="bi bi-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-3">
+                    <h3>{{ $copy['main-quickLink'] ?? 'Quick Link' }}</h3>
+                    <div class="brissy-footer-links">
+                        <a href="/">{{ $copy['main-home'] ?? 'Home' }}</a>
+                        <a href="/about">{{ $copy['main-about'] ?? 'Aboout Us' }}</a>
+                        @foreach (($frontendCategories ?? []) as $frontendCategory)
+                        <a href="/{{ $frontendCategory->slug }}">{{ $frontendCategory->name }}</a>
+                        @endforeach
+                        <a href="/contact">{{ $copy['main-contact'] ?? 'Contact Us' }}</a>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-3">
+                    <h3>{{ $copy['main-contactInfo'] ?? 'Contact Info' }}</h3>
+                    <div class="brissy-footer-contact">
+                        <span><span class="material-symbols-rounded">call</span>{{ $copy['main-contactPhone'] ?? '+123456789' }}</span>
+                        <span><span class="material-symbols-rounded">mail</span>{{ $copy['main-contactEmail'] ?? 'email@domain.com' }}</span>
+                        <span><span class="material-symbols-rounded">location_on</span>{{ $copy['contact-mapTitle'] ?? 'ABC Street, 123' }}</span>
+                    </div>
+                </div>
+                <div class="col-lg-2">
+                    <h3>{{ $copy['contact-hours'] ?? 'Opening Hour' }}</h3>
+                    <p class="mb-0">{{ $copy['contact-hoursBody'] ?? 'Sunday-Fri: 9 AM - 6 PM' }}</p>
+                    <a class="admin-entry d-inline-flex mt-4" href="/admin" aria-label="{{ $copy['main-portal'] ?? 'Client Portal' }}">
+                        <span class="material-symbols-rounded">settings</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="brissy-footer-bottom py-3">
+            <div class="container">
+                © {{ date('Y') }}, {{ $copy['main-siteName'] ?? 'Brissy Breeze' }}. {{ $copy['main-footerCopyrightSuffix'] ?? 'All Rights Reserved' }}
             </div>
         </div>
     </footer>
@@ -1576,6 +2074,17 @@
         document.querySelectorAll('.reveal').forEach((element) => {
             revealObserver.observe(element);
         });
+
+        const headerMeta = document.querySelector('[data-header-meta]');
+        const headerNavbar = document.getElementById('cmsNavbar');
+        if (headerMeta && headerNavbar) {
+            headerNavbar.addEventListener('show.bs.collapse', () => {
+                headerMeta.classList.add('d-none');
+            });
+            headerNavbar.addEventListener('hide.bs.collapse', () => {
+                headerMeta.classList.remove('d-none');
+            });
+        }
 
         const newsMasonry = document.querySelector('[data-news-masonry]');
         const newsLoadMore = document.querySelector('[data-news-load-more]');

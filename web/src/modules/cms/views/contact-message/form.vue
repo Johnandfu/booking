@@ -31,8 +31,8 @@ function formItems(): MaFormItem[] {
       renderProps: { class: 'w-full' },
       renderSlots: {
         default: () => [
-          h(ElOption, { label: '启用', value: 1 }),
-          h(ElOption, { label: '禁用', value: 0 }),
+          h(ElOption, { label: '已处理', value: 1 }),
+          h(ElOption, { label: '未处理', value: 0 }),
         ],
       },
     },

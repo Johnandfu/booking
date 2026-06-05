@@ -22,8 +22,14 @@ export interface CmsFrontendI18nSearchVo {
   status?: number
 }
 
+export type CmsFrontendLanguageOptions = Record<string, string>
+
 export function page(data: CmsFrontendI18nSearchVo): Promise<ResponseStruct<PageList<CmsFrontendI18nVo>>> {
   return useHttp().get('/admin/cms/frontend-i18n/list', { params: data })
+}
+
+export function languages(): Promise<ResponseStruct<CmsFrontendLanguageOptions>> {
+  return useHttp().get('/admin/cms/frontend-i18n/languages')
 }
 
 export function create(data: CmsFrontendI18nVo): Promise<ResponseStruct<null>> {

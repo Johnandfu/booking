@@ -21,10 +21,13 @@ final class CmsLanguageService extends IService
     public function copy(array $filter = []): array
     {
         $messages = [];
-        foreach ($this->repository->handleSearch($this->repository->getQuery(), $filter)->get() as $item) {
-            $messages[$item->group_type . '-' . $item->key] = (string) $item->value;
+
+        $languages = $this->repository->handleSearch($this->repository->getQuery(), $filter)
+            ->get();
+        foreach ($languages as $language) {
+            $messages[$language->group_type . '-' . $language->key] = (string) $language->value;
         }
 
-        return $messages;
+        return $messages + $languages->toArray();
     }
 }
