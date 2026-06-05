@@ -44,7 +44,7 @@
                     <span class="landing-kicker">{{ $copy['home-heroKicker'] ?? 'home-heroKicker' }}</span>
                     <h1>{{ $copy['home-heroTitle'] ?? 'home-heroTitle' }}</h1>
                     <p>{{ $copy['home-heroSubtitle'] ?? 'home-heroSubtitle' }}</p>
-                    <a href="/service" class="btn btn-light btn-lg rounded-pill px-5">{{ $copy['home-heroCta'] ?? 'home-heroCta' }}</a>
+                    <a href="/services" class="btn btn-light btn-lg rounded-pill px-5">{{ $copy['home-heroCta'] ?? 'home-heroCta' }}</a>
                 </div>
             </div>
             <a href="#features" class="scroll-indicator" aria-label="{{ $copy['home-scrollLabel'] ?? 'home-scrollLabel' }}">

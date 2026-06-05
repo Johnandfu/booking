@@ -43,34 +43,19 @@ class TranslationMiddleware implements MiddlewareInterface
         }
 
         if ($request->hasHeader('Accept-Language')) {
-           // return $this->normalizeLocale($request->getHeaderLine('Accept-Language'));
+           return $this->normalizeLocale($request->getHeaderLine('Accept-Language'));
         }
 
-        return 'en';
+        return CmsContentService::DEFAULT_FRONTEND_LOCALE;
     }
 
     protected function normalizeLocale(string $locale): string
     {
-        $locale = strtolower(str_replace('_', '-', $locale));
-        $locales = CmsContentService::frontendLocales();
-
-        foreach ($locales as $frontendLocale => $config) {
-            foreach ($config['aliases'] ?? [$frontendLocale] as $alias) {
-                if ($locale === strtolower((string) $alias)) {
-                    return $frontendLocale;
-                }
-            }
+      
+        if(array_key_exists($locale,CmsContentService::FRONTEND_LOCALES)){
+            return $locale;
         }
 
-        foreach ($locales as $frontendLocale => $config) {
-            foreach ($config['aliases'] ?? [$frontendLocale] as $alias) {
-                $alias = strtolower((string) $alias);
-                if ($alias !== 'zh' && str_starts_with($locale, $alias)) {
-                    return $frontendLocale;
-                }
-            }
-        }
-
-        return 'en';
+        return CmsContentService::DEFAULT_FRONTEND_LOCALE;
     }
 }

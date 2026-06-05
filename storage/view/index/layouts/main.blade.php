@@ -14,17 +14,13 @@
     <meta property="og:title" content="{{ $seoTitle ?? ($copy['main-title'] ?? 'main-title') }}">
     <meta property="og:description" content="{{ $seoDescription ?? ($copy['main-description'] ?? 'main-description') }}">
     <meta property="og:url" content="{{ $seoUrl ?? '' }}">
-    @if (! empty($seoImage))
-    <meta property="og:image" content="{{ $seoImage }}">
-    @endif
+
     <meta name="twitter:card" content="@if (! empty($seoImage)) summary_large_image @else summary @endif">
     <meta name="twitter:title" content="{{ $seoTitle ?? ($copy['main-title'] ?? 'main-title') }}">
     <meta name="twitter:description" content="{{ $seoDescription ?? ($copy['main-description'] ?? 'main-description') }}">
-    @if (! empty($seoImage))
-    <meta name="twitter:image" content="{{ $seoImage }}">
-    @endif
-    @if (! empty($gaMeasurementId))
-    <script async src="https://www.googletagmanager.com/gtag/js?id={{ $gaMeasurementId }}"></script>
+
+    @if (! empty($copy['main-gaMeasurementId']))
+    <script async src="https://www.googletagmanager.com/gtag/js?id={{ $copy['main-gaMeasurementId'] }}"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
 
@@ -32,7 +28,7 @@
             dataLayer.push(arguments);
         }
         gtag('js', new Date());
-        gtag('config', '{{ $gaMeasurementId }}');
+        gtag('config', "{{ $copy['main-gaMeasurementId'] }}");
     </script>
     @endif
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -1352,6 +1348,7 @@
         }
 
         @media (max-width: 575.98px) {
+
             .landing-hero,
             .landing-hero-carousel,
             .landing-hero-carousel .carousel-inner,
@@ -1506,11 +1503,12 @@
                     <li class="nav-item"><a class="nav-link @if (($activeNav ?? null) === 'contact') active @endif" href="/contact">{{ $copy['main-contact'] ?? 'main-contact' }}</a></li>
                     <li class="nav-item dropdown language-menu ms-lg-2 d-flex align-items-lg-center">
                         <button class="dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            {{ $htmlLang ?? 'en' }}
+                            {{ $frontendLocales[$htmlLang] ?? 'English' }}
                         </button>
                         <ul class="dropdown-menu dropdown-menu-end">
-                            @foreach ($frontendLocales as $frontendLocale)
-                            <li><button class="dropdown-item @if ($htmlLang === $frontendLocale) active @endif" type="button" data-locale-option="{{ $frontendLocale }}">{{ $frontendLocale }}</button></li>
+                            @foreach ($frontendLocales as $frontendLocale => $frontendLocaleName)
+                          
+                            <li><button class="dropdown-item @if ($htmlLang === $frontendLocale) active @endif" type="button" data-locale-option="{{ $frontendLocale }}">{{ $frontendLocaleName }}</button></li>
                             @endforeach
                         </ul>
                     </li>

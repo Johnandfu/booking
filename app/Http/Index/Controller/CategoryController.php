@@ -37,8 +37,10 @@ final class CategoryController extends BaseController
             $data = $this->cmsArticle->newsList($category->id, $page, $name);
 
             return $this->view($render, 'index.news', array_merge($data, [
-                'title' => $category->name,
-                'description' => $category->description,
+                'title' => $category->slug . '-title',
+                'description' => $category->slug . '-description',
+                'titleFallback' => $category->name,
+                'descriptionFallback' => (string) ($category->description ?? ''),
                 'activeNav' => $category->slug,
                 'category' => $category,
                 'basePath' => $basePath,
@@ -49,8 +51,10 @@ final class CategoryController extends BaseController
         $data = $this->cmsArticle->serviceList($category->id, $page, $name);
 
         return $this->view($render, 'index.category', array_merge($data, [
-            'title' => $category->name,
-            'description' => $category->description,
+            'title' => $category->slug . '-title',
+            'description' => $category->slug . '-description',
+            'titleFallback' => $category->name,
+            'descriptionFallback' => (string) ($category->description ?? ''),
             'activeNav' => $category->slug,
             'category' => $category,
             'basePath' => $basePath,

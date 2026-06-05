@@ -6,12 +6,12 @@ namespace App\Service\Cms;
 
 final class CmsContentService
 {
-    public static function frontendLocales(): array
-    {
-        return [
-            'en' => ['aliases' => ['en']],
-            'zh-CN' => ['aliases' => ['zh', 'zh-cn', 'zh-sg']],
-            'zh-TW' => ['aliases' => ['zh-tw', 'zh-hk', 'zh-mo']],
-        ];
-    }
+    public const DEFAULT_FRONTEND_LOCALE = 'en';
+
+    public const FRONTEND_LOCALES = [
+        'en' => 'English',
+        'zh-CN' => '中文',
+        'zh-TW' => '中文繁體',
+    ];
+
 }

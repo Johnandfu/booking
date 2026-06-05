@@ -1,29 +1,29 @@
 @extends('index.layouts.main')
 
 @section('content')
-    @if ($category->slug === 'service')
+    @if (in_array($category->slug, ['service', 'services'], true))
         <main class="luxe-listing-page">
             <section class="luxe-listing-hero luxe-service-hero">
                 <div class="container position-relative">
                     <div class="row align-items-end g-5">
                         <div class="col-lg-7 reveal">
-                            <span class="landing-kicker">{{ $copy['category-serviceHeroKicker'] ?? 'category-serviceHeroKicker' }}</span>
-                            <h1>{{ $copy['category-serviceHeroTitle'] ?? 'category-serviceHeroTitle' }}</h1>
-                            <p>{{ $copy['category-serviceHeroText'] ?? 'category-serviceHeroText' }}</p>
+                            <span class="landing-kicker">{{ $categoryCopy['heroKicker'] }}</span>
+                            <h1>{{ $categoryCopy['heroTitle'] }}</h1>
+                            <p>{{ $categoryCopy['heroText'] }}</p>
                         </div>
                         <div class="col-lg-5 reveal">
                             <div class="luxe-filter-panel">
-                                <label>{{ $copy['category-newsFilterLocationLabel'] ?? 'category-newsFilterLocationLabel' }}</label>
+                                <label>{{ $categoryCopy['filterLocationLabel'] }}</label>
                                 <div class="luxe-filter-row">
-                                    <span>{{ $copy['category-listingLocation'] ?? 'category-listingLocation' }}</span>
+                                    <span>{{ $categoryCopy['listingLocation'] }}</span>
                                     <span class="material-symbols-rounded">expand_more</span>
                                 </div>
-                                <label>{{ $copy['category-serviceFilterBudgetLabel'] ?? 'category-serviceFilterBudgetLabel' }}</label>
+                                <label>{{ $categoryCopy['filterBudgetLabel'] }}</label>
                                 <div class="luxe-range"><span style="width: 76%;"></span></div>
                                 <div class="luxe-tags">
-                                    <span>{{ $copy['category-listingBeachfront'] ?? 'category-listingBeachfront' }}</span>
-                                    <span>{{ $copy['category-listingRiverView'] ?? 'category-listingRiverView' }}</span>
-                                    <span>{{ $copy['category-listingCityCoastal'] ?? 'category-listingCityCoastal' }}</span>
+                                    <span>{{ $categoryCopy['listingBeachfront'] }}</span>
+                                    <span>{{ $categoryCopy['listingRiverView'] }}</span>
+                                    <span>{{ $categoryCopy['listingCityCoastal'] }}</span>
                                 </div>
                             </div>
                         </div>
@@ -33,8 +33,8 @@
 
             <section class="container luxe-featured-section">
                 <div class="luxe-section-title reveal">
-                    <span class="landing-kicker">{{ $copy['category-serviceFeaturedKicker'] ?? 'category-serviceFeaturedKicker' }}</span>
-                    <h2>{{ $copy['category-serviceFeaturedTitle'] ?? 'category-serviceFeaturedTitle' }}</h2>
+                    <span class="landing-kicker">{{ $categoryCopy['featuredKicker'] }}</span>
+                    <h2>{{ $categoryCopy['featuredTitle'] }}</h2>
                 </div>
                 <div class="row g-4">
                     @forelse ($featuredItems as $article)
@@ -47,17 +47,17 @@
                                         <span class="material-symbols-rounded">villa</span>
                                     @endif
                                     <div class="luxe-feature-overlay">
-                                        <span>{{ $copy['category-viewDetails'] ?? 'category-viewDetails' }}</span>
+                                        <span>{{ $categoryCopy['viewDetails'] }}</span>
                                     </div>
                                 </a>
                                 <div class="luxe-feature-copy">
-                                    <span>{{ $copy['category-serviceCardEyebrow'] ?? 'category-serviceCardEyebrow' }}</span>
+                                    <span>{{ $categoryCopy['cardEyebrow'] }}</span>
                                     <h2><a href="{{ $basePath }}/{{ $article->slug }}" class="text-decoration-none">{{ $article->title }}</a></h2>
                                     <p>
                                         @if ($article->summary)
                                             {{ $article->summary }}
                                         @else
-                                            {{ $copy['category-serviceDefaultSummary'] ?? 'category-serviceDefaultSummary' }}
+                                            {{ $categoryCopy['defaultSummary'] }}
                                         @endif
                                     </p>
                                 </div>
@@ -65,7 +65,7 @@
                         </div>
                     @empty
                         <div class="col-12">
-                            <div class="alert alert-light border mb-0">{{ $copy['category-empty'] ?? 'category-empty' }}</div>
+                            <div class="alert alert-light border mb-0">{{ $categoryCopy['empty'] }}</div>
                         </div>
                     @endforelse
                 </div>
@@ -73,8 +73,8 @@
 
             <section class="container luxe-grid-section">
                 <div class="luxe-section-title reveal">
-                    <span class="landing-kicker">{{ $copy['category-serviceGridKicker'] ?? 'category-serviceGridKicker' }}</span>
-                    <h2>{{ $copy['category-serviceGridTitle'] ?? 'category-serviceGridTitle' }}</h2>
+                    <span class="landing-kicker">{{ $categoryCopy['gridKicker'] }}</span>
+                    <h2>{{ $categoryCopy['gridTitle'] }}</h2>
                 </div>
                 <div class="luxe-listing-grid">
                     @forelse ($listingItems as $article)
@@ -85,17 +85,17 @@
                                 @else
                                     <span class="material-symbols-rounded">home_work</span>
                                 @endif
-                                <span class="luxe-view">{{ $copy['category-viewDetails'] ?? 'category-viewDetails' }}</span>
+                                <span class="luxe-view">{{ $categoryCopy['viewDetails'] }}</span>
                             </a>
                             <div class="luxe-listing-copy">
-                                <span class="luxe-location">{{ $copy['category-listingLocation'] ?? 'category-listingLocation' }}</span>
+                                <span class="luxe-location">{{ $categoryCopy['listingLocation'] }}</span>
                                 <h3><a href="{{ $basePath }}/{{ $article->slug }}" class="text-decoration-none stretched-link">{{ $article->title }}</a></h3>
-                                <div class="luxe-price">{{ $copy['category-serviceCardEyebrow'] ?? 'category-serviceCardEyebrow' }}</div>
+                                <div class="luxe-price">{{ $categoryCopy['cardEyebrow'] }}</div>
                             </div>
                         </article>
                     @empty
                         @if (empty($featuredItems))
-                            <div class="alert alert-light border mb-0">{{ $copy['category-empty'] ?? 'category-empty' }}</div>
+                            <div class="alert alert-light border mb-0">{{ $categoryCopy['empty'] }}</div>
                         @endif
                     @endforelse
                 </div>
@@ -103,9 +103,9 @@
 
             <section class="container luxe-category-section reveal">
                 <div class="row g-3">
-                    <div class="col-md-4"><div>{{ $copy['category-listingBeachfront'] ?? 'category-listingBeachfront' }}</div></div>
-                    <div class="col-md-4"><div>{{ $copy['category-listingRiverView'] ?? 'category-listingRiverView' }}</div></div>
-                    <div class="col-md-4"><div>{{ $copy['category-listingCityCoastal'] ?? 'category-listingCityCoastal' }}</div></div>
+                    <div class="col-md-4"><div>{{ $categoryCopy['listingBeachfront'] }}</div></div>
+                    <div class="col-md-4"><div>{{ $categoryCopy['listingRiverView'] }}</div></div>
+                    <div class="col-md-4"><div>{{ $categoryCopy['listingCityCoastal'] }}</div></div>
                 </div>
             </section>
 
@@ -124,9 +124,9 @@
     @else
         <main class="page-shell container">
             <div class="page-hero reveal">
-                <span class="landing-kicker">{{ $copy['category-kicker'] ?? 'category-kicker' }}</span>
-                <h1>{{ $category->name }}</h1>
-                <p>{{ $category->description ?? $category->name }}</p>
+                <span class="landing-kicker">{{ $categoryCopy['kicker'] }}</span>
+                <h1>{{ $categoryCopy['title'] }}</h1>
+                <p>{{ $categoryCopy['description'] }}</p>
             </div>
             <div class="vstack gap-3 mb-4">
                 @forelse ($paginator->items() as $article)
@@ -140,7 +140,7 @@
                         </div>
                     </div>
                 @empty
-                    <div class="alert alert-light border">{{ $copy['category-empty'] ?? 'category-empty' }}</div>
+                    <div class="alert alert-light border">{{ $categoryCopy['empty'] }}</div>
                 @endforelse
             </div>
 

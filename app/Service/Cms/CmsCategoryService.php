@@ -18,9 +18,24 @@ final class CmsCategoryService extends IService
         protected readonly CmsCategoryRepository $repository
     ) {}
 
+    /** @var array<string, string> 前台 URL 别名 → 数据库 slug */
+    private const SLUG_ALIASES = [
+        'services' => 'service',
+    ];
+
     public function categoryBySlug(string $slug): ?CmsCategory
     {
-        return $this->repository->findBySlug($slug);
+        $category = $this->repository->findBySlug($slug);
+        if ($category !== null) {
+            return $category;
+        }
+
+        $canonical = self::SLUG_ALIASES[$slug] ?? null;
+        if ($canonical === null) {
+            return null;
+        }
+
+        return $this->repository->findBySlug($canonical);
     }
 
     /**

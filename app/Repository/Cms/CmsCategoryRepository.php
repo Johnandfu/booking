@@ -46,7 +46,11 @@ final class CmsCategoryRepository extends IRepository
      */
     public function listEnabled(): Collection
     {
-        return $this->list(['status' => CmsCategory::STATUS_ENABLED]);
+        return $this->model->newQuery()
+            ->where('status', CmsCategory::STATUS_ENABLED)
+            ->orderByDesc('sort')
+            ->orderBy('id')
+            ->get();
     }
 
     public function findBySlug(string $slug): ?CmsCategory
