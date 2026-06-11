@@ -1,6 +1,8 @@
 import type { PageList, ResponseStruct } from '#/global'
 import type { CmsCategoryVo } from './category'
 
+type OrderByDirection = 'asc' | 'desc'
+
 export interface CmsArticleVo {
   id?: number
   category_id?: number
@@ -25,6 +27,8 @@ export interface CmsArticleSearchVo {
   keyword?: string
   category_id?: number
   status?: number
+  order_by?: string
+  order_by_direction?: OrderByDirection
   created_at?: string[]
   updated_at?: string[]
 }

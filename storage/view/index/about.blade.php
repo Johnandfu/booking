@@ -13,8 +13,8 @@
         </section>
 
         <section class="container about-section">
-            <div class="row align-items-center g-5">
-                <div class="col-lg-6 reveal">
+            <div class="row align-items-center g-5 about-split-row">
+                <div class="col-lg-6 about-split-col reveal">
                     <span class="landing-kicker">{{ $copy['about-kicker'] ?? 'about-kicker' }}</span>
                     <h2>{{ $copy['about-title'] ?? 'about-title' }}</h2>
                     <div class="about-copy">
@@ -24,7 +24,7 @@
                     </div>
                     <a href="/contact" class="btn btn-au px-4">{{ $copy['main-contact'] ?? 'main-contact' }}</a>
                 </div>
-                <div class="col-lg-6 reveal">
+                <div class="col-lg-6 about-split-col reveal">
                     <div class="about-image-card">
                         <img src="https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=1200&q=85" alt="{{ $copy['about-imageAlt'] ?? 'about-imageAlt' }}">
                     </div>
@@ -34,8 +34,8 @@
 
         <section class="about-story-section">
             <div class="container">
-                <div class="row align-items-center g-5">
-                    <div class="col-lg-6 reveal">
+                <div class="row align-items-center g-5 about-split-row">
+                    <div class="col-lg-6 about-split-col reveal">
                         <div class="about-image-stack">
                             <img src="https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=1100&q=85" alt="{{ $copy['about-imageAlt'] ?? 'about-imageAlt' }}">
                             <div class="about-stat-card">
@@ -48,7 +48,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-6 reveal">
+                    <div class="col-lg-6 about-split-col reveal">
                         <span class="landing-kicker">{{ $copy['about-us'] ?? 'about-us' }}</span>
                         <h2>{{ $copy['about-storyTitle'] ?? 'about-storyTitle' }}</h2>
                         <div class="about-copy">
@@ -64,8 +64,8 @@
         </section>
 
         <section class="container about-section">
-            <div class="row align-items-center g-5">
-                <div class="col-lg-6 reveal">
+            <div class="row align-items-center g-5 about-split-row">
+                <div class="col-lg-6 about-split-col reveal">
                     <span class="landing-kicker">{{ $copy['about-founderKicker  '] ?? 'Founder. & Director' }}</span>
                     <h2>{{ $copy['about-founderTitle'] ?? 'about-founderTitle' }}</h2>
                     <div class="about-copy">
@@ -75,7 +75,7 @@
                     </div>
                     <a href="/contact" class="btn btn-au px-4">{{ $copy['main-contact'] ?? 'main-contact' }}</a>
                 </div>
-                <div class="col-lg-6 reveal">
+                <div class="col-lg-6 about-split-col reveal">
                     <div class="about-founder-card">
                         <img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&w=1200&q=85" alt="{{ $copy['about-founderTitle'] ?? 'Founder and director' }}">
                     </div>

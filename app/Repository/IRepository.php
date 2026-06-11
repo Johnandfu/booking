@@ -12,6 +12,7 @@ declare(strict_types=1);
 
 namespace App\Repository;
 
+use App\Factory\Log;
 use App\Repository\Traits\BootTrait;
 use App\Repository\Traits\RepositoryOrderByTrait;
 use Hyperf\Collection\Collection;
@@ -35,6 +36,7 @@ abstract class IRepository
 
     public function handleSearch(Builder $query, array $params): Builder
     {
+       // Log::info('handleSearch', ['query' => $query, 'params' => $params]);
         return $query;
     }
 
@@ -74,6 +76,7 @@ abstract class IRepository
             pageName: static::PER_PAGE_PARAM_NAME,
             page: $page,
         );
+      
         return $this->handlePage($result);
     }
 
@@ -144,7 +147,9 @@ abstract class IRepository
     public function perQuery(Builder $query, array $params): Builder
     {
         $this->startBoot($query, $params);
-        return $this->handleSearch($query, $params);
+        $query = $this->handleSearch($query, $params);
+
+        return $this->handleOrderBy($query, $params);
     }
 
     public function getQuery(): Builder

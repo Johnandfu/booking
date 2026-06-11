@@ -6,9 +6,11 @@ namespace App\Exception\Handler;
 
 use App\Factory\Log;
 use App\Service\Cms\CmsContentService;
+use App\Support\HtmlMinifier;
 use Hyperf\Database\Model\ModelNotFoundException;
 use Hyperf\ExceptionHandler\ExceptionHandler;
 use Hyperf\HttpMessage\Exception\HttpException;
+use Hyperf\HttpMessage\Stream\SwooleStream;
 use Hyperf\HttpServer\Contract\RequestInterface;
 use Hyperf\View\RenderInterface;
 use Psr\Http\Message\ResponseInterface;
@@ -28,7 +30,7 @@ final class FrontendExceptionHandler extends ExceptionHandler
         $statusCode = $this->statusCode($throwable);
         $locale = (string) $this->request->getAttribute('frontend_locale', CmsContentService::DEFAULT_FRONTEND_LOCALE);
         Log::error('error', ['throwable' => $throwable]);
-        return $this->render->render('index.error', [
+        $response = $this->render->render('index.error', [
             'activeNav' => null,
             'locale' => $locale,
             'htmlLang' => $locale,
@@ -40,6 +42,10 @@ final class FrontendExceptionHandler extends ExceptionHandler
             'seoUrl' => '',
             'errorCode' => $statusCode,
         ])->withStatus($statusCode);
+
+        return $response
+            ->withoutHeader('Content-Length')
+            ->withBody(new SwooleStream(HtmlMinifier::minify((string) $response->getBody())));
     }
 
     public function isValid(Throwable $throwable): bool

@@ -66,7 +66,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-lg-6 reveal">
+        <div class="col-lg-6 reveal mb-4">
             <form
                 class="lux-card p-4 p-lg-5 h-100"
                 method="post"

@@ -10,6 +10,8 @@
 import type { ResponseStruct } from '#/global'
 import useHttp from '@/hooks/auto-imports/useHttp.ts'
 
+type OrderByDirection = 'asc' | 'desc'
+
 export interface UserLoginVo {
   id: number // 主键
   username: string
@@ -41,8 +43,18 @@ export interface RequestLogInfoVo {
   remark: string
 }
 
+export interface UserLoginSearchVo extends Partial<UserLoginVo> {
+  order_by?: string
+  order_by_direction?: OrderByDirection
+}
+
+export interface RequestLogInfoSearchVo extends Partial<RequestLogInfoVo> {
+  order_by?: string
+  order_by_direction?: OrderByDirection
+}
+
 export class UserLoginLog {
-  public static page(params: UserLoginVo): Promise<ResponseStruct<UserLoginVo[]>> {
+  public static page(params: UserLoginSearchVo): Promise<ResponseStruct<UserLoginVo[]>> {
     return useHttp().get('/admin/user-login-log/list', { params })
   }
 
@@ -52,7 +64,7 @@ export class UserLoginLog {
 }
 
 export class UserOperatorLog {
-  public static page(params: RequestLogInfoVo): Promise<ResponseStruct<RequestLogInfoVo[]>> {
+  public static page(params: RequestLogInfoSearchVo): Promise<ResponseStruct<RequestLogInfoVo[]>> {
     return useHttp().get('/admin/user-operation-log/list', { params })
   }
 

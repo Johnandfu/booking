@@ -1,5 +1,7 @@
 import type { PageList, ResponseStruct } from '#/global'
 
+type OrderByDirection = 'asc' | 'desc'
+
 export interface CmsFrontendI18nVo {
   id?: number
   group_type?: string
@@ -20,6 +22,8 @@ export interface CmsFrontendI18nSearchVo {
   created_at?: string[]
   updated_at?: string[]
   status?: number
+  order_by?: string
+  order_by_direction?: OrderByDirection
 }
 
 export type CmsFrontendLanguageOptions = Record<string, string>

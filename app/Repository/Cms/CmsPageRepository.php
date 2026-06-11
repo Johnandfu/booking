@@ -35,15 +35,6 @@ final class CmsPageRepository extends IRepository
             })
             ->when(Arr::get($params, 'updated_at'), static function (Builder $query, array $updatedAt): void {
                 $query->whereBetween('updated_at', $updatedAt);
-            })
-            ->orderByDesc('id');
-    }
-
-    public function findEnabledBySlug(string $slug): ?CmsPage
-    {
-        return $this->model->newQuery()
-            ->where('slug', $slug)
-            ->where('status', CmsPage::STATUS_ENABLED)
-            ->first();
+            });
     }
 }

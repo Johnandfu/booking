@@ -61,8 +61,12 @@
   border: none;
 }
 
-.el-image-viewer__wrapper,
-.el-image-viewer__mask {
+.el-image-viewer__wrapper {
   z-index: 3000 !important;
+}
+
+// 勿给 mask 设 z-index，否则会盖住关闭按钮（btn 默认 z-index: 1）
+.el-image-viewer__btn {
+  z-index: 1 !important;
 }
 

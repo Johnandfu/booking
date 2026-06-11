@@ -9,6 +9,8 @@
  */
 import type { PageList, ResponseStruct } from '#/global'
 
+type OrderByDirection = 'asc' | 'desc'
+
 export interface UserVo {
   id?: number
   username?: string
@@ -33,6 +35,8 @@ export interface UserSearchVo {
   phone?: string
   email?: string
   status?: number
+  order_by?: string
+  order_by_direction?: OrderByDirection
 }
 
 export function page(data: UserSearchVo): Promise<ResponseStruct<PageList<UserVo>>> {

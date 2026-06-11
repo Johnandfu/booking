@@ -7,7 +7,7 @@
  - @Author X.Mo<root@imoi.cn>
  - @Link   https://github.com/mineadmin
 -->
-<script setup lang="ts">
+<script setup lang="tsx">
 import type { UserLoginVo } from '~/base/api/log.ts'
 import { UserLoginLog } from '~/base/api/log.ts'
 import type { MaProTableExpose, MaProTableOptions, MaProTableSchema } from '@mineadmin/pro-table'
@@ -23,6 +23,31 @@ const t = useTrans().globalTrans
 const proTableRef = ref<MaProTableExpose>() as Ref<MaProTableExpose>
 const selections: Ref<UserLoginVo[]> = ref([])
 const msg = useMessage()
+const orderByDirection = ref<'asc' | 'desc'>('desc')
+
+function toggleIdSort() {
+  orderByDirection.value = orderByDirection.value === 'desc' ? 'asc' : 'desc'
+  proTableRef.value?.setRequestParams({ order_by: 'id', order_by_direction: orderByDirection.value }, true)
+}
+
+function renderIdHeader() {
+  return (
+    <button
+      type="button"
+      style="display:inline-flex;align-items:center;gap:4px;border:0;background:transparent;font-weight:700;cursor:pointer;"
+      onClick={(event: MouseEvent) => {
+        event.stopPropagation()
+        toggleIdSort()
+      }}
+    >
+      <span>ID</span>
+      <span style="display:inline-grid;font-size:10px;line-height:9px;">
+        <span style={{ color: orderByDirection.value === 'asc' ? 'var(--el-color-primary)' : 'var(--el-text-color-placeholder)' }}>▲</span>
+        <span style={{ color: orderByDirection.value === 'desc' ? 'var(--el-color-primary)' : 'var(--el-text-color-placeholder)' }}>▼</span>
+      </span>
+    </button>
+  )
+}
 
 async function clickDelete() {
   const ids = selections.value.map((value: UserLoginVo) => value.id)
@@ -42,6 +67,7 @@ const options = ref<MaProTableOptions>({
   },
   // 表格参数
   tableOptions: {
+    defaultSort: { prop: 'id', order: 'descending' },
     on: {
       // 表格选择事件
       onSelectionChange: (selection: any[]) => selections.value = selection,
@@ -62,6 +88,7 @@ const options = ref<MaProTableOptions>({
   // 请求配置
   requestOptions: {
     api: UserLoginLog.page,
+    requestParams: { order_by: 'id', order_by_direction: 'desc' },
   },
 })
 // 架构配置
@@ -69,7 +96,7 @@ const schema = ref<MaProTableSchema>({
   // 搜索项
   searchItems: getSearchItems(t),
   // 表格列
-  tableColumns: getColumns(t),
+  tableColumns: getColumns(t, renderIdHeader),
 })
 </script>
 

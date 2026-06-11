@@ -5,7 +5,11 @@
         <main class="services-page">
             <section class="services-title-bar">
                 <div class="container">
+                    <span class="services-kicker">{{ $copy['main-services'] ?? 'Services' }}</span>
                     <h1>{{ $category->name }}</h1>
+                    @if (!empty($category->description))
+                        <p>{{ $category->description }}</p>
+                    @endif
                     <nav class="services-breadcrumb" aria-label="breadcrumb">
                         <a href="/">{{ $copy['main-home'] ?? 'Home' }}</a>
                         <span>{{ $category->name }}</span>
@@ -15,14 +19,21 @@
 
             <section class="services-content">
                 <div class="container">
-                    <div class="vstack gap-4">
+                    <div class="services-section-head reveal">
+                        <span>{{ str_pad((string) count($serviceSections ?? []), 2, '0', STR_PAD_LEFT) }}</span>
+                        <h2>{{ $category->name }}</h2>
+                    </div>
+                    <div class="service-card-stack">
                         @foreach (($serviceSections ?? []) as $section)
                             <article class="service-card reveal">
                                 <div class="service-card-media">
                                     <img src="{{ $section['image'] }}" alt="{{ $section['title'] }}">
                                 </div>
                                 <div class="service-card-copy">
-                                    <h2>{{ $section['title'] }}</h2>
+                                    <div class="service-card-heading">
+                                        <span>{{ str_pad((string) $loop->iteration, 2, '0', STR_PAD_LEFT) }}</span>
+                                        <h2>{{ $section['title'] }}</h2>
+                                    </div>
                                     <div class="article-content service-section-body">
                                         {!! $section['content'] !!}
                                     </div>

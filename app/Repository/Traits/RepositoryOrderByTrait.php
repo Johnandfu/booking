@@ -19,16 +19,18 @@ trait RepositoryOrderByTrait
     public function handleOrderBy(Builder $query, $params): Builder
     {
         if ($this->enablePageOrderBy()) {
-            $orderByField = $params[$this->getOrderByParamName()] ?? $query->getModel()->getKeyName();
-            $orderByDirection = $params[$this->getOrderByDirectionParamName()] ?? 'desc';
-            $query->orderBy($orderByField, $orderByDirection);
+            $orderByField = (string) ($params[$this->getOrderByParamName()] ?? $query->getModel()->getKeyName());
+            $orderByDirection = strtolower((string) ($params[$this->getOrderByDirectionParamName()] ?? 'desc'));
+            if (! in_array($orderByDirection, ['asc', 'desc'], true)) {
+                $orderByDirection = 'desc';
+            }
+            $query->reorder($orderByField, $orderByDirection);
         }
         return $query;
     }
 
     protected function bootRepositoryOrderByTrait(Builder $query, array $params): void
     {
-        $this->handleOrderBy($query, $params);
     }
 
     protected function getOrderByParamName(): string

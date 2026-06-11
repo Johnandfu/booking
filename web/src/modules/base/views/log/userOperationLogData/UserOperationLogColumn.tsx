@@ -12,13 +12,13 @@ import { UserOperatorLog } from '~/base/api/log.ts'
 import { ResultCode } from '@/utils/ResultCode.ts'
 import { useMessage } from '@/hooks/useMessage.ts'
 
-export default function getColumns(t: any): MaProTableColumns[] {
+export default function getColumns(t: any, renderIdHeader: () => any): MaProTableColumns[] {
   const msg = useMessage()
   return [
     // 多选列
     { type: 'selection', showOverflowTooltip: false, label: () => t('crud.selection') },
-    // 索引序号列
-    { type: 'index' },
+    // ID 列
+    { label: 'ID', prop: 'id', width: 90, headerRender: renderIdHeader },
     // 普通列
     { label: () => t('baseOperationLog.username'), prop: 'username' },
     { label: () => t('baseOperationLog.method'), prop: 'method' },

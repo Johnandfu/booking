@@ -1,5 +1,7 @@
 import type { PageList, ResponseStruct } from '#/global'
 
+type OrderByDirection = 'asc' | 'desc'
+
 export interface CmsBannerVo {
   id?: number
   title?: string
@@ -15,6 +17,8 @@ export interface CmsBannerVo {
 export interface CmsBannerSearchVo {
   keyword?: string
   status?: number
+  order_by?: string
+  order_by_direction?: OrderByDirection
   created_at?: string[]
   updated_at?: string[]
 }

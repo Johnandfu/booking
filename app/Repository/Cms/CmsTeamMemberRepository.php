@@ -36,8 +36,7 @@ final class CmsTeamMemberRepository extends IRepository
             })
             ->when(Arr::get($params, 'updated_at'), static function (Builder $query, array $updatedAt): void {
                 $query->whereBetween('updated_at', $updatedAt);
-            })
-            ->orderByDesc('id');
+            });
     }
 
     /**

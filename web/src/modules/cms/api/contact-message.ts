@@ -1,5 +1,7 @@
 import type { PageList, ResponseStruct } from '#/global'
 
+type OrderByDirection = 'asc' | 'desc'
+
 export interface CmsContactMessageVo {
   id?: number
   name?: string
@@ -16,6 +18,8 @@ export interface CmsContactMessageVo {
 export interface CmsContactMessageSearchVo {
   keyword?: string
   status?: number
+  order_by?: string
+  order_by_direction?: OrderByDirection
   created_at?: string[]
   updated_at?: string[]
 }

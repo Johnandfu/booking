@@ -18,7 +18,7 @@ import { deleteByIds, resetPassword } from '~/base/api/user.ts'
 import { ResultCode } from '@/utils/ResultCode.ts'
 import hasAuth from '@/utils/permission/hasAuth.ts'
 
-export default function getTableColumns(dialog: UseDialogExpose, formRef: any, t: any): MaProTableColumns[] {
+export default function getTableColumns(dialog: UseDialogExpose, formRef: any, t: any, renderIdHeader: () => any): MaProTableColumns[] {
   const dictStore = useDictStore()
   const msg = useMessage()
 
@@ -32,8 +32,8 @@ export default function getTableColumns(dialog: UseDialogExpose, formRef: any, t
       cellRender: ({ row }): any => row.id === 1 ? '-' : undefined,
       selectable: (row: UserVo) => ![1].includes(row.id as number),
     },
-    // 索引序号列
-    { type: 'index' },
+    // ID 列
+    { label: 'ID', prop: 'id', width: 90, headerRender: renderIdHeader },
     // 普通列
     { label: () => t('baseUserManage.avatar'), prop: 'avatar', width: '120px',
       cellRender: ({ row }) => (

@@ -18,6 +18,31 @@ const formRef = ref()
 const selections = ref<any[]>([])
 const msg = useMessage()
 const t = useTrans().globalTrans
+const orderByDirection = ref<'asc' | 'desc'>('desc')
+
+function toggleIdSort() {
+  orderByDirection.value = orderByDirection.value === 'desc' ? 'asc' : 'desc'
+  proTableRef.value?.setRequestParams({ order_by: 'id', order_by_direction: orderByDirection.value }, true)
+}
+
+function renderIdHeader() {
+  return (
+    <button
+      type="button"
+      style="display:inline-flex;align-items:center;gap:4px;border:0;background:transparent;font-weight:700;cursor:pointer;"
+      onClick={(event: MouseEvent) => {
+        event.stopPropagation()
+        toggleIdSort()
+      }}
+    >
+      <span>ID</span>
+      <span style="display:inline-grid;font-size:10px;line-height:9px;">
+        <span style={{ color: orderByDirection.value === 'asc' ? 'var(--el-color-primary)' : 'var(--el-text-color-placeholder)' }}>▲</span>
+        <span style={{ color: orderByDirection.value === 'desc' ? 'var(--el-color-primary)' : 'var(--el-text-color-placeholder)' }}>▼</span>
+      </span>
+    </button>
+  )
+}
 
 const maDialog: UseDialogExpose = useDialog({
   lgWidth: '640px',
@@ -41,11 +66,14 @@ const options = ref<MaProTableOptions>({
     subTitle: () => t('cms.category.subTitle'),
   },
   tableOptions: {
-    on: { onSelectionChange: (selection: any[]) => selections.value = selection },
+    defaultSort: { prop: 'id', order: 'descending' },
+    on: {
+      onSelectionChange: (selection: any[]) => selections.value = selection,
+    },
   },
   searchOptions: { fold: true },
   searchFormOptions: { labelWidth: '90px' },
-  requestOptions: { api: page },
+  requestOptions: { api: page, requestParams: { order_by: 'id', order_by_direction: 'desc' } },
 })
 
 const schema = ref<MaProTableSchema>({
@@ -57,7 +85,7 @@ const schema = ref<MaProTableSchema>({
   ],
   tableColumns: [
     { type: 'selection', showOverflowTooltip: false },
-    { label: 'ID', prop: 'id', width: 80 },
+    { label: 'ID', prop: 'id', width: 90, headerRender: renderIdHeader },
     {
       label: () => t('cms.fields.image'),
       prop: 'image',

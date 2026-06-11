@@ -9,6 +9,8 @@ use App\Model\Cms\CmsLanguage;
 use App\Service\Cms\CmsCategoryService;
 use App\Service\Cms\CmsContentService;
 use App\Service\Cms\CmsLanguageService;
+use App\Support\HtmlMinifier;
+use Hyperf\HttpMessage\Stream\SwooleStream;
 use Hyperf\HttpServer\Contract\RequestInterface;
 use Hyperf\View\RenderInterface;
 use Psr\Http\Message\ResponseInterface;
@@ -34,7 +36,7 @@ abstract class BaseController
         $viewData['seoDescription'] = $viewData['pageDescriptionOri'] ?? (data_get($copy, $data['pageDescription'] ?? 'main-description') ??  null);
 
 
-        return $render->render($template, $viewData);
+        return $this->minifyResponse($render->render($template, $viewData));
     }
 
     protected function notFound(RenderInterface $render): ResponseInterface
@@ -58,5 +60,14 @@ abstract class BaseController
             'frontendCategories' => $this->cmsCategory->enabledCategories(),
             'copy' => $copy
         ];
+    }
+
+    protected function minifyResponse(ResponseInterface $response): ResponseInterface
+    {
+        $html = HtmlMinifier::minify((string) $response->getBody());
+
+        return $response
+            ->withoutHeader('Content-Length')
+            ->withBody(new SwooleStream($html));
     }
 }

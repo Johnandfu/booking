@@ -9,6 +9,8 @@
  */
 import type { PageList, ResponseStruct } from '#/global'
 
+type OrderByDirection = 'asc' | 'desc'
+
 export interface RoleVo {
   id?: number
   name?: string
@@ -23,6 +25,8 @@ export interface RoleSearchVo {
   name?: string
   code?: string
   status?: number
+  order_by?: string
+  order_by_direction?: OrderByDirection
   [key: string]: any
 }
 
