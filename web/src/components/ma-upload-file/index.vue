@@ -18,7 +18,7 @@ zh_TW:
 
 <script setup lang="tsx">
 import { useLocalTrans } from '@/hooks/useLocalTrans.ts'
-import type { UploadUserFile } from 'element-plus'
+import type { UploadFile, UploadUserFile } from 'element-plus'
 import { isArray, uid } from 'radash'
 import { useMessage } from '@/hooks/useMessage.ts'
 import { uploadLocal } from '@/utils/uploadLocal.ts'
@@ -58,8 +58,11 @@ function updateModelValue() {
   )
 }
 
-function handleSuccess(res: any) {
-  const index = fileList.value.findIndex((item: any) => item.response?.data.id === res.data.id)
+function handleSuccess(res: any, uploadFile: UploadFile) {
+  const index = fileList.value.findIndex(item => item.uid === uploadFile.uid)
+  if (index === -1) {
+    return
+  }
   fileList.value[index].name = res.data.origin_name
   fileList.value[index].url = res.data.url
 
@@ -94,8 +97,12 @@ function handleExceed() {
   msg.error(`当前最多只能上传 ${limit} 个文件，请重新选择上传！`)
 }
 
-function handleError() {
-  msg.error(`文件上传失败，请您重新上传！`)
+function handleError(error: any, uploadFile: UploadFile) {
+  msg.error(error?.message || `文件上传失败，请您重新上传！`)
+  const index = fileList.value.findIndex(file => file.uid === uploadFile.uid)
+  if (index > -1) {
+    fileList.value.splice(index, 1)
+  }
 }
 
 watch(

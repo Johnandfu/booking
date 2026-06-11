@@ -36,7 +36,7 @@
                                 @if ($article->cover)
                                     <img src="{{ $article->cover }}" alt="{{ $article->title }}">
                                 @else
-                                    <span class="material-symbols-rounded">waves</span>
+                                    <svg class="cms-svg-icon"><use href="#icon-waves"></use></svg>
                                 @endif
                                 <div class="luxe-feature-overlay">
                                     <span>{{ $copy['news-viewDetails'] ?? 'news-viewDetails' }}</span>
@@ -88,7 +88,7 @@
                             @if ($article->cover)
                                 <img src="{{ $article->cover }}" alt="{{ $article->title }}">
                             @else
-                                <span class="material-symbols-rounded">beach_access</span>
+                                <svg class="cms-svg-icon"><use href="#icon-beach"></use></svg>
                             @endif
                             <span class="luxe-view">{{ $copy['news-viewDetails'] ?? 'news-viewDetails' }}</span>
                         </a>

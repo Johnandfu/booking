@@ -61,3 +61,8 @@
   border: none;
 }
 
+.el-image-viewer__wrapper,
+.el-image-viewer__mask {
+  z-index: 3000 !important;
+}
+

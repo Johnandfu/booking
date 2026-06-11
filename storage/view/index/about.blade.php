@@ -83,43 +83,5 @@
             </div>
         </section>
 
-        <section class="about-muted-section">
-            <div class="container">
-                <div class="d-flex flex-column flex-lg-row justify-content-between gap-3 align-items-lg-end mb-4">
-                    <div>
-                        <span class="landing-kicker">{{ $copy['about-expertKicker'] ?? 'about-expertKicker' }}</span>
-                        <h2>{{ $copy['about-teamTitle'] ?? 'about-teamTitle' }}</h2>
-                    </div>
-                    <a href="/contact" class="btn btn-au px-4">{{ $copy['about-viewAllMember'] ?? 'View All Member' }}</a>
-                </div>
-                <div class="row g-4">
-                    @foreach (['Savannah Nguyen', 'Annette Black', 'Kathryn Murphy', 'David Hardson'] as $member)
-                        <div class="col-md-6 col-lg-3 reveal">
-                            <div class="about-team-card">
-                                <div class="about-team-avatar"><i class="bi bi-person-fill"></i></div>
-                                <h3>{{ $member }}</h3>
-                                <p>{{ $copy['about-call'] ?? 'Call:' }} {{ $copy['main-contactPhone'] ?? '(0123) 456 789' }}</p>
-                            </div>
-                        </div>
-                    @endforeach
-                </div>
-            </div>
-        </section>
-
-        <section class="container about-section">
-            <span class="landing-kicker">{{ $copy['about-testimonialsKicker'] ?? 'Testimonials' }}</span>
-            <h2>{{ $copy['about-feedbackTitle'] ?? 'Latest Client Feedback' }}</h2>
-            <div class="row g-4 mt-2">
-                @foreach (['Kristin Watson' => 'Web Designer', 'Wade Warren' => 'President of Sales', 'Jessica Brown' => 'Founder & CEO'] as $name => $role)
-                    <div class="col-lg-4 reveal">
-                        <div class="about-feedback-card">
-                            <p>{{ $copy['about-feedbackText'] ?? 'Praesent ut lacus a velit tincidunt aliquam a eget urna. Sed ullamcorper tristique nisl at pharetra turpis accumsan et etiam eu sollicitudin eros.' }}</p>
-                            <h3>{{ $name }}</h3>
-                            <span>{{ $role }}</span>
-                        </div>
-                    </div>
-                @endforeach
-            </div>
-        </section>
     </main>
 @endsection

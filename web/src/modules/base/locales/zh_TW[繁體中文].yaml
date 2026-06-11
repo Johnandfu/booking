@@ -131,6 +131,8 @@ baseMenu:
     category: 欄目管理
     article: 文章管理
     banner: 輪播管理
+    teamMember: 團隊管理
+    testimonial: 客戶反饋
     page: 單頁管理
     contactMessage: 留言管理
     frontendI18n: 前台多語言
@@ -146,6 +148,14 @@ baseMenu:
     bannerCreate: 新增輪播
     bannerUpdate: 更新輪播
     bannerDelete: 刪除輪播
+    teamMemberList: 團隊列表
+    teamMemberCreate: 新增團隊
+    teamMemberUpdate: 更新團隊
+    teamMemberDelete: 刪除團隊
+    testimonialList: 反饋列表
+    testimonialCreate: 新增反饋
+    testimonialUpdate: 更新反饋
+    testimonialDelete: 刪除反饋
     pageList: 單頁列表
     pageCreate: 新增單頁
     pageUpdate: 更新單頁

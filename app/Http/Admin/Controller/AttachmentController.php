@@ -20,7 +20,6 @@ use App\Http\Common\Result;
 use App\Http\CurrentUser;
 use App\Schema\AttachmentSchema;
 use App\Service\AttachmentService;
-use Hyperf\Carbon\Carbon;
 use Hyperf\HttpServer\Annotation\Middleware;
 use Hyperf\Swagger\Annotation\Delete;
 use Hyperf\Swagger\Annotation\Get;
@@ -72,14 +71,13 @@ final class AttachmentController extends AbstractController
     )]
     #[Permission(code: 'dataCenter:attachment:upload')]
     #[ResultResponse(instance: new Result())]
-    public function upload(UploadRequest $request, \Hyperf\Filesystem\FilesystemFactory $factory): Result
+    public function upload(UploadRequest $request): Result
     {
         $uploadFile = $request->file('file');
         $newTmpPath = sys_get_temp_dir() . '/' . uniqid() . '.' . $uploadFile->getExtension();
         $uploadFile->moveTo($newTmpPath);
 
         $splFileInfo = new SplFileInfo($newTmpPath, '', '');
-        $factory->get('oss')->write('image/' . Carbon::today()->toDateString() . '/' . $splFileInfo->getFilename(), $splFileInfo->getContents());
         return $this->success(
             $this->service->upload($splFileInfo, $uploadFile, $this->currentUser->id())
         );

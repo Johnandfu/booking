@@ -131,6 +131,8 @@ baseMenu:
     category: Category Management
     article: Article Management
     banner: Banner Management
+    teamMember: Team Management
+    testimonial: Testimonials
     page: Page Management
     contactMessage: Contact Message Management
     frontendI18n: Frontend I18n
@@ -146,6 +148,14 @@ baseMenu:
     bannerCreate: Create Banner
     bannerUpdate: Update Banner
     bannerDelete: Delete Banner
+    teamMemberList: Team List
+    teamMemberCreate: Create Team Member
+    teamMemberUpdate: Update Team Member
+    teamMemberDelete: Delete Team Member
+    testimonialList: Testimonial List
+    testimonialCreate: Create Testimonial
+    testimonialUpdate: Update Testimonial
+    testimonialDelete: Delete Testimonial
     pageList: Page List
     pageCreate: Create Page
     pageUpdate: Update Page

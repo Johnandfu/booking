@@ -21,7 +21,7 @@ zh_TW:
 
 <script setup lang="tsx">
 import { useLocalTrans } from '@/hooks/useLocalTrans.ts'
-import type { UploadUserFile } from 'element-plus'
+import type { UploadFile, UploadUserFile } from 'element-plus'
 import { isArray, uid } from 'radash'
 import { useDebounceFn } from '@vueuse/core'
 import { useMessage } from '@/hooks/useMessage.ts'
@@ -33,8 +33,8 @@ const {
   modelValue = null,
   title = null,
   size = 120,
-  fileSize = 10 * 1024 * 1024,
-  fileType = ['image/jpeg', 'image/png', 'image/gif'],
+  fileSize = 5 * 1024 * 1024,
+  fileType = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'],
   limit = 5,
   multiple = false,
 } = defineProps<{
@@ -90,6 +90,7 @@ function btnRender() {
 }
 
 const fileList = ref<UploadUserFile[]>([])
+const uploadedFiles = computed(() => fileList.value.filter(file => !!file.url))
 
 function updateModelValue() {
   emit(
@@ -98,8 +99,11 @@ function updateModelValue() {
   )
 }
 
-function handleSuccess(res: any) {
-  const index = fileList.value.findIndex((item: any) => item.response?.data.id === res.data.id)
+function handleSuccess(res: any, uploadFile: UploadFile) {
+  const index = fileList.value.findIndex(item => item.uid === uploadFile.uid)
+  if (index === -1) {
+    return
+  }
   fileList.value[index].name = res.data.origin_name
   fileList.value[index].url = res.data.url
 
@@ -112,7 +116,7 @@ function beforeUpload(rawFile: File) {
     return false
   }
   if (fileSize < rawFile.size) {
-    msg.error(`只允许上传${fileSize}字节大小的文件`)
+    msg.error(`只允许上传 ${Math.round(fileSize / 1024 / 1024)}MB 以内的图片`)
     return false
   }
 
@@ -123,16 +127,21 @@ function handleExceed() {
   msg.error(`当前最多只能上传 ${limit} 张图片，请重新选择上传！`)
 }
 
-function handleError() {
-  msg.error(`图片上传失败，请您重新上传！`)
+function handleError(error: any, uploadFile: UploadFile) {
+  msg.error(error?.message || `图片上传失败，请您重新上传！`)
+  const index = fileList.value.findIndex(file => file.uid === uploadFile.uid)
+  if (index > -1) {
+    fileList.value.splice(index, 1)
+  }
 }
 
 watch(
-  () => fileList.value.length,
+  () => uploadedFiles.value.length,
   (length: number) => {
     const uploadTextDom: HTMLElement | null = document.querySelector(`.ma-upload-${id} .el-upload--text`)
     if (uploadTextDom) {
-      uploadTextDom.style.display = length > 0 ? 'none' : 'block'
+      const showUpload = multiple ? length < limit : length === 0
+      uploadTextDom.style.display = showUpload ? 'block' : 'none'
     }
   },
   { immediate: true },
@@ -140,7 +149,7 @@ watch(
 
 const setPreviewData = useDebounceFn(() => {
   previewList.value = []
-  fileList.value?.map((item: any) => {
+  fileList.value?.filter((item: any) => item.url).map((item: any) => {
     previewList.value.push(item.url)
   })
 })
@@ -191,10 +200,10 @@ watch(
     v-bind="$attrs"
   >
     <slot name="default">
-      <component :is="btnRender()" v-show="fileList.length === 0" ref="uploadBtnRef" />
+      <component :is="btnRender()" v-show="uploadedFiles.length === 0" ref="uploadBtnRef" />
     </slot>
     <template #file="{ file, index }">
-      <div class="ma-preview-list ma-upload-container relative" :style="getSize">
+      <div v-if="file.url" class="ma-preview-list ma-upload-container relative" :style="getSize">
         <div class="ma-preview-mask">
           <ma-svg-icon
             name="weui:eyes-on-filled"
@@ -227,13 +236,13 @@ watch(
       </div>
       <component
         :is="btnRender()"
-        v-if="index === (fileList.length - 1) && multiple && fileList.length < limit"
+        v-if="index === (fileList.length - 1) && multiple && uploadedFiles.length < limit"
         class="cursor-pointer"
         @click="() => uploadBtnRef?.click?.()"
       />
     </template>
     <template #tip>
-      <div v-if="fileList.length < 1" class="pt-1 text-sm text-dark-50 dark-text-gray-3">
+      <div v-if="uploadedFiles.length < 1" class="pt-1 text-sm text-dark-50 dark-text-gray-3">
         <slot name="tip">
           {{ $attrs?.tip }}
         </slot>

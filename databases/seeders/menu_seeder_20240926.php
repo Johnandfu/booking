@@ -529,6 +529,110 @@ class MenuSeeder20240926 extends Seeder
                         ],
                     ],
                     [
+                        'name' => 'cms:team-member',
+                        'path' => '/cms/team-member',
+                        'component' => 'cms/views/team-member/index',
+                        'meta' => new Meta([
+                            'title' => '团队管理',
+                            'i18n' => 'baseMenu.cms.teamMember',
+                            'icon' => 'ri:team-line',
+                            'type' => 'M',
+                            'hidden' => 0,
+                            'componentPath' => 'modules/',
+                            'componentSuffix' => '.vue',
+                            'breadcrumbEnable' => 1,
+                            'copyright' => 1,
+                            'cache' => 1,
+                            'affix' => 0,
+                        ]),
+                        'children' => [
+                            [
+                                'name' => 'cms:team-member:list',
+                                'meta' => new Meta([
+                                    'title' => '团队列表',
+                                    'type' => 'B',
+                                    'i18n' => 'baseMenu.cms.teamMemberList',
+                                ]),
+                            ],
+                            [
+                                'name' => 'cms:team-member:create',
+                                'meta' => new Meta([
+                                    'title' => '团队新增',
+                                    'type' => 'B',
+                                    'i18n' => 'baseMenu.cms.teamMemberCreate',
+                                ]),
+                            ],
+                            [
+                                'name' => 'cms:team-member:update',
+                                'meta' => new Meta([
+                                    'title' => '团队更新',
+                                    'type' => 'B',
+                                    'i18n' => 'baseMenu.cms.teamMemberUpdate',
+                                ]),
+                            ],
+                            [
+                                'name' => 'cms:team-member:delete',
+                                'meta' => new Meta([
+                                    'title' => '团队删除',
+                                    'type' => 'B',
+                                    'i18n' => 'baseMenu.cms.teamMemberDelete',
+                                ]),
+                            ],
+                        ],
+                    ],
+                    [
+                        'name' => 'cms:testimonial',
+                        'path' => '/cms/testimonial',
+                        'component' => 'cms/views/testimonial/index',
+                        'meta' => new Meta([
+                            'title' => '客户反馈',
+                            'i18n' => 'baseMenu.cms.testimonial',
+                            'icon' => 'ri:chat-quote-line',
+                            'type' => 'M',
+                            'hidden' => 0,
+                            'componentPath' => 'modules/',
+                            'componentSuffix' => '.vue',
+                            'breadcrumbEnable' => 1,
+                            'copyright' => 1,
+                            'cache' => 1,
+                            'affix' => 0,
+                        ]),
+                        'children' => [
+                            [
+                                'name' => 'cms:testimonial:list',
+                                'meta' => new Meta([
+                                    'title' => '反馈列表',
+                                    'type' => 'B',
+                                    'i18n' => 'baseMenu.cms.testimonialList',
+                                ]),
+                            ],
+                            [
+                                'name' => 'cms:testimonial:create',
+                                'meta' => new Meta([
+                                    'title' => '反馈新增',
+                                    'type' => 'B',
+                                    'i18n' => 'baseMenu.cms.testimonialCreate',
+                                ]),
+                            ],
+                            [
+                                'name' => 'cms:testimonial:update',
+                                'meta' => new Meta([
+                                    'title' => '反馈更新',
+                                    'type' => 'B',
+                                    'i18n' => 'baseMenu.cms.testimonialUpdate',
+                                ]),
+                            ],
+                            [
+                                'name' => 'cms:testimonial:delete',
+                                'meta' => new Meta([
+                                    'title' => '反馈删除',
+                                    'type' => 'B',
+                                    'i18n' => 'baseMenu.cms.testimonialDelete',
+                                ]),
+                            ],
+                        ],
+                    ],
+                    [
                         'name' => 'cms:contact-message',
                         'path' => '/cms/contact-message',
                         'component' => 'cms/views/contact-message/index',

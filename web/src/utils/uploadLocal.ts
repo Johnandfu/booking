@@ -16,7 +16,7 @@ export function uploadLocal(options: any, url?: string, key?: string) {
     const formData = new FormData()
     formData.append(key ?? 'file', options.file)
     upload(formData).then((res: Record<string, any>) => {
-      res.code === 200 ? resolve(res) : reject(res)
+      res.code === 200 ? resolve(res) : reject(new Error(res.message || '上传失败'))
     }).catch((err) => {
       reject(err)
     })

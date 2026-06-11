@@ -51,7 +51,7 @@ const schema = ref<MaProTableSchema>({
   tableColumns: [
     { type: 'selection', showOverflowTooltip: false },
     { type: 'index' },
-    { label: '图片', prop: 'image', width: 110, cellRender: ({ row }) => <ElImage src={row.image} fit="cover" style="width:72px;height:42px;border-radius:6px;" preview-src-list={[row.image]} /> },
+    { label: '图片', prop: 'image', width: 110, cellRender: ({ row }) => <ElImage src={row.image} fit="cover" style="width:72px;height:42px;border-radius:6px;" preview-src-list={[row.image]} previewTeleported zIndex={3000} /> },
     { label: '标题', prop: 'title' },
     { label: '链接', prop: 'link' },
     { label: '排序', prop: 'sort', width: 100 },

@@ -25,28 +25,28 @@
     <section class="container row g-4 mb-5 mx-auto">
         <div class="col-md-6 col-lg-3 reveal">
             <div class="lux-card p-4 h-100 text-center">
-                <span class="service-icon material-symbols-rounded mb-3">location_on</span>
+                <span class="service-icon mb-3"><svg class="cms-svg-icon"><use href="#icon-location"></use></svg></span>
                 <h2 class="h5 fw-bold mb-2">{{ $copy['contact-address'] ?? 'contact-address' }}</h2>
                 <p class="text-secondary mb-0">Sydney Opera House, Bennelong Point, Sydney NSW 2000, Australia</p>
             </div>
         </div>
         <div class="col-md-6 col-lg-3 reveal">
             <div class="lux-card p-4 h-100 text-center">
-                <span class="service-icon material-symbols-rounded mb-3">mail</span>
+                <span class="service-icon mb-3"><svg class="cms-svg-icon"><use href="#icon-mail"></use></svg></span>
                 <h2 class="h5 fw-bold mb-2">{{ $copy['main-contactEmail'] ?? 'main-contactEmail' }}</h2>
                 <p class="text-secondary mb-0">{{ $copy['contact-emailBody'] ?? 'contact-emailBody' }}</p>
             </div>
         </div>
         <div class="col-md-6 col-lg-3 reveal">
             <div class="lux-card p-4 h-100 text-center">
-                <span class="service-icon material-symbols-rounded mb-3">support_agent</span>
+                <span class="service-icon mb-3"><svg class="cms-svg-icon"><use href="#icon-support"></use></svg></span>
                 <h2 class="h5 fw-bold mb-2">{{ $copy['main-contactPhone'] ?? 'main-contactPhone' }}</h2>
                 <p class="text-secondary mb-0">{{ $copy['contact-hotBody'] ?? 'contact-hotBody' }}</p>
             </div>
         </div>
         <div class="col-md-6 col-lg-3 reveal">
             <div class="lux-card p-4 h-100 text-center">
-                <span class="service-icon material-symbols-rounded mb-3">schedule</span>
+                <span class="service-icon mb-3"><svg class="cms-svg-icon"><use href="#icon-clock"></use></svg></span>
                 <h2 class="h5 fw-bold mb-2">{{ $copy['contact-hours'] ?? 'contact-hours' }}</h2>
                 <p class="text-secondary mb-0">{{ $copy['contact-hoursBody'] ?? 'contact-hoursBody' }}</p>
             </div>
@@ -60,9 +60,9 @@
                 <h2 class="display-6 fw-bold mb-3">{{ $copy['contact-send'] ?? 'contact-send' }}</h2>
                 <p class="text-secondary mb-4">{{ $copy['contact-messageIntro'] ?? 'contact-messageIntro' }}</p>
                 <div class="vstack gap-3">
-                    <div><span class="material-symbols-rounded text-primary me-2">home_work</span><strong>{{ $copy['contact-servicePropertyTitle'] ?? 'contact-servicePropertyTitle' }}：</strong> {{ $copy['contact-servicePropertyText'] ?? 'contact-servicePropertyText' }}</div>
-                    <div><span class="material-symbols-rounded text-primary me-2">hotel</span><strong>{{ $copy['contact-serviceAccommodationTitle'] ?? 'contact-serviceAccommodationTitle' }}：</strong> {{ $copy['contact-serviceAccommodationText'] ?? 'contact-serviceAccommodationText' }}</div>
-                    <div><span class="material-symbols-rounded text-primary me-2">payments</span><strong>{{ $copy['contact-serviceOwnerTitle'] ?? 'contact-serviceOwnerTitle' }}：</strong> {{ $copy['contact-serviceOwnerText'] ?? 'contact-serviceOwnerText' }}</div>
+                    <div><svg class="cms-svg-icon text-primary me-2"><use href="#icon-home"></use></svg><strong>{{ $copy['contact-servicePropertyTitle'] ?? 'contact-servicePropertyTitle' }}：</strong> {{ $copy['contact-servicePropertyText'] ?? 'contact-servicePropertyText' }}</div>
+                    <div><svg class="cms-svg-icon text-primary me-2"><use href="#icon-building"></use></svg><strong>{{ $copy['contact-serviceAccommodationTitle'] ?? 'contact-serviceAccommodationTitle' }}：</strong> {{ $copy['contact-serviceAccommodationText'] ?? 'contact-serviceAccommodationText' }}</div>
+                    <div><svg class="cms-svg-icon text-primary me-2"><use href="#icon-payments"></use></svg><strong>{{ $copy['contact-serviceOwnerTitle'] ?? 'contact-serviceOwnerTitle' }}：</strong> {{ $copy['contact-serviceOwnerText'] ?? 'contact-serviceOwnerText' }}</div>
                 </div>
             </div>
         </div>

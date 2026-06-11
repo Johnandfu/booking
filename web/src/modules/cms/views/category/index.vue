@@ -61,7 +61,7 @@ const schema = ref<MaProTableSchema>({
       prop: 'image',
       width: 110,
       cellRender: ({ row }) => row.image
-        ? <ElImage src={row.image} fit="cover" style="width:72px;height:42px;border-radius:6px;" preview-src-list={[row.image]} />
+        ? <ElImage src={row.image} fit="cover" style="width:72px;height:42px;border-radius:6px;" preview-src-list={[row.image]} previewTeleported zIndex={3000} />
         : '-',
     },
     { label: '名称', prop: 'name' },

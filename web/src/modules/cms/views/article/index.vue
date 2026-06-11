@@ -52,7 +52,7 @@ const schema = ref<MaProTableSchema>({
   tableColumns: [
     { type: 'selection', showOverflowTooltip: false },
     { type: 'index' },
-    { label: '封面', prop: 'cover', width: 100, cellRender: ({ row }) => row.cover ? <ElImage src={row.cover} fit="cover" style="width:64px;height:42px;border-radius:6px;" preview-src-list={[row.cover]} /> : '-' },
+    { label: '封面', prop: 'cover', width: 100, cellRender: ({ row }) => row.cover ? <ElImage src={row.cover} fit="cover" style="width:64px;height:42px;border-radius:6px;" preview-src-list={[row.cover]} previewTeleported zIndex={3000} /> : '-' },
     { label: '标题', prop: 'title', minWidth: 180 },
     { label: '栏目', prop: 'category.name', width: 120, cellRender: ({ row }) => row.category?.name ?? row.category_id },
     { label: 'Slug', prop: 'slug', minWidth: 160 },
