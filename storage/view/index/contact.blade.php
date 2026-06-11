@@ -1,12 +1,12 @@
 @extends('index.layouts.main')
 
 @section('content')
-<main class="page-shell">
-    <section class="page-hero container text-center reveal">
+<main class="page-shell1">
+    <!-- <section class="page-hero container text-center reveal">
         <span class="landing-kicker">{{ $copy['contact-us'] ?? 'contact-us' }}</span>
         <h1>{{ $copy['contact-ready'] ?? 'contact-ready' }}</h1>
         <p class="mx-auto">{{ $copy['contact-intro'] ?? 'contact-intro' }}</p>
-    </section>
+    </section> -->
 
     <section class="container-fluid px-0 mb-5 reveal">
         <div class="coastal-map">

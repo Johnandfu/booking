@@ -21,7 +21,7 @@
             @endif
             <div class="row justify-content-center">
                 <div class="col-lg-9">
-                    <div class="content-panel article-panel p-4 p-lg-5 reveal">
+                    <div class="article-body reveal">
                         <div class="article-content">
                             @if ($article->content)
                                 {!! $article->content !!}

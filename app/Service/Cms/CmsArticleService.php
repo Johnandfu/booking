@@ -62,6 +62,14 @@ final class CmsArticleService extends IService
         return $this->repository->latestPublishedByCategory($categoryId, $limit);
     }
 
+    /**
+     * @return Collection<int, CmsArticle>
+     */
+    public function articlesByCategoryAll(int $categoryId): Collection
+    {
+        return $this->repository->publishedByCategory($categoryId);
+    }
+
     public function incrementViews(int $id): void
     {
         $this->repository->incrementViews($id);

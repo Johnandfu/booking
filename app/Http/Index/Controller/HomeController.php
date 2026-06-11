@@ -33,41 +33,61 @@ final class HomeController extends BaseController
 
     public function index(RenderInterface $render): ResponseInterface
     {
-        $featuredArticles = $galleryArticles = [];
+        $teamMembers = $this->teamMembers();
+        $testimonials = $this->testimonials();
+        $galleryArticles = $this->articleCardsByCategorySlug('news', 6);
 
-        $category = $this->cmsCategory->enabledCategories()->first();
-        if ($category) {
-            $featuredArticles = $this->cmsArticle->latestArticlesByCategory($category->id, 4)
-                ->map(static function ($article) use ($category): array {
-                    return [
-                        'category' => $category,
-                        'article' => $article,
-                        'url' => '/' . $category->slug . '/' . $article->id,
-                    ];
-                })->values()->all();
-        }
-
-        $category = $this->cmsCategory->enabledCategories()->last();
-        if ($category) {
-            $galleryArticles = $this->cmsArticle->latestArticlesByCategory($category->id, 6)
-                ->map(static function ($article) use ($category): array {
-                    return [
-                        'category' => $category,
-                        'article' => $article,
-                        'url' => '/' . $category->slug . '/' . $article->id,
-                    ];
-                })->values()->all();
-        }
         return $this->view($render, 'index.home', [
             'activeNav' => 'home',
             'pageTitle' => 'home-title',
             'pageDescription' => 'home-description',
             'banners' => $this->cmsBanner->banners(),
-            'featureArticles' => $featuredArticles,
+            'featureSlides' => $this->serviceFeatureSlides(),
+            'featureMobileSlides' => $this->serviceFeatureSlides(1),
             'galleryArticles' => $galleryArticles,
-            'teamSlides' => $this->teamSlides(),
-            'testimonialSlides' => $this->testimonialSlides(),
+            'galleryMobileSlides' => array_chunk($galleryArticles, 1),
+            'teamSlides' => array_chunk($teamMembers, 4),
+            'teamMobileSlides' => array_chunk($teamMembers, 1),
+            'testimonialSlides' => array_chunk($testimonials, 4),
+            'testimonialMobileSlides' => array_chunk($testimonials, 1),
         ]);
+    }
+
+    private function serviceFeatureSlides(int $perSlide = 4): array
+    {
+        $category = $this->cmsCategory->serviceCategory();
+        if ($category === null) {
+            return [];
+        }
+
+        $publicSlug = $this->cmsCategory->publicSlug($category);
+        $articles = $this->cmsArticle->articlesByCategoryAll($category->id)
+            ->map(fn ($article): array => [
+                'category' => $category,
+                'article' => $article,
+                'url' => '/' . $publicSlug . '/' . $article->id,
+            ])
+            ->values()
+            ->all();
+
+        return array_chunk($articles, $perSlide);
+    }
+
+    private function articleCardsByCategorySlug(string $slug, int $limit): array
+    {
+        $category = $this->cmsCategory->categoryBySlug($slug);
+        if ($category === null) {
+            return [];
+        }
+
+        return $this->cmsArticle->latestArticlesByCategory($category->id, $limit)
+            ->map(static fn ($article): array => [
+                'category' => $category,
+                'article' => $article,
+                'url' => '/' . $category->slug . '/' . $article->id,
+            ])
+            ->values()
+            ->all();
     }
 
     private function teamSlides(): array

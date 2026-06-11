@@ -20,6 +20,5 @@ tests/junit.xml
 public
 !web/public
 web/.pnpm-store
-*.lock
 storage/swagger/http.json
 storage/uploads

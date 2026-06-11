@@ -38,6 +38,20 @@ final class CmsCategoryService extends IService
         return $this->repository->findBySlug($canonical);
     }
 
+    public function serviceCategory(): ?CmsCategory
+    {
+        return $this->categoryBySlug('service') ?? $this->categoryBySlug('services');
+    }
+
+    public function publicSlug(CmsCategory $category): string
+    {
+        if ($category->slug === 'service') {
+            return 'services';
+        }
+
+        return $category->slug;
+    }
+
     /**
      * @return Collection<int, CmsCategory>
      */

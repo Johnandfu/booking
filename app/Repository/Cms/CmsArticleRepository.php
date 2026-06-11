@@ -104,6 +104,21 @@ final class CmsArticleRepository extends IRepository
             ->get();
     }
 
+    /**
+     * @return Collection<int, CmsArticle>
+     */
+    public function publishedByCategory(int $categoryId): Collection
+    {
+        return $this->model->newQuery()
+            ->with('category')
+            ->where('category_id', $categoryId)
+            ->where('status', CmsArticle::STATUS_PUBLISHED)
+            ->orderByDesc('sort')
+            ->orderByDesc('published_at')
+            ->orderByDesc('id')
+            ->get();
+    }
+
     public function incrementViews(int $id): void
     {
         $this->model->newQuery()->whereKey($id)->increment('views');
