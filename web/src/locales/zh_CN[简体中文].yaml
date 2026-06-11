@@ -175,3 +175,94 @@ dictionary:
   base:
     systemUser: 系统用户
     normalUser: 普通用户
+cms:
+  actions:
+    process: 处理
+  status:
+    published: 发布
+    draft: 草稿
+    processed: 已处理
+    pending: 未处理
+  fields:
+    keyword: 关键词
+    categoryId: 栏目ID
+    cover: 封面
+    image: 图片
+    title: 标题
+    category: 栏目
+    slug: Slug
+    author: 作者
+    views: 浏览
+    publishedAt: 发布时间
+    link: 链接
+    name: 名称
+    description: 描述
+    seoTitle: SEO标题
+    group: 分组
+    configKey: 配置键
+    language: 语言
+    note: 说明
+    copy: 文案
+    avatar: 头像
+    position: 职位
+    phone: 电话
+    customerName: 客户姓名
+    feedbackContent: 反馈内容
+    email: 邮箱
+    content: 内容
+    ip: IP
+  article:
+    title: CMS 文章
+    subTitle: 管理前台文章内容
+    addTitle: 新增文章
+    editTitle: 编辑文章
+    deleteConfirm: 确认删除该文章？
+    batchDeleteConfirm: 确认删除选中文章？
+  banner:
+    title: CMS 轮播
+    subTitle: 管理前台首页轮播图
+    addTitle: 新增轮播
+    editTitle: 编辑轮播
+    deleteConfirm: 确认删除该轮播？
+    batchDeleteConfirm: 确认删除选中轮播？
+  category:
+    title: CMS 栏目
+    subTitle: 管理前台文章栏目
+    addTitle: 新增栏目
+    editTitle: 编辑栏目
+    deleteConfirm: 确认删除该栏目？
+    batchDeleteConfirm: 确认删除选中栏目？
+  page:
+    title: CMS 单页
+    subTitle: 管理前台独立页面
+    addTitle: 新增单页
+    editTitle: 编辑单页
+    deleteConfirm: 确认删除该单页？
+    batchDeleteConfirm: 确认删除选中单页？
+  frontendI18n:
+    title: 前台多语言
+    subTitle: 管理前台静态文案
+    addTitle: 新增多语言
+    editTitle: 编辑多语言
+    deleteConfirm: 确认删除该配置？
+    batchDeleteConfirm: 确认删除选中配置？
+  teamMember:
+    title: 团队成员
+    subTitle: 管理前台团队成员展示
+    addTitle: 新增团队成员
+    editTitle: 编辑团队成员
+    deleteConfirm: 确认删除该团队成员？
+    batchDeleteConfirm: 确认删除选中团队成员？
+  testimonial:
+    title: 客户反馈
+    subTitle: 管理前台客户反馈展示
+    addTitle: 新增客户反馈
+    editTitle: 编辑客户反馈
+    deleteConfirm: 确认删除该客户反馈？
+    batchDeleteConfirm: 确认删除选中客户反馈？
+  contactMessage:
+    title: CMS 留言
+    subTitle: 管理前台联系表单留言
+    processTitle: 处理留言
+    deleteConfirm: 确认删除该留言？
+    batchDeleteConfirm: 确认删除选中留言？

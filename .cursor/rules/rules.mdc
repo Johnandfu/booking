@@ -1,0 +1,11 @@
+---
+description: Keep frontend controllers focused on route actions
+globs: app/Http/Index/Controller/*.php
+alwaysApply: false
+---
+
+# Frontend Controller Actions
+
+- In `app/Http/Index/Controller/*.php`, only route actions should be defined as controller methods.
+- Do not add private helper methods just to assemble page data inside these controllers.
+- Keep one-off view data preparation inline in the route action, or move reusable business/query logic into the appropriate service class.

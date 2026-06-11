@@ -1,7 +1,7 @@
 @extends('index.layouts.main')
 
 @section('content')
-    <main class="luxe-listing-page">
+    <main class="luxe-listing-page news-page">
         <section class="luxe-listing-hero">
             <div class="container position-relative">
                 <div class="row align-items-end g-5">
@@ -28,41 +28,39 @@
                 <span class="landing-kicker">{{ $copy['news-featuredKicker'] ?? 'news-featuredKicker' }}</span>
                 <h2>{{ $copy['news-featuredTitle'] ?? 'news-featuredTitle' }}</h2>
             </div>
-            <div class="row g-4">
+            <div class="news-accordion-strip">
                 @forelse ($featuredItems as $article)
-                    <div class="col-lg-6 reveal">
-                        <article class="luxe-feature-card">
-                            <a href="{{ $basePath }}/{{ $article->id }}" class="luxe-feature-media">
+                    <article class="news-accordion-panel reveal">
+                        <a href="{{ $basePath }}/{{ $article->id }}" class="news-accordion-link">
+                            <span class="news-accordion-media">
                                 @if ($article->cover)
                                     <img src="{{ $article->cover }}" alt="{{ $article->title }}">
                                 @else
                                     <svg class="cms-svg-icon"><use href="#icon-waves"></use></svg>
                                 @endif
-                                <div class="luxe-feature-overlay">
-                                    <span>{{ $copy['news-viewDetails'] ?? 'news-viewDetails' }}</span>
-                                </div>
-                            </a>
-                            <div class="luxe-feature-copy">
-                                <span>
+                            </span>
+                            <span class="news-accordion-content">
+                                <span class="news-accordion-date">
                                     @if ($article->published_at)
                                         {{ $article->published_at->format('d M Y') }}
                                     @else
                                         {{ $copy['news-listingLocation'] ?? 'news-listingLocation' }}
                                     @endif
                                 </span>
-                                <h2><a href="{{ $basePath }}/{{ $article->id }}" class="text-decoration-none">{{ $article->title }}</a></h2>
-                                <p>
+                                <strong>{{ $article->title }}</strong>
+                                <span class="news-accordion-summary">
                                     @if ($article->summary)
                                         {{ $article->summary }}
                                     @else
                                         {{ $copy['news-defaultSummary'] ?? 'news-defaultSummary' }}
                                     @endif
-                                </p>
-                            </div>
-                        </article>
-                    </div>
+                                </span>
+                                <span class="news-accordion-action">{{ $copy['news-viewDetails'] ?? 'news-viewDetails' }}</span>
+                            </span>
+                        </a>
+                    </article>
                 @empty
-                    <div class="col-12">
+                    <div>
                         <div class="alert alert-light border mb-0">{{ $copy['news-empty'] ?? 'news-empty' }}</div>
                     </div>
                 @endforelse
@@ -95,6 +93,13 @@
                         <div class="luxe-listing-copy">
                             <span class="luxe-location">{{ $copy['news-listingLocation'] ?? 'news-listingLocation' }}</span>
                             <h3><a href="{{ $basePath }}/{{ $article->id }}" class="text-decoration-none stretched-link">{{ $article->title }}</a></h3>
+                            <p>
+                                @if ($article->summary)
+                                    {{ $article->summary }}
+                                @else
+                                    {{ $copy['news-defaultSummary'] ?? 'news-defaultSummary' }}
+                                @endif
+                            </p>
                             <div class="luxe-price">
                                 @if ($article->published_at)
                                     {{ $article->published_at->format('d M Y') }}
@@ -120,18 +125,22 @@
             </div>
         </section>
 
-        @if ($paginator->currentPage() < $paginator->lastPage())
-            <div class="container text-center pb-5">
-                <button
-                    class="btn btn-au btn-lg px-5 news-load-more"
-                    type="button"
-                    data-news-load-more
-                    data-loading-text="{{ $copy['main-newsLoadMoreLoading'] ?? 'main-newsLoadMoreLoading' }}"
-                    data-load-failed-text="{{ $copy['main-newsLoadMoreFailed'] ?? 'main-newsLoadMoreFailed' }}"
-                >
-                    {{ $copy['news-loadMore'] ?? 'news-loadMore' }}
-                </button>
-            </div>
+        @if ($paginator->lastPage() > 1)
+            <nav class="container news-pagination pb-5" aria-label="{{ $copy['main-paginationLabel'] ?? 'main-paginationLabel' }}">
+                <ul class="pagination justify-content-center">
+                    @foreach ($pageNumbers as $pageNumber)
+                        @php
+                            $query = array_filter([
+                                'name' => $name ?? '',
+                                'page' => $pageNumber > 1 ? $pageNumber : null,
+                            ], static fn ($value) => $value !== null && $value !== '');
+                        @endphp
+                        <li class="page-item @if ($pageNumber === $paginator->currentPage()) active @endif">
+                            <a class="page-link" href="{{ $basePath }}@if ($query !== [])?{{ http_build_query($query) }}@endif">{{ $pageNumber }}</a>
+                        </li>
+                    @endforeach
+                </ul>
+            </nav>
         @endif
     </main>
 @endsection

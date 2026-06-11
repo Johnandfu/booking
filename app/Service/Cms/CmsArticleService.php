@@ -31,8 +31,9 @@ final class CmsArticleService extends IService
 
         return [
             'paginator' => $paginator,
-            'featuredItems' => array_slice($items, 0, 2),
-            'listingItems' => $page > 1 ? $items : array_slice($items, 2),
+            'featuredItems' => $page === 1 ? array_slice($items, 0, 4) : [],
+            'listingItems' => $page > 1 ? $items : array_slice($items, 4),
+            'pageNumbers' => range(1, $paginator->lastPage()),
         ];
     }
 

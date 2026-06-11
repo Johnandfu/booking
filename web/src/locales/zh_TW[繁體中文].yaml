@@ -175,3 +175,94 @@ dictionary:
   base:
     systemUser: 系統用戶
     normalUser: 普通用戶
+cms:
+  actions:
+    process: 處理
+  status:
+    published: 發佈
+    draft: 草稿
+    processed: 已處理
+    pending: 未處理
+  fields:
+    keyword: 關鍵詞
+    categoryId: 欄目ID
+    cover: 封面
+    image: 圖片
+    title: 標題
+    category: 欄目
+    slug: Slug
+    author: 作者
+    views: 瀏覽
+    publishedAt: 發佈時間
+    link: 連結
+    name: 名稱
+    description: 描述
+    seoTitle: SEO標題
+    group: 分組
+    configKey: 配置鍵
+    language: 語言
+    note: 說明
+    copy: 文案
+    avatar: 頭像
+    position: 職位
+    phone: 電話
+    customerName: 客戶姓名
+    feedbackContent: 反饋內容
+    email: 郵箱
+    content: 內容
+    ip: IP
+  article:
+    title: CMS 文章
+    subTitle: 管理前台文章內容
+    addTitle: 新增文章
+    editTitle: 編輯文章
+    deleteConfirm: 確認刪除該文章？
+    batchDeleteConfirm: 確認刪除選中文章？
+  banner:
+    title: CMS 輪播
+    subTitle: 管理前台首頁輪播圖
+    addTitle: 新增輪播
+    editTitle: 編輯輪播
+    deleteConfirm: 確認刪除該輪播？
+    batchDeleteConfirm: 確認刪除選中輪播？
+  category:
+    title: CMS 欄目
+    subTitle: 管理前台文章欄目
+    addTitle: 新增欄目
+    editTitle: 編輯欄目
+    deleteConfirm: 確認刪除該欄目？
+    batchDeleteConfirm: 確認刪除選中欄目？
+  page:
+    title: CMS 單頁
+    subTitle: 管理前台獨立頁面
+    addTitle: 新增單頁
+    editTitle: 編輯單頁
+    deleteConfirm: 確認刪除該單頁？
+    batchDeleteConfirm: 確認刪除選中單頁？
+  frontendI18n:
+    title: 前台多語言
+    subTitle: 管理前台靜態文案
+    addTitle: 新增多語言
+    editTitle: 編輯多語言
+    deleteConfirm: 確認刪除該配置？
+    batchDeleteConfirm: 確認刪除選中配置？
+  teamMember:
+    title: 團隊成員
+    subTitle: 管理前台團隊成員展示
+    addTitle: 新增團隊成員
+    editTitle: 編輯團隊成員
+    deleteConfirm: 確認刪除該團隊成員？
+    batchDeleteConfirm: 確認刪除選中團隊成員？
+  testimonial:
+    title: 客戶反饋
+    subTitle: 管理前台客戶反饋展示
+    addTitle: 新增客戶反饋
+    editTitle: 編輯客戶反饋
+    deleteConfirm: 確認刪除該客戶反饋？
+    batchDeleteConfirm: 確認刪除選中客戶反饋？
+  contactMessage:
+    title: CMS 留言
+    subTitle: 管理前台聯絡表單留言
+    processTitle: 處理留言
+    deleteConfirm: 確認刪除該留言？
+    batchDeleteConfirm: 確認刪除選中留言？

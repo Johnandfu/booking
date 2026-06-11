@@ -26,11 +26,11 @@ useTable('table').then((table: MaTableExpose) => {
   ])
 
   table.setData([
-    { member: 'IT界-风清扬', dynamic: '上班不摸鱼，与咸鱼有什么区别。', timer: '2024-09-25 17:10:20' },
-    { member: 'Anna', dynamic: '技术部那几位童鞋，再次警告，不要摸鱼，不要摸鱼，不要摸鱼啦！', timer: '2024-09-15 16:34:56' },
-    { member: '小李子', dynamic: '中午吃什么嘞，好烦呐！那个谁，来一段唱、跳、rap和篮球吧', timer: '2024-09-09 12:01:10' },
-    { member: '咩咩羊', dynamic: '向 MineAdmin 提交了一个bug，抽时间看看吧！', timer: '2024-09-05 14:20:07' },
-    { member: '李大', dynamic: '刚才把工作台页面随便写了一些，凑合能看了！', timer: '2024-09-03 10:43:36' },
+    // { member: 'IT界-风清扬', dynamic: '上班不摸鱼，与咸鱼有什么区别。', timer: '2024-09-25 17:10:20' },
+    // { member: 'Anna', dynamic: '技术部那几位童鞋，再次警告，不要摸鱼，不要摸鱼，不要摸鱼啦！', timer: '2024-09-15 16:34:56' },
+    // { member: '小李子', dynamic: '中午吃什么嘞，好烦呐！那个谁，来一段唱、跳、rap和篮球吧', timer: '2024-09-09 12:01:10' },
+    // { member: '咩咩羊', dynamic: '向 MineAdmin 提交了一个bug，抽时间看看吧！', timer: '2024-09-05 14:20:07' },
+    // { member: '李大', dynamic: '刚才把工作台页面随便写了一些，凑合能看了！', timer: '2024-09-03 10:43:36' },
   ])
 })
 </script>
@@ -49,7 +49,7 @@ useTable('table').then((table: MaTableExpose) => {
       </div>
     </div>
 
-    <div class="justify-between lg:flex">
+    <div class="justify-between lg:flex"  style="display: none;">
       <div class="mine-card w-auto lg:w-8/12">
         <div class="text-base">
           <div>进行中的项目</div>

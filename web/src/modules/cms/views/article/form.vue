@@ -10,7 +10,9 @@ import { page as categoryPage } from '../../api/category'
 import MaRemoteSelect from '../../../../components/ma-remote-select/index.vue'
 import MaUploadImage from '../../../../components/ma-upload-image/index.vue'
 import useForm from '../../../../hooks/useForm'
+import { useMessage } from '../../../../hooks/useMessage'
 import { ResultCode } from '../../../../utils/ResultCode'
+import { markdownImagesToHtml, uploadFilesAsUrls } from '../../../../utils/uploadLocal'
 import 'md-editor-v3/lib/style.css'
 
 defineOptions({ name: 'cms:article:form' })
@@ -24,10 +26,24 @@ const props = withDefaults(defineProps<{
 })
 
 const articleForm = ref<MaFormExpose>()
+const msg = useMessage()
 const articleModel = ref<CmsArticleVo>({
   status: 1,
   views: 0,
 })
+
+function handleUploadImg(files: File[], callback: (urls: string[]) => void) {
+  uploadFilesAsUrls(files)
+    .then(urls => callback(urls))
+    .catch((error: Error) => msg.error(error.message || '图片上传失败'))
+}
+
+function articlePayload(): CmsArticleVo {
+  return {
+    ...articleModel.value,
+    content: markdownImagesToHtml(articleModel.value.content ?? ''),
+  }
+}
 
 function formItems(): MaFormItem[] {
   return [
@@ -80,6 +96,7 @@ function formItems(): MaFormItem[] {
         'class': 'w-full',
         'style': { height: '420px' },
         'previewTheme': 'github',
+        'onUploadImg': handleUploadImg,
         'onUpdate:modelValue': (value: string) => {
           articleModel.value.content = value
         },
@@ -109,7 +126,9 @@ useForm('articleForm').then((form: MaFormExpose) => {
     const data = props.data as Record<string, any>
     const model = articleModel.value as Record<string, any>
     Object.keys(props.data).map((key: string) => {
-      model[key] = data[key]
+      model[key] = key === 'content' && typeof data[key] === 'string'
+        ? markdownImagesToHtml(data[key])
+        : data[key]
     })
   }
   if (props.formType === 'add') {
@@ -123,13 +142,13 @@ useForm('articleForm').then((form: MaFormExpose) => {
 
 function add(): Promise<any> {
   return new Promise((resolve, reject) => {
-    create(articleModel.value).then(res => res.code === ResultCode.SUCCESS ? resolve(res) : reject(res)).catch(reject)
+    create(articlePayload()).then(res => res.code === ResultCode.SUCCESS ? resolve(res) : reject(res)).catch(reject)
   })
 }
 
 function edit(): Promise<any> {
   return new Promise((resolve, reject) => {
-    save(articleModel.value.id as number, articleModel.value).then(res => res.code === ResultCode.SUCCESS ? resolve(res) : reject(res)).catch(reject)
+    save(articleModel.value.id as number, articlePayload()).then(res => res.code === ResultCode.SUCCESS ? resolve(res) : reject(res)).catch(reject)
   })
 }
 

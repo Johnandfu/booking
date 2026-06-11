@@ -7,6 +7,7 @@ import { ElImage, ElTag } from 'element-plus'
 import { deleteByIds, page } from '../../api/category'
 import CategoryForm from './form.vue'
 import useDialog from '../../../../hooks/useDialog'
+import { useTrans } from '../../../../hooks/auto-imports/useTrans'
 import { useMessage } from '../../../../hooks/useMessage'
 import { ResultCode } from '../../../../utils/ResultCode'
 
@@ -16,6 +17,7 @@ const proTableRef = ref<MaProTableExpose>() as Ref<MaProTableExpose>
 const formRef = ref()
 const selections = ref<any[]>([])
 const msg = useMessage()
+const t = useTrans().globalTrans
 
 const maDialog: UseDialogExpose = useDialog({
   lgWidth: '640px',
@@ -24,7 +26,7 @@ const maDialog: UseDialogExpose = useDialog({
     formRef.value.maForm.getElFormRef().validate().then(() => {
       const action = formType === 'add' ? formRef.value.add() : formRef.value.edit()
       action.then((res: any) => {
-        res.code === ResultCode.SUCCESS ? msg.success(formType === 'add' ? '创建成功' : '更新成功') : msg.error(res.message)
+        res.code === ResultCode.SUCCESS ? msg.success(formType === 'add' ? t('crud.createSuccess') : t('crud.updateSuccess')) : msg.error(res.message)
         maDialog.close()
         proTableRef.value.refresh()
       }).catch((err: any) => msg.alertError(err)).finally(() => okLoadingState(false))
@@ -35,8 +37,8 @@ const maDialog: UseDialogExpose = useDialog({
 const options = ref<MaProTableOptions>({
   adaptionOffsetBottom: 161,
   header: {
-    mainTitle: 'CMS 栏目',
-    subTitle: '管理前台文章栏目',
+    mainTitle: () => t('cms.category.title'),
+    subTitle: () => t('cms.category.subTitle'),
   },
   tableOptions: {
     on: { onSelectionChange: (selection: any[]) => selections.value = selection },
@@ -48,58 +50,58 @@ const options = ref<MaProTableOptions>({
 
 const schema = ref<MaProTableSchema>({
   searchItems: [
-    { label: '关键词', prop: 'keyword', render: 'input' },
-    { label: '状态', prop: 'status', render: 'inputNumber', renderProps: { min: 0, max: 1 } },
-    { label: '创建时间', prop: 'created_at', render: 'datePicker', renderProps: { type: 'daterange', valueFormat: 'YYYY-MM-DD HH:mm:ss' } },
-    { label: '更新时间', prop: 'updated_at', render: 'datePicker', renderProps: { type: 'daterange', valueFormat: 'YYYY-MM-DD HH:mm:ss' } },
+    { label: () => t('cms.fields.keyword'), prop: 'keyword', render: 'input' },
+    { label: () => t('crud.status'), prop: 'status', render: 'inputNumber', renderProps: { min: 0, max: 1 } },
+    { label: () => t('crud.createTime'), prop: 'created_at', render: 'datePicker', renderProps: { type: 'daterange', valueFormat: 'YYYY-MM-DD HH:mm:ss' } },
+    { label: () => t('crud.updateTime'), prop: 'updated_at', render: 'datePicker', renderProps: { type: 'daterange', valueFormat: 'YYYY-MM-DD HH:mm:ss' } },
   ],
   tableColumns: [
     { type: 'selection', showOverflowTooltip: false },
-    { type: 'index' },
+    { label: 'ID', prop: 'id', width: 80 },
     {
-      label: '图片',
+      label: () => t('cms.fields.image'),
       prop: 'image',
       width: 110,
       cellRender: ({ row }) => row.image
         ? <ElImage src={row.image} fit="cover" style="width:72px;height:42px;border-radius:6px;" preview-src-list={[row.image]} previewTeleported zIndex={3000} />
         : '-',
     },
-    { label: '名称', prop: 'name' },
-    { label: 'Slug', prop: 'slug' },
-    { label: '描述', prop: 'description' },
-    { label: '排序', prop: 'sort', width: 100 },
+    { label: () => t('cms.fields.name'), prop: 'name' },
+    { label: () => t('cms.fields.slug'), prop: 'slug' },
+    { label: () => t('cms.fields.description'), prop: 'description' },
+    { label: () => t('crud.sort'), prop: 'sort', width: 100 },
     {
-      label: '状态',
+      label: () => t('crud.status'),
       prop: 'status',
       width: 100,
-      cellRender: ({ row }) => <ElTag type={row.status === 1 ? 'success' : 'info'}>{row.status === 1 ? '启用' : '禁用'}</ElTag>,
+      cellRender: ({ row }) => <ElTag type={row.status === 1 ? 'success' : 'info'}>{row.status === 1 ? t('dictionary.system.statusEnabled') : t('dictionary.system.statusDisabled')}</ElTag>,
     },
-    { label: '创建时间', prop: 'created_at', width: 180 },
+    { label: () => t('crud.createTime'), prop: 'created_at', width: 180 },
     {
       type: 'operation',
-      label: '操作',
+      label: () => t('crud.operation'),
       operationConfigure: {
         actions: [
           {
             name: 'edit',
             icon: 'material-symbols:edit-square-outline',
-            text: '编辑',
+            text: () => t('crud.edit'),
             show: () => true,
             onClick: ({ row }) => {
-              maDialog.setTitle('编辑栏目')
+              maDialog.setTitle(t('cms.category.editTitle'))
               maDialog.open({ formType: 'edit', data: row })
             },
           },
           {
             name: 'delete',
             icon: 'mdi:delete',
-            text: '删除',
+            text: () => t('crud.delete'),
             show: () => true,
             onClick: ({ row }, proxy) => {
-              msg.delConfirm('确认删除该栏目？').then(async () => {
+              msg.delConfirm(t('cms.category.deleteConfirm')).then(async () => {
                 const response = await deleteByIds([row.id])
                 if (response.code === ResultCode.SUCCESS) {
-                  msg.success('删除成功')
+                  msg.success(t('crud.delSuccess'))
                   proxy.refresh()
                 }
               })
@@ -113,10 +115,10 @@ const schema = ref<MaProTableSchema>({
 
 function handleDelete() {
   const ids = selections.value.map(item => item.id)
-  msg.confirm('确认删除选中栏目？').then(async () => {
+  msg.confirm(t('cms.category.batchDeleteConfirm')).then(async () => {
     const response = await deleteByIds(ids)
     if (response.code === ResultCode.SUCCESS) {
-      msg.success('删除成功')
+      msg.success(t('crud.delSuccess'))
       proTableRef.value.refresh()
     }
   })
@@ -127,13 +129,13 @@ function handleDelete() {
   <div class="mine-layout pt-3">
     <MaProTable ref="proTableRef" :options="options" :schema="schema">
       <template #actions>
-        <el-button v-auth="['cms:category:create']" type="primary" @click="() => { maDialog.setTitle('新增栏目'); maDialog.open({ formType: 'add' }) }">
-          新增
+        <el-button v-auth="['cms:category:create']" type="primary" @click="() => { maDialog.setTitle(t('cms.category.addTitle')); maDialog.open({ formType: 'add' }) }">
+          {{ t('crud.add') }}
         </el-button>
       </template>
       <template #toolbarLeft>
         <el-button v-auth="['cms:category:delete']" type="danger" plain :disabled="selections.length < 1" @click="handleDelete">
-          删除
+          {{ t('crud.delete') }}
         </el-button>
       </template>
     </MaProTable>

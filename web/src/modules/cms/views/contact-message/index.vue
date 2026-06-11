@@ -7,6 +7,7 @@ import { ElTag } from 'element-plus'
 import { deleteByIds, page } from '../../api/contact-message'
 import MessageForm from './form.vue'
 import useDialog from '../../../../hooks/useDialog'
+import { useTrans } from '../../../../hooks/auto-imports/useTrans'
 import { useMessage } from '../../../../hooks/useMessage'
 import { ResultCode } from '../../../../utils/ResultCode'
 
@@ -16,6 +17,7 @@ const proTableRef = ref<MaProTableExpose>() as Ref<MaProTableExpose>
 const formRef = ref()
 const selections = ref<any[]>([])
 const msg = useMessage()
+const t = useTrans().globalTrans
 
 const maDialog: UseDialogExpose = useDialog({
   lgWidth: '680px',
@@ -23,7 +25,7 @@ const maDialog: UseDialogExpose = useDialog({
     okLoadingState(true)
     formRef.value?.maForm?.getElFormRef().validate().then(() => {
       formRef.value?.edit().then((res: any) => {
-        res.code === ResultCode.SUCCESS ? msg.success('更新成功') : msg.error(res.message)
+        res.code === ResultCode.SUCCESS ? msg.success(t('crud.updateSuccess')) : msg.error(res.message)
         maDialog.close()
         proTableRef.value.refresh()
       }).catch((err: any) => msg.alertError(err)).finally(() => okLoadingState(false))
@@ -33,7 +35,7 @@ const maDialog: UseDialogExpose = useDialog({
 
 const options = ref<MaProTableOptions>({
   adaptionOffsetBottom: 161,
-  header: { mainTitle: 'CMS 留言', subTitle: '管理前台联系表单留言' },
+  header: { mainTitle: () => t('cms.contactMessage.title'), subTitle: () => t('cms.contactMessage.subTitle') },
   tableOptions: { on: { onSelectionChange: (selection: any[]) => selections.value = selection } },
   searchOptions: { fold: true },
   searchFormOptions: { labelWidth: '90px' },
@@ -42,41 +44,41 @@ const options = ref<MaProTableOptions>({
 
 const schema = ref<MaProTableSchema>({
   searchItems: [
-    { label: '关键词', prop: 'keyword', render: 'input' },
-    { label: '状态', prop: 'status', render: 'inputNumber', renderProps: { min: 0, max: 1 } },
-    { label: '创建时间', prop: 'created_at', render: 'datePicker', renderProps: { type: 'daterange', valueFormat: 'YYYY-MM-DD HH:mm:ss' } },
-    { label: '更新时间', prop: 'updated_at', render: 'datePicker', renderProps: { type: 'daterange', valueFormat: 'YYYY-MM-DD HH:mm:ss' } },
+    { label: () => t('cms.fields.keyword'), prop: 'keyword', render: 'input' },
+    { label: () => t('crud.status'), prop: 'status', render: 'inputNumber', renderProps: { min: 0, max: 1 } },
+    { label: () => t('crud.createTime'), prop: 'created_at', render: 'datePicker', renderProps: { type: 'daterange', valueFormat: 'YYYY-MM-DD HH:mm:ss' } },
+    { label: () => t('crud.updateTime'), prop: 'updated_at', render: 'datePicker', renderProps: { type: 'daterange', valueFormat: 'YYYY-MM-DD HH:mm:ss' } },
   ],
   tableColumns: [
     { type: 'selection', showOverflowTooltip: false },
-    { type: 'index' },
-    { label: '姓名', prop: 'name', width: 120 },
-    { label: '邮箱', prop: 'email', minWidth: 180 },
-    { label: '电话', prop: 'phone', width: 140 },
-    { label: '内容', prop: 'content', minWidth: 260 },
-    { label: 'IP', prop: 'ip', width: 140 },
-    { label: '状态', prop: 'status', width: 100, cellRender: ({ row }) => <ElTag type={row.status === 1 ? 'success' : 'warning'}>{row.status === 1 ? '已处理' : '未处理'}</ElTag> },
-    { label: '创建时间', prop: 'created_at', width: 180 },
+    { label: 'ID', prop: 'id', width: 80 },
+    { label: () => t('cms.fields.name'), prop: 'name', width: 120 },
+    { label: () => t('cms.fields.email'), prop: 'email', minWidth: 180 },
+    { label: () => t('cms.fields.phone'), prop: 'phone', width: 140 },
+    { label: () => t('cms.fields.content'), prop: 'content', minWidth: 260 },
+    { label: () => t('cms.fields.ip'), prop: 'ip', width: 140 },
+    { label: () => t('crud.status'), prop: 'status', width: 100, cellRender: ({ row }) => <ElTag type={row.status === 1 ? 'success' : 'warning'}>{row.status === 1 ? t('cms.status.processed') : t('cms.status.pending')}</ElTag> },
+    { label: () => t('crud.createTime'), prop: 'created_at', width: 180 },
     {
       type: 'operation',
-      label: '操作',
+      label: () => t('crud.operation'),
       operationConfigure: {
         actions: [
           {
             name: 'edit',
             icon: 'material-symbols:edit-square-outline',
-            text: '处理',
+            text: () => t('cms.actions.process'),
             show: () => true,
             onClick: ({ row }) => {
-              maDialog.setTitle('处理留言')
+              maDialog.setTitle(t('cms.contactMessage.processTitle'))
               maDialog.open({ data: row })
             },
           },
-          { name: 'delete', icon: 'mdi:delete', text: '删除', show: () => true, onClick: ({ row }, proxy) => {
-            msg.delConfirm('确认删除该留言？').then(async () => {
+          { name: 'delete', icon: 'mdi:delete', text: () => t('crud.delete'), show: () => true, onClick: ({ row }, proxy) => {
+            msg.delConfirm(t('cms.contactMessage.deleteConfirm')).then(async () => {
               const response = await deleteByIds([row.id])
               if (response.code === ResultCode.SUCCESS) {
-                msg.success('删除成功')
+                msg.success(t('crud.delSuccess'))
                 proxy.refresh()
               }
             })
@@ -89,10 +91,10 @@ const schema = ref<MaProTableSchema>({
 
 function handleDelete() {
   const ids = selections.value.map(item => item.id)
-  msg.confirm('确认删除选中留言？').then(async () => {
+  msg.confirm(t('cms.contactMessage.batchDeleteConfirm')).then(async () => {
     const response = await deleteByIds(ids)
     if (response.code === ResultCode.SUCCESS) {
-      msg.success('删除成功')
+      msg.success(t('crud.delSuccess'))
       proTableRef.value.refresh()
     }
   })
@@ -104,7 +106,7 @@ function handleDelete() {
     <MaProTable ref="proTableRef" :options="options" :schema="schema">
       <template #toolbarLeft>
         <el-button v-auth="['cms:contact-message:delete']" type="danger" plain :disabled="selections.length < 1" @click="handleDelete">
-          删除
+          {{ t('crud.delete') }}
         </el-button>
       </template>
     </MaProTable>

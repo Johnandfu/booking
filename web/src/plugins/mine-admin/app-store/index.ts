@@ -14,7 +14,7 @@ const pluginConfig: Plugin.PluginConfig = {
     console.log('MineAdmin应用市场已启动')
   },
   config: {
-    enable: import.meta.env.DEV,
+    enable: false,// import.meta.env.DEV,
     info: {
       name: 'mine-admin/app-store',
       version: '1.0.0',

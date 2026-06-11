@@ -7,6 +7,13 @@
  * @Author X.Mo<root@imoi.cn>
  * @Link   https://github.com/mineadmin
  */
+export function markdownImagesToHtml(content: string): string {
+  return content.replace(
+    /!\[([^\]]*)\]\(([^)]+)\)/g,
+    (_, alt: string, src: string) => `<p><img src="${src}" alt="${alt}" /></p>`,
+  )
+}
+
 export function uploadLocal(options: any, url?: string, key?: string) {
   const upload = (formData: FormData) => {
     return useHttp().post(url ?? '/admin/attachment/upload', formData)
@@ -20,5 +27,19 @@ export function uploadLocal(options: any, url?: string, key?: string) {
     }).catch((err) => {
       reject(err)
     })
+  })
+}
+
+export async function uploadFilesAsUrls(files: File[], url?: string, key?: string): Promise<string[]> {
+  const responses = await Promise.all(
+    files.map(file => uploadLocal({ file }, url, key) as Promise<Record<string, any>>),
+  )
+
+  return responses.map((res) => {
+    const imageUrl = res?.data?.url
+    if (!imageUrl) {
+      throw new Error(res?.message || '上传失败')
+    }
+    return imageUrl as string
   })
 }
