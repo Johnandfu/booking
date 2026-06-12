@@ -1,1 +1,0 @@
-import{bo as t}from"./index-Ci6OxH_6.js";class s{static page(e){return t().get("/admin/user-login-log/list",{params:e})}static delete(e){return t().delete("/admin/user-login-log",{data:{ids:e}})}}class o{static page(e){return t().get("/admin/user-operation-log/list",{params:e})}static delete(e){return t().delete("/admin/user-operation-log",{data:{ids:e}})}}export{s as U,o as a};

@@ -1,1 +1,0 @@
-import{_ as o}from"./setPermissionForm.vue_vue_type_script_setup_true_lang-jB2YUWI8.js";import"./index-Ci6OxH_6.js";import"./__commonjsHelpers__-Cpj98o6Y.js";import"./role-DQR7GyDn.js";import"./index-CkmjKYaN.js";import"./useLocalTrans-B2L3-Odf.js";import"./useForm-4ljqycf0.js";import"./index.es-DIwS8BEF.js";import"./useTrans-DM0bMIQt.js";export{o as default};

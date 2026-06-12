@@ -18,9 +18,10 @@ import hasUser from '@/utils/permission/hasUser.ts'
 import { isEmpty } from 'radash'
 
 const { isLoading } = useNProgress()
+const appBase = import.meta.env.VITE_APP_ROOT_BASE || '/'
 
 const router = createRouter({
-  history: import.meta.env.VITE_APP_ROUTE_MODE === 'history' ? createWebHistory() : createWebHashHistory(),
+  history: import.meta.env.VITE_APP_ROUTE_MODE === 'history' ? createWebHistory(appBase) : createWebHashHistory(appBase),
   routes: routes as RouteRecordRaw[],
 })
 
