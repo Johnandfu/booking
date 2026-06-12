@@ -1,1 +1,0 @@
-import{bo as a}from"./index-5EwNNIoH.js";function r(t){return a().get("/admin/cms/category/list",{params:t})}function o(t){return a().post("/admin/cms/category",t)}function c(t,e){return a().put(`/admin/cms/category/${t}`,e)}async function i(t){let e=null;for(const n of t)e=await a().delete(`/admin/cms/category/${n}`);return e}export{o as c,i as d,r as p,c as s};
