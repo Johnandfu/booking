@@ -604,7 +604,7 @@ class CmsLanguageSeeder20260529 extends Seeder
         foreach ($defaults as $languageCode => $groupType) {
             foreach ($groupType as $groupTypeKey => $groupTypeValue) {
                 foreach ($groupTypeValue as $key => $value) {
-                    CmsLanguage::updateOrCreate(
+                    CmsLanguage::firstOrCreate(
                         ['group_type' => $groupTypeKey, 'key' => $key, 'language_code' => $languageCode],
                         ['value' => $value, 'status' => CmsLanguage::STATUS_ENABLED, 'sort' => $sort++]
                     );

@@ -4,7 +4,6 @@ volumes:
   hcms_redis_data:
   hcms_mysql_data:
   hcms_certbot_data:
-  hcms_certbot_www:
 
 services:
   nginx:
@@ -14,17 +13,26 @@ services:
       args:
         ENABLE_SSL: ${ENABLE_SSL}
         CERTBOT_DOMAIN: ${CERTBOT_DOMAIN}
+        ADMIN_DOMAIN: ${ADMIN_DOMAIN}
         CERTBOT_EMAIL: ${CERTBOT_EMAIL}
     ports:
       - "80:80"
       - "443:443"
     volumes:
       - ./:/var/www/hyperf-cms:ro
-      - ./docker/nginx/https.conf.template:/etc/nginx/external/default.conf:ro
       - hcms_certbot_data:/etc/letsencrypt
-      - hcms_certbot_www:/var/www/certbot
+    environment:
+      ENABLE_SSL: ${ENABLE_SSL}
+      CERTBOT_DOMAIN: ${CERTBOT_DOMAIN}
+      ADMIN_DOMAIN: ${ADMIN_DOMAIN}
+      CERTBOT_EMAIL: ${CERTBOT_EMAIL}
     depends_on:
       - hyperf
+    logging:
+      driver: json-file
+      options:
+        max-size: "50m"
+        max-file: "3"
     restart: always
 
   redis:
@@ -47,7 +55,6 @@ services:
       - hcms_mysql_data:/var/lib/mysql
     ports:
       - "3306:3306"
-    command: --default-authentication-plugin=mysql_native_password
     environment:
       MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
       MYSQL_DATABASE: ${DB_DATABASE}
@@ -60,6 +67,9 @@ services:
     volumes:
       - ./:/opt/www/hyperf-cms
     working_dir: /opt/www/hyperf-cms
+    depends_on:
+      - redis
+      - mysql
     environment:
       TZ: Asia/Shanghai
     command: php bin/hyperf.php start

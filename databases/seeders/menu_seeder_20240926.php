@@ -123,7 +123,7 @@ class MenuSeeder20240926 extends Seeder
                                 ]),
                             ],
                             [
-                                'name' => 'user:get:roles',
+                                'name' => 'permission:user:getRole',
                                 'meta' => new Meta([
                                     'title' => '获取用户角色',
                                     'type' => 'B',
@@ -131,7 +131,7 @@ class MenuSeeder20240926 extends Seeder
                                 ]),
                             ],
                             [
-                                'name' => 'user:set:roles',
+                                'name' => 'permission:user:setRole',
                                 'meta' => new Meta([
                                     'title' => '用户角色赋予',
                                     'type' => 'B',
@@ -243,7 +243,7 @@ class MenuSeeder20240926 extends Seeder
                                 ]),
                             ],
                             [
-                                'name' => 'permission:get:role',
+                                'name' => 'permission:role:getMenu',
                                 'meta' => new Meta([
                                     'title' => '获取角色权限',
                                     'type' => 'B',
@@ -251,7 +251,7 @@ class MenuSeeder20240926 extends Seeder
                                 ]),
                             ],
                             [
-                                'name' => 'permission:set:role',
+                                'name' => 'permission:role:setMenu',
                                 'meta' => new Meta([
                                     'title' => '赋予角色权限',
                                     'type' => 'B',
@@ -724,6 +724,69 @@ class MenuSeeder20240926 extends Seeder
                                     'title' => '前台多语言删除',
                                     'type' => 'B',
                                     'i18n' => 'baseMenu.cms.frontendI18nDelete',
+                                ]),
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+            [
+                'name' => 'dataCenter',
+                'path' => '/dataCenter',
+                'meta' => new Meta([
+                    'title' => '数据中心',
+                    'i18n' => 'baseMenu.dataCenter.index',
+                    'icon' => 'ri:database-line',
+                    'type' => 'M',
+                    'hidden' => 0,
+                    'componentPath' => 'modules/',
+                    'componentSuffix' => '.vue',
+                    'breadcrumbEnable' => 1,
+                    'copyright' => 1,
+                    'cache' => 1,
+                    'affix' => 0,
+                ]),
+                'children' => [
+                    [
+                        'name' => 'dataCenter:attachment',
+                        'path' => '/dataCenter/attachment',
+                        'component' => 'base/views/dataCenter/attachment/index',
+                        'meta' => new Meta([
+                            'title' => '附件管理',
+                            'type' => 'M',
+                            'hidden' => 0,
+                            'icon' => 'ri:attachment-line',
+                            'i18n' => 'baseMenu.dataCenter.attachment',
+                            'componentPath' => 'modules/',
+                            'componentSuffix' => '.vue',
+                            'breadcrumbEnable' => 1,
+                            'copyright' => 1,
+                            'cache' => 1,
+                            'affix' => 0,
+                        ]),
+                        'children' => [
+                            [
+                                'name' => 'dataCenter:attachment:list',
+                                'meta' => new Meta([
+                                    'title' => '附件列表',
+                                    'i18n' => 'baseMenu.dataCenter.attachmentList',
+                                    'type' => 'B',
+                                ]),
+                            ],
+                            [
+                                'name' => 'dataCenter:attachment:upload',
+                                'meta' => new Meta([
+                                    'title' => '上传附件',
+                                    'i18n' => 'baseMenu.dataCenter.attachmentUpload',
+                                    'type' => 'B',
+                                ]),
+                            ],
+                            [
+                                'name' => 'dataCenter:attachment:delete',
+                                'meta' => new Meta([
+                                    'title' => '删除附件',
+                                    'i18n' => 'baseMenu.dataCenter.attachmentDelete',
+                                    'type' => 'B',
                                 ]),
                             ],
                         ],
