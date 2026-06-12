@@ -11,7 +11,7 @@ ENV ENABLE_SSL=${ENABLE_SSL} \
     CERTBOT_EMAIL=${CERTBOT_EMAIL}
 
 RUN set -ex \
-    && apk add --no-cache bash certbot curl gettext openssl pnpm \
+    && apk add --no-cache bash certbot curl gettext openssl \
     && mkdir -p /var/www/certbot /etc/letsencrypt /etc/nginx/local-ssl \
     && { \
         echo '#!/usr/bin/env bash'; \

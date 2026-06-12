@@ -1,8 +1,6 @@
 #!/usr/bin/env bash
 set -e
 
-
-
 ENABLE_SSL="${ENABLE_SSL:-false}"
 CERTBOT_EMAIL="${CERTBOT_EMAIL:-admin@test.com}"
 DOMAINS="$(echo "${CERTBOT_DOMAIN:-bi.test.com}" | tr ',;' '  ' | xargs)"
@@ -12,6 +10,7 @@ CERTIFICATE_DOMAINS="$(printf '%s %s' "$DOMAINS" "$ADMIN_DOMAIN" | xargs -n1 | a
 CERTBOT_CERTIFICATE_DIR="/etc/letsencrypt/live/${PRIMARY_DOMAIN}"
 LOCAL_CERTIFICATE_DIR="/etc/nginx/local-ssl/${PRIMARY_DOMAIN}"
 CERTIFICATE_DIR="$CERTBOT_CERTIFICATE_DIR"
+CERTBOT_BOOTSTRAP_CONF="/etc/nginx/conf.d/certbot-bootstrap.conf"
 
 export DOMAIN="$PRIMARY_DOMAIN"
 export PRIMARY_DOMAIN
@@ -19,10 +18,9 @@ export NGINX_DOMAIN="$DOMAINS"
 export ADMIN_DOMAIN
 
 if [ "$ENABLE_SSL" = "true" ]; then
-   
     if [ ! -f "${CERTBOT_CERTIFICATE_DIR}/fullchain.pem" ]; then
         echo "Requesting SSL certificate for: ${CERTIFICATE_DOMAINS}"
-        cat > "/etc/nginx/conf.d/default.conf" <<EOF
+        cat > "$CERTBOT_BOOTSTRAP_CONF" <<EOF
 server {
     listen 80;
     server_name ${CERTIFICATE_DOMAINS};
@@ -40,9 +38,15 @@ EOF
             CERTBOT_DOMAINS="$CERTBOT_DOMAINS -d $domain"
         done
 
-        certbot certonly --webroot  -w /var/www/certbot $CERTBOT_DOMAINS --email "$CERTBOT_EMAIL" --agree-tos --no-eff-email --noninteractive
+        if ! certbot certonly --webroot -w /var/www/certbot $CERTBOT_DOMAINS --email "$CERTBOT_EMAIL" --agree-tos --no-eff-email --noninteractive; then
+            nginx -s quit || true
+            rm -f "$CERTBOT_BOOTSTRAP_CONF"
+            echo "Certbot certificate request failed." >&2
+            exit 1
+        fi
 
         nginx -s quit
+        rm -f "$CERTBOT_BOOTSTRAP_CONF"
     fi
 else
     CERTIFICATE_DIR="$LOCAL_CERTIFICATE_DIR"
