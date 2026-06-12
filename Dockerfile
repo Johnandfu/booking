@@ -49,7 +49,7 @@ RUN set -ex && \
     && apk add --no-cache --virtual .build-deps $PHPIZE_DEPS zlib-dev libaio-dev openssl-dev curl-dev  c-ares-dev \
     && pecl channel-update pecl.php.net \
     && pecl install --configureoptions 'enable-reader="yes"' xlswriter \
-    && echo "extension=xlswriter.so" >> /etc/php81/conf.d/60-xlswriter.ini \
+    && echo "extension=xlswriter.so" >> /etc/php83/conf.d/60-xlswriter.ini \
     && php -m \
     && php -v \
     && php --ri swoole \
