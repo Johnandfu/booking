@@ -1,57 +1,66 @@
-name: mineadmin
+name: hcms
 
 volumes:
-  mine_redis_data:
-  mine_mysql_data:
+  hcms_redis_data:
+  hcms_mysql_data:
+  hcms_certbot_data:
+  hcms_certbot_www:
 
 services:
+  nginx:
+    build:
+      context: ./docker/nginx
+      dockerfile: Dockerfile
+      args:
+        ENABLE_SSL: ${ENABLE_SSL}
+        CERTBOT_DOMAIN: ${CERTBOT_DOMAIN}
+        CERTBOT_EMAIL: ${CERTBOT_EMAIL}
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./:/var/www/hyperf-cms:ro
+      - ./docker/nginx/https.conf.template:/etc/nginx/external/default.conf:ro
+      - hcms_certbot_data:/etc/letsencrypt
+      - hcms_certbot_www:/var/www/certbot
+    depends_on:
+      - hyperf
+    restart: always
+
   redis:
-    image: redis:7.2-alpine
+    image: redis:7-alpine
     ports:
       - "6379:6379"
     volumes:
-      - mine_redis_data:/data
-    command: redis-server --appendonly yes
+      - hcms_redis_data:/data
+    command: redis-server --appendonly yes --requirepass ${REDIS_AUTH}
     deploy:
       resources:
         limits:
           memory: 1G
-    healthcheck:
-      test: ["CMD", "redis-cli", "ping"]
-      interval: 10s
-      timeout: 5s
-      retries: 3
     environment:
       - TZ=Asia/Shanghai
 
   mysql:
-    image: mysql:5.7
+    image: mysql:8.4
     volumes:
-      - mine_mysql_data:/var/lib/mysql
+      - hcms_mysql_data:/var/lib/mysql
     ports:
       - "3306:3306"
     command: --default-authentication-plugin=mysql_native_password
     environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: mineadmin
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_DATABASE: ${DB_DATABASE}
       MYSQL_CHARACTER_SET_SERVER: utf8mb4
       MYSQL_COLLATION_SERVER: utf8mb4_unicode_ci
       TZ: Asia/Shanghai
 
   hyperf:
-    image: hyperf/hyperf:8.1-alpine-v3.18-swoole
+    image: hyperf/hyperf:8.3-alpine-v3.22-swoole
     volumes:
-      - ./:/www
-    working_dir: /www
-    ports:
-      - "9501:9501"
-      - "9503:9503"
+      - ./:/opt/www/hyperf-cms
+    working_dir: /opt/www/hyperf-cms
     environment:
-      - TZ=Asia/Shanghai
-      - APP_NAME=MineAdmin
-    command:
-      - sh
-      - -c
-      - |
-        ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
-        tail -F /dev/null
+      TZ: Asia/Shanghai
+    command: php bin/hyperf.php start
+    restart: always

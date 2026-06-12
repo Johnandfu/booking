@@ -1,5 +1,0 @@
-data/*
-nginx/conf.d/*
-!nginx/conf.d/*.template
-mysql/*
-!mysql/*.example
