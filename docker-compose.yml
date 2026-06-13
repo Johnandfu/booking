@@ -55,6 +55,10 @@ services:
       - hcms_mysql_data:/var/lib/mysql
     ports:
       - "3306:3306"
+    command:
+      - --max_connections=500
+      - --wait_timeout=600
+      - --interactive_timeout=600
     environment:
       MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
       MYSQL_DATABASE: ${DB_DATABASE}
