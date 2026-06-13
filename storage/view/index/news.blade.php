@@ -6,7 +6,7 @@
             <div class="container position-relative">
                 <div class="row align-items-end g-5">
                     <div class="col-lg-7 reveal">
-                        <span class="landing-kicker">{{ $copy['news-heroKicker'] ?? 'news-heroKicker' }}</span>
+                        <!-- <span class="landing-kicker">{{ $copy['news-heroKicker'] ?? 'news-heroKicker' }}</span> -->
                         <h1>{{ $copy['news-heroTitle'] ?? 'news-heroTitle' }}</h1>
                         <p>{{ $copy['news-heroText'] ?? 'news-heroText' }}</p>
                     </div>
@@ -25,7 +25,7 @@
 
         <section class="container luxe-grid-section">
             <div class="luxe-section-title reveal">
-                <span class="landing-kicker">{{ $copy['news-gridKicker'] ?? 'news-gridKicker' }}</span>
+                <!-- <span class="landing-kicker">{{ $copy['news-gridKicker'] ?? 'news-gridKicker' }}</span> -->
                 <h2>{{ $copy['news-gridTitle'] ?? 'news-gridTitle' }}</h2>
             </div>
             <div
@@ -48,7 +48,7 @@
                                 <span class="luxe-view">{{ $copy['news-viewDetails'] ?? 'news-viewDetails' }}</span>
                             </span>
                             <span class="luxe-listing-copy">
-                                <span class="luxe-location">{{ $copy['news-listingLocation'] ?? 'news-listingLocation' }}</span>
+                                <!-- <span class="luxe-location">{{ $copy['news-listingLocation'] ?? 'news-listingLocation' }}</span> -->
                                 <h3>{{ $article->title }}</h3>
                                 <p>
                                     @if ($article->summary)

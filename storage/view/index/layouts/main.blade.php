@@ -1457,6 +1457,14 @@
             backdrop-filter: blur(18px) saturate(124%);
         }
 
+        .article-detail-page.container {
+            max-width: min(100%, 76rem);
+        }
+
+        .article-detail-page .article-hero {
+            max-width: none;
+        }
+
         .article-content {
             color: #2f3b47;
             font-size: 1.04rem;
@@ -1618,7 +1626,7 @@
         .article-hero--cover {
             display: flex;
             align-items: end;
-            min-height: clamp(18rem, 42vw, 32rem);
+            min-height: clamp(20rem, 48vw, 36rem);
             padding: clamp(1.35rem, 3.5vw, 2.5rem);
             border-color: rgba(255, 255, 255, .76);
             background: #021c22;

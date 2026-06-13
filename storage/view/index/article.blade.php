@@ -21,17 +21,13 @@
                     </div>
                 </div>
             </div>
-            <div class="row justify-content-center">
-                <div class="col-lg-9">
-                    <div class="article-body reveal">
-                        <div class="article-content">
-                            @if ($article->content)
-                                {!! $article->content !!}
-                            @else
-                                <p class="text-secondary">{{ $copy['article-emptyContent'] ?? 'article-emptyContent' }}</p>
-                            @endif
-                        </div>
-                    </div>
+            <div class="article-body reveal">
+                <div class="article-content">
+                    @if ($article->content)
+                        {!! $article->content !!}
+                    @else
+                        <p class="text-secondary">{{ $copy['article-emptyContent'] ?? 'article-emptyContent' }}</p>
+                    @endif
                 </div>
             </div>
         </article>
