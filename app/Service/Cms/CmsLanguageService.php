@@ -17,17 +17,31 @@ final class CmsLanguageService extends IService
         protected readonly CmsLanguageRepository $repository
     ) {}
 
-
     public function copy(array $filter = []): array
     {
+        $locale = (string) ($filter['language_code'] ?? CmsContentService::DEFAULT_FRONTEND_LOCALE);
+        $fallbackLocale = CmsContentService::DEFAULT_FRONTEND_LOCALE;
         $messages = [];
 
-        $languages = $this->repository->handleSearch($this->repository->getQuery(), $filter)
-            ->get();
-        foreach ($languages as $language) {
+        foreach ($this->repository->handleSearch($this->repository->getQuery(), array_merge($filter, [
+            'language_code' => $fallbackLocale,
+        ]))->get() as $language) {
             $messages[$language->group_type . '-' . $language->key] = (string) $language->value;
         }
 
-        return $messages + $languages->toArray();
+        if ($locale === $fallbackLocale) {
+            return $messages;
+        }
+
+        foreach ($this->repository->handleSearch($this->repository->getQuery(), array_merge($filter, [
+            'language_code' => $locale,
+        ]))->get() as $language) {
+            $value = (string) $language->value;
+            if ($value !== '') {
+                $messages[$language->group_type . '-' . $language->key] = $value;
+            }
+        }
+
+        return $messages;
     }
 }

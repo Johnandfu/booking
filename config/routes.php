@@ -22,4 +22,4 @@ Router::get('/favicon.ico', static function () {
     return '';
 });
 Router::get('/{categorySlug}', [CategoryController::class, 'index']);
-Router::get('/{categorySlug}/{id}', [CategoryController::class, 'show']);
+Router::get('/{categorySlug}/{slug}', [CategoryController::class, 'show']);

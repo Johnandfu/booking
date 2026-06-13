@@ -120,4 +120,14 @@ final class CmsArticleRepository extends IRepository
     {
         $this->model->newQuery()->whereKey($id)->increment('views');
     }
+
+    public function existsBySlug(string $slug, ?int $exceptId = null): bool
+    {
+        $query = $this->model->newQuery()->where('slug', $slug);
+        if ($exceptId !== null) {
+            $query->where('id', '!=', $exceptId);
+        }
+
+        return $query->exists();
+    }
 }

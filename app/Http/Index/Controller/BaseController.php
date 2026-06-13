@@ -9,6 +9,7 @@ use App\Model\Cms\CmsLanguage;
 use App\Service\Cms\CmsCategoryService;
 use App\Service\Cms\CmsContentService;
 use App\Service\Cms\CmsLanguageService;
+use App\Support\AdminUrl;
 use App\Support\HtmlMinifier;
 use Hyperf\HttpMessage\Stream\SwooleStream;
 use Hyperf\HttpServer\Contract\RequestInterface;
@@ -58,7 +59,9 @@ abstract class BaseController
             'htmlLang' => $locale,
             'frontendLocales' => CmsContentService::FRONTEND_LOCALES,
             'frontendCategories' => $this->cmsCategory->enabledCategories(),
-            'copy' => $copy
+            'copy' => $copy,
+            'adminUrl' => AdminUrl::resolve(),
+            'adminDomain' => AdminUrl::domain(),
         ];
     }
 

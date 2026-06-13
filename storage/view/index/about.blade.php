@@ -26,7 +26,7 @@
                 </div>
                 <div class="col-lg-6 about-split-col reveal">
                     <div class="about-image-card">
-                        <img src="https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=1200&q=85" alt="{{ $copy['about-imageAlt'] ?? 'about-imageAlt' }}">
+                        <img src="{{ $copy['about-introImage'] ?? '' }}" alt="{{ $copy['about-imageAlt'] ?? 'about-imageAlt' }}">
                     </div>
                 </div>
             </div>
@@ -37,7 +37,7 @@
                 <div class="row align-items-center g-5 about-split-row">
                     <div class="col-lg-6 about-split-col reveal">
                         <div class="about-image-stack">
-                            <img src="https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=1100&q=85" alt="{{ $copy['about-imageAlt'] ?? 'about-imageAlt' }}">
+                            <img src="{{ $copy['about-storyImage'] ?? '' }}" alt="{{ $copy['about-imageAlt'] ?? 'about-imageAlt' }}">
                             <div class="about-stat-card">
                                 <strong>30k+</strong>
                                 <span>{{ $copy['about-satisfiedClient'] ?? 'about-satisfiedClient' }}</span>
@@ -66,7 +66,7 @@
         <section class="container about-section">
             <div class="row align-items-center g-5 about-split-row">
                 <div class="col-lg-6 about-split-col reveal">
-                    <span class="landing-kicker">{{ $copy['about-founderKicker  '] ?? 'Founder. & Director' }}</span>
+                    <span class="landing-kicker">{{ $copy['about-founderKicker'] ?? 'Founder. & Director' }}</span>
                     <h2>{{ $copy['about-founderTitle'] ?? 'about-founderTitle' }}</h2>
                     <div class="about-copy">
                         <p>{{ $copy['about-founderOne'] ?? 'about-founderOne' }}</p>
@@ -77,7 +77,7 @@
                 </div>
                 <div class="col-lg-6 about-split-col reveal">
                     <div class="about-founder-card">
-                        <img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&w=1200&q=85" alt="{{ $copy['about-founderTitle'] ?? 'Founder and director' }}">
+                        <img src="{{ $copy['about-founderImage'] ?? '' }}" alt="{{ $copy['about-founderTitle'] ?? 'Founder and director' }}">
                     </div>
                 </div>
             </div>

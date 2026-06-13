@@ -360,7 +360,7 @@ class MenuSeeder20240926 extends Seeder
                 'meta' => new Meta([
                     'title' => 'CMS 管理',
                     'i18n' => 'baseMenu.cms.index',
-                    'icon' => 'ri:article-line',
+                    'icon' => 'ri:pages-line',
                     'type' => 'M',
                     'hidden' => 0,
                     'componentPath' => 'modules/',
@@ -378,7 +378,7 @@ class MenuSeeder20240926 extends Seeder
                         'meta' => new Meta([
                             'title' => '栏目管理',
                             'i18n' => 'baseMenu.cms.category',
-                            'icon' => 'ri:file-list-line',
+                            'icon' => 'ri:folder-2-line',
                             'type' => 'M',
                             'hidden' => 0,
                             'componentPath' => 'modules/',
@@ -430,7 +430,7 @@ class MenuSeeder20240926 extends Seeder
                         'meta' => new Meta([
                             'title' => '文章管理',
                             'i18n' => 'baseMenu.cms.article',
-                            'icon' => 'ri:file-list-line',
+                            'icon' => 'ri:article-line',
                             'type' => 'M',
                             'hidden' => 0,
                             'componentPath' => 'modules/',
@@ -483,7 +483,7 @@ class MenuSeeder20240926 extends Seeder
                         'meta' => new Meta([
                             'title' => '轮播管理',
                             'i18n' => 'baseMenu.cms.banner',
-                            'icon' => 'ri:file-list-line',
+                            'icon' => 'ri:slideshow-3-line',
                             'type' => 'M',
                             'hidden' => 0,
                             'componentPath' => 'modules/',
@@ -639,7 +639,7 @@ class MenuSeeder20240926 extends Seeder
                         'meta' => new Meta([
                             'title' => '留言管理',
                             'i18n' => 'baseMenu.cms.contactMessage',
-                            'icon' => 'ri:file-list-line',
+                            'icon' => 'ri:mail-unread-line',
                             'type' => 'M',
                             'hidden' => 0,
                             'componentPath' => 'modules/',
@@ -683,7 +683,7 @@ class MenuSeeder20240926 extends Seeder
                         'meta' => new Meta([
                             'title' => '前台多语言',
                             'i18n' => 'baseMenu.cms.frontendI18n',
-                            'icon' => 'ri:file-list-line',
+                            'icon' => 'ri:translate-2',
                             'type' => 'M',
                             'hidden' => 0,
                             'componentPath' => 'modules/',

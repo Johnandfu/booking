@@ -16,7 +16,7 @@ class ArticleRequest extends FormRequest
         return [
             'category_id' => 'required|integer',
             'title' => 'required|string|max:200',
-            'slug' => 'required|string|max:200',
+            'slug' => 'sometimes|nullable|string|max:200',
             'summary' => 'sometimes|nullable|string|max:500',
             'content' => 'sometimes|nullable|string',
             'cover' => 'sometimes|nullable|string|max:500',

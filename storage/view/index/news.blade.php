@@ -23,50 +23,6 @@
             </div>
         </section>
 
-        <section class="container luxe-featured-section">
-            <div class="luxe-section-title reveal">
-                <span class="landing-kicker">{{ $copy['news-featuredKicker'] ?? 'news-featuredKicker' }}</span>
-                <h2>{{ $copy['news-featuredTitle'] ?? 'news-featuredTitle' }}</h2>
-            </div>
-            <div class="news-accordion-strip">
-                @forelse ($featuredItems as $article)
-                    <article class="news-accordion-panel reveal">
-                        <a href="{{ $basePath }}/{{ $article->id }}" class="news-accordion-link">
-                            <span class="news-accordion-media">
-                                @if ($article->cover)
-                                    <img src="{{ $article->cover }}" alt="{{ $article->title }}">
-                                @else
-                                    <svg class="cms-svg-icon"><use href="#icon-waves"></use></svg>
-                                @endif
-                            </span>
-                            <span class="news-accordion-content">
-                                <span class="news-accordion-date">
-                                    @if ($article->published_at)
-                                        {{ $article->published_at->format('d M Y') }}
-                                    @else
-                                        {{ $copy['news-listingLocation'] ?? 'news-listingLocation' }}
-                                    @endif
-                                </span>
-                                <strong>{{ $article->title }}</strong>
-                                <span class="news-accordion-summary">
-                                    @if ($article->summary)
-                                        {{ $article->summary }}
-                                    @else
-                                        {{ $copy['news-defaultSummary'] ?? 'news-defaultSummary' }}
-                                    @endif
-                                </span>
-                                <span class="news-accordion-action">{{ $copy['news-viewDetails'] ?? 'news-viewDetails' }}</span>
-                            </span>
-                        </a>
-                    </article>
-                @empty
-                    <div>
-                        <div class="alert alert-light border mb-0">{{ $copy['news-empty'] ?? 'news-empty' }}</div>
-                    </div>
-                @endforelse
-            </div>
-        </section>
-
         <section class="container luxe-grid-section">
             <div class="luxe-section-title reveal">
                 <span class="landing-kicker">{{ $copy['news-gridKicker'] ?? 'news-gridKicker' }}</span>
@@ -80,39 +36,39 @@
                 data-current-page="{{ $paginator->currentPage() }}"
                 data-last-page="{{ $paginator->lastPage() }}"
             >
-                @forelse ($listingItems as $article)
+                @forelse ($paginator->items() as $article)
                     <article class="luxe-listing-card news-masonry-card reveal">
-                        <a href="{{ $basePath }}/{{ $article->id }}" class="luxe-listing-media">
-                            @if ($article->cover)
-                                <img src="{{ $article->cover }}" alt="{{ $article->title }}">
-                            @else
-                                <svg class="cms-svg-icon"><use href="#icon-beach"></use></svg>
-                            @endif
-                            <span class="luxe-view">{{ $copy['news-viewDetails'] ?? 'news-viewDetails' }}</span>
+                        <a href="{{ $basePath }}/{{ $article->slug }}" class="luxe-listing-link">
+                            <span class="luxe-listing-media">
+                                @if ($article->cover)
+                                    <img src="{{ $article->cover }}" alt="{{ $article->title }}">
+                                @else
+                                    <svg class="cms-svg-icon"><use href="#icon-beach"></use></svg>
+                                @endif
+                                <span class="luxe-view">{{ $copy['news-viewDetails'] ?? 'news-viewDetails' }}</span>
+                            </span>
+                            <span class="luxe-listing-copy">
+                                <span class="luxe-location">{{ $copy['news-listingLocation'] ?? 'news-listingLocation' }}</span>
+                                <h3>{{ $article->title }}</h3>
+                                <p>
+                                    @if ($article->summary)
+                                        {{ $article->summary }}
+                                    @else
+                                        {{ $copy['news-defaultSummary'] ?? 'news-defaultSummary' }}
+                                    @endif
+                                </p>
+                                <div class="luxe-price">
+                                    @if ($article->published_at)
+                                        {{ $article->published_at->format('d M Y') }}
+                                    @else
+                                        {{ $copy['news-heroKicker'] ?? 'news-heroKicker' }}
+                                    @endif
+                                </div>
+                            </span>
                         </a>
-                        <div class="luxe-listing-copy">
-                            <span class="luxe-location">{{ $copy['news-listingLocation'] ?? 'news-listingLocation' }}</span>
-                            <h3><a href="{{ $basePath }}/{{ $article->id }}" class="text-decoration-none stretched-link">{{ $article->title }}</a></h3>
-                            <p>
-                                @if ($article->summary)
-                                    {{ $article->summary }}
-                                @else
-                                    {{ $copy['news-defaultSummary'] ?? 'news-defaultSummary' }}
-                                @endif
-                            </p>
-                            <div class="luxe-price">
-                                @if ($article->published_at)
-                                    {{ $article->published_at->format('d M Y') }}
-                                @else
-                                    {{ $copy['news-heroKicker'] ?? 'news-heroKicker' }}
-                                @endif
-                            </div>
-                        </div>
                     </article>
                 @empty
-                    @if (empty($featuredItems))
-                        <div class="alert alert-light border mb-0">{{ $copy['news-empty'] ?? 'news-empty' }}</div>
-                    @endif
+                    <div class="alert alert-light border mb-0">{{ $copy['news-empty'] ?? 'news-empty' }}</div>
                 @endforelse
             </div>
         </section>

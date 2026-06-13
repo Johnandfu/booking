@@ -1,0 +1,14 @@
+---
+description: Keep service classes thin; avoid helper-method sprawl
+globs: app/Service/**/*.php
+alwaysApply: false
+---
+
+# Service Helper Methods
+
+- Do not split one small concern into multiple private methods in a service class.
+- Prefer keeping simple orchestration inline in `create`, `updateById`, or other public methods.
+- When logic is reusable or non-trivial, move it to the appropriate existing layer instead of adding service helpers:
+  - formatting/normalization → `App\Support\*`
+  - persistence checks/queries → repository
+- One problem should not become three private methods unless each method is reused in multiple public entry points.

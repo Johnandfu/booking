@@ -22,3 +22,5 @@ public
 web/.pnpm-store
 storage/swagger/http.json
 storage/uploads
+!storage/uploads/cms/
+!storage/uploads/cms/**

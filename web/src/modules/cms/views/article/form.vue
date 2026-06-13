@@ -65,7 +65,7 @@ function formItems(): MaFormItem[] {
       itemProps: { rules: [{ required: true, message: '请选择栏目' }] },
     },
     { label: '标题', prop: 'title', render: 'input', cols: { md: 12, xs: 24 }, itemProps: { rules: [{ required: true, message: '请输入标题' }] } },
-    { label: 'Slug', prop: 'slug', render: 'input', cols: { md: 12, xs: 24 }, renderProps: { placeholder: '如 cms-getting-started' }, itemProps: { rules: [{ required: true, message: '请输入 Slug' }] } },
+    { label: 'Slug', prop: 'slug', render: 'input', cols: { md: 12, xs: 24 }, renderProps: { placeholder: '留空则根据标题自动生成' } },
     {
       label: '封面图片',
       prop: 'cover',

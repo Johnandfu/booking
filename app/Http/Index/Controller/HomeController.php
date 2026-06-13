@@ -41,7 +41,7 @@ final class HomeController extends BaseController
                 ->map(fn($article): array => [
                     'category' => $serviceCategory,
                     'article' => $article,
-                    'url' => '/' . $publicSlug . '/' . $article->id,
+                    'url' => '/' . $publicSlug . '/' . $article->slug,
                 ])
                 ->values()
                 ->all();
@@ -54,7 +54,7 @@ final class HomeController extends BaseController
                 ->map(fn($article): array => [
                     'category' => $galleryCategory,
                     'article' => $article,
-                    'url' => '/' . $galleryCategory->slug . '/' . $article->id,
+                    'url' => '/' . $galleryCategory->slug . '/' . $article->slug,
                 ])
                 ->values()
                 ->all();

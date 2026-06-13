@@ -7,6 +7,7 @@ namespace App\Service\Cms;
 use App\Model\Cms\CmsArticle;
 use App\Repository\Cms\CmsArticleRepository;
 use App\Service\IService;
+use App\Support\Slugifier;
 use Hyperf\Collection\Collection;
 use Hyperf\Contract\LengthAwarePaginatorInterface;
 
@@ -26,13 +27,10 @@ final class CmsArticleService extends IService
 
     public function newsList(int $categoryId, int $page, string $name = ''): array
     {
-        $paginator = $this->articlesByCategory($categoryId, $page, 10, $name);
-        $items = $paginator->items();
+        $paginator = $this->articlesByCategory($categoryId, $page, 9, $name);
 
         return [
             'paginator' => $paginator,
-            'featuredItems' => $page === 1 ? array_slice($items, 0, 4) : [],
-            'listingItems' => $page > 1 ? $items : array_slice($items, 4),
             'pageNumbers' => range(1, $paginator->lastPage()),
         ];
     }
@@ -40,12 +38,9 @@ final class CmsArticleService extends IService
     public function serviceList(int $categoryId, int $page, string $name = ''): array
     {
         $paginator = $this->articlesByCategory($categoryId, $page, 12, $name);
-        $items = $paginator->items();
 
         return [
             'paginator' => $paginator,
-            'featuredItems' => array_slice($items, 0, 2),
-            'listingItems' => array_slice($items, 2),
             'pageNumbers' => range(1, $paginator->lastPage()),
         ];
     }
@@ -74,5 +69,36 @@ final class CmsArticleService extends IService
     public function incrementViews(int $id): void
     {
         $this->repository->incrementViews($id);
+    }
+
+    public function create(array $data): mixed
+    {
+        $title = (string) ($data['title'] ?? '');
+        $inputSlug = $data['slug'] ?? null;
+        unset($data['slug']);
+
+        $data['slug'] = 'pending-' . uniqid('', true);
+        $article = parent::create($data);
+
+        $source = is_string($inputSlug) && $inputSlug !== '' ? $inputSlug : $title;
+        $slug = Slugifier::unique($source, (int) $article->id, fn (string $s, int $id) => $this->repository->existsBySlug($s, $id));
+        if ($slug !== $article->slug) {
+            $this->repository->updateById($article->id, ['slug' => $slug]);
+            $article->slug = $slug;
+        }
+
+        return $article;
+    }
+
+    public function updateById(mixed $id, array $data): mixed
+    {
+        if (array_key_exists('slug', $data)) {
+            $article = $this->findById($id);
+            $inputSlug = $data['slug'];
+            $source = is_string($inputSlug) && $inputSlug !== '' ? $inputSlug : (string) ($data['title'] ?? $article?->title ?? '');
+            $data['slug'] = Slugifier::unique($source, (int) $id, fn (string $s, int $articleId) => $this->repository->existsBySlug($s, $articleId));
+        }
+
+        return parent::updateById($id, $data);
     }
 }

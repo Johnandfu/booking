@@ -5,7 +5,7 @@
         <main class="services-page">
             <section class="services-title-bar">
                 <div class="container">
-                    <span class="services-kicker">{{ $copy['main-services'] ?? 'Services' }}</span>
+                    <span class="services-kicker">{{ $copy['main-service'] ?? 'Services' }}</span>
                     <h1>{{ $category->name }}</h1>
                     @if (!empty($category->description))
                         <p>{{ $category->description }}</p>
@@ -20,26 +20,34 @@
             <section class="services-content">
                 <div class="container">
                     <div class="services-section-head reveal">
-                        <span>{{ str_pad((string) count($serviceSections ?? []), 2, '0', STR_PAD_LEFT) }}</span>
+                        <span>{{ str_pad((string) count($paginator->items()), 2, '0', STR_PAD_LEFT) }}</span>
                         <h2>{{ $category->name }}</h2>
                     </div>
                     <div class="service-card-stack">
-                        @foreach (($serviceSections ?? []) as $section)
+                        @forelse ($paginator->items() as $article)
                             <article class="service-card reveal">
+                                @if ($article->cover)
                                 <div class="service-card-media">
-                                    <img src="{{ $section['image'] }}" alt="{{ $section['title'] }}">
+                                    <img src="{{ $article->cover }}" alt="{{ $article->title }}">
                                 </div>
+                                @endif
                                 <div class="service-card-copy">
                                     <div class="service-card-heading">
                                         <span>{{ str_pad((string) $loop->iteration, 2, '0', STR_PAD_LEFT) }}</span>
-                                        <h2>{{ $section['title'] }}</h2>
+                                        <h2>{{ $article->title }}</h2>
                                     </div>
                                     <div class="article-content service-section-body">
-                                        {!! $section['content'] !!}
+                                        @if ($article->content)
+                                            {!! $article->content !!}
+                                        @elseif ($article->summary)
+                                            <p>{{ $article->summary }}</p>
+                                        @endif
                                     </div>
                                 </div>
                             </article>
-                        @endforeach
+                        @empty
+                            <div class="alert alert-light border mb-0">{{ $copy['category-serviceDescription'] ?? 'No services in this category yet.' }}</div>
+                        @endforelse
                     </div>
                 </div>
             </section>
@@ -55,7 +63,7 @@
                 @forelse ($paginator->items() as $article)
                     <div class="lux-card reveal">
                         <div class="card-body p-4">
-                            <h2 class="h5 fw-bold mb-2"><a href="{{ $basePath }}/{{ $article->id }}" class="text-decoration-none">{{ $article->title }}</a></h2>
+                            <h2 class="h5 fw-bold mb-2"><a href="{{ $basePath }}/{{ $article->slug }}" class="text-decoration-none">{{ $article->title }}</a></h2>
                             @if ($article->summary)
                                 <p class="text-secondary mb-2">{{ $article->summary }}</p>
                             @endif
