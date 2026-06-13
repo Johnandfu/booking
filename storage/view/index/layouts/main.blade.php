@@ -2763,6 +2763,8 @@
         .brissy-footer {
             position: relative;
             z-index: 20;
+            margin-top: clamp(4rem, 8vw, 7rem);
+            padding-top: clamp(3rem, 6vw, 5rem);
             background: #0d2330;
             color: rgba(255, 255, 255, .72);
         }
@@ -3948,7 +3950,7 @@
         @yield('content')
     </div>
 
-    <footer class="brissy-footer pt-5 mt-auto">
+    <footer class="brissy-footer mt-auto">
         <div class="container">
             <div class="footer-contact-card">
                 <div class="row g-3">
