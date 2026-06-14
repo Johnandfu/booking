@@ -1,0 +1,1 @@
+import{C as o}from"./index-BCl7CGEN.js";function a(l=null){const t=o(),n=o({inheritLocale:!0,useScope:"local"});return l===null?{localTrans:n.t,globalTrans:t.t}:t.te(l)?t.t(l):n.te(l)?n.t(l):l}export{a as u};
