@@ -9,5 +9,22 @@ declare(strict_types=1);
  * @contact  root@imoi.cn
  * @license  https://github.com/mineadmin/MineAdmin/blob/master/LICENSE
  */
+use Hyperf\Database\Commands\Migrations\FreshCommand;
+use Hyperf\Database\Commands\Migrations\InstallCommand;
+use Hyperf\Database\Commands\Migrations\MigrateCommand;
+use Hyperf\Database\Commands\Migrations\RefreshCommand;
+use Hyperf\Database\Commands\Migrations\ResetCommand;
+use Hyperf\Database\Commands\Migrations\RollbackCommand;
+use Hyperf\Database\Commands\Migrations\StatusCommand;
+use Hyperf\Database\Commands\Seeders\SeedCommand;
+
 return [
+    InstallCommand::class,
+    MigrateCommand::class,
+    FreshCommand::class,
+    RefreshCommand::class,
+    ResetCommand::class,
+    RollbackCommand::class,
+    StatusCommand::class,
+    SeedCommand::class,
 ];
