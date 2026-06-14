@@ -23,6 +23,9 @@ RUN set -ex \
     && touch /var/run/nginx.pid \
     && chown www:www /var/run/nginx.pid \
     && setcap 'cap_net_bind_service=+ep' /usr/sbin/nginx \
+    && sed -i 's/^\s*user\s\+nginx;\s*/# user nginx; # dropped: master runs as APP_UID via su-exec/' /etc/nginx/nginx.conf \
+    && sed -i 's|^error_log /var/log/nginx/error.log|error_log /dev/stderr|' /etc/nginx/nginx.conf \
+    && sed -i 's|^access_log /var/log/nginx/access.log|access_log /dev/stdout|' /etc/nginx/nginx.conf \
     && { \
         echo '#!/usr/bin/env bash'; \
         echo 'set -e'; \
