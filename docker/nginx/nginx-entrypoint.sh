@@ -1,9 +1,6 @@
 #!/usr/bin/env bash
 set -e
 
-APP_UID="${APP_UID:-1000}"
-APP_GID="${APP_GID:-1000}"
-
 ENABLE_SSL="${ENABLE_SSL:-false}"
 CERTBOT_EMAIL="${CERTBOT_EMAIL:-admin@test.com}"
 DOMAINS="$(echo "${CERTBOT_DOMAIN:-bi.test.com}" | tr ',;' '  ' | xargs)"
@@ -19,22 +16,6 @@ export DOMAIN="$PRIMARY_DOMAIN"
 export PRIMARY_DOMAIN
 export NGINX_DOMAIN="$DOMAINS"
 export ADMIN_DOMAIN
-
-ensure_app_ownership() {
-    mkdir -p /var/cache/nginx /var/log/nginx
-
-    for path in /var/cache/nginx /var/log/nginx /etc/nginx/conf.d /var/www/certbot /etc/nginx/local-ssl; do
-        if [ -e "$path" ]; then
-            chown -R "${APP_UID}:${APP_GID}" "$path"
-        fi
-    done
-
-    if [ -d /etc/letsencrypt ]; then
-        chown -R "${APP_UID}:${APP_GID}" /etc/letsencrypt
-        find /etc/letsencrypt -type d -exec chmod 755 {} \;
-        find /etc/letsencrypt -type f -exec chmod 640 {} \;
-    fi
-}
 
 if [ "$ENABLE_SSL" = "true" ]; then
     if [ ! -f "${CERTBOT_CERTIFICATE_DIR}/fullchain.pem" ]; then
@@ -66,7 +47,6 @@ EOF
 
         nginx -s quit
         rm -f "$CERTBOT_BOOTSTRAP_CONF"
-        ensure_app_ownership
     fi
 else
     CERTIFICATE_DIR="$LOCAL_CERTIFICATE_DIR"
@@ -80,7 +60,6 @@ else
             -addext "subjectAltName=${LOCAL_CERTIFICATE_SAN}" \
             -keyout "${CERTIFICATE_DIR}/privkey.pem" \
             -out "${CERTIFICATE_DIR}/fullchain.pem"
-        ensure_app_ownership
     fi
 fi
 
@@ -88,9 +67,7 @@ export SSL_CERTIFICATE="${CERTIFICATE_DIR}/fullchain.pem"
 export SSL_CERTIFICATE_KEY="${CERTIFICATE_DIR}/privkey.pem"
 
 envsubst '${DOMAIN} ${PRIMARY_DOMAIN} ${NGINX_DOMAIN} ${ADMIN_DOMAIN} ${SSL_CERTIFICATE} ${SSL_CERTIFICATE_KEY}' < "/etc/nginx/conf.d/default.conf.template" > "/etc/nginx/conf.d/site-https.conf"
-
-ensure_app_ownership
-su-exec "${APP_UID}:${APP_GID}" nginx -t
+nginx -t
 
 crond
-exec su-exec "${APP_UID}:${APP_GID}" "$@"
+exec "$@"
