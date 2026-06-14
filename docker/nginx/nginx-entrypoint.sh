@@ -70,4 +70,4 @@ envsubst '${DOMAIN} ${PRIMARY_DOMAIN} ${NGINX_DOMAIN} ${ADMIN_DOMAIN} ${SSL_CERT
 nginx -t
 
 crond
-exec "$@"
+exec su-exec "${APP_UID:-1000}:${APP_GID:-1000}" "$@"
