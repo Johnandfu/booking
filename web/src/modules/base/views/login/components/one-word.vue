@@ -40,7 +40,7 @@ function selectText(e: any) {
 }
 
 onMounted(() => {
-  requestOneWord()
+  // requestOneWord()
 })
 </script>
 
