@@ -26,7 +26,7 @@ RUN set -ex \
     && { \
         echo '#!/usr/bin/env bash'; \
         echo 'set -e'; \
-        echo 'certbot renew --webroot -w /var/www/certbot --quiet --deploy-hook "nginx -s reload"'; \
+        echo "certbot renew --webroot -w /var/www/certbot --quiet --deploy-hook \"chown -R ${APP_UID}:${APP_GID} /etc/letsencrypt && su-exec ${APP_UID}:${APP_GID} nginx -s reload\""; \
     } > /etc/periodic/monthly/certbot-renew \
     && chmod +x /etc/periodic/monthly/certbot-renew
 
