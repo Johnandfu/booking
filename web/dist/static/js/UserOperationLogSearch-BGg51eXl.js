@@ -1,0 +1,1 @@
+function r(e){return[{label:()=>e("baseOperationLog.username"),prop:"username",render:"input"},{label:()=>e("baseOperationLog.router"),prop:"router",render:"input"},{label:()=>e("baseOperationLog.service_name"),prop:"service_name",render:"input"},{label:()=>e("baseOperationLog.ip"),prop:"ip",render:"input"}]}export{r as default};
