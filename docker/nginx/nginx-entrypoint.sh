@@ -21,10 +21,9 @@ export NGINX_DOMAIN="$DOMAINS"
 export ADMIN_DOMAIN
 
 ensure_app_ownership() {
-    mkdir -p /var/cache/nginx /var/log/nginx /var/run
-    touch /var/log/nginx/error.log /var/log/nginx/access.log /var/run/nginx.pid
+    mkdir -p /var/cache/nginx /var/log/nginx
 
-    for path in /var/cache/nginx /var/log/nginx /var/run/nginx.pid /etc/nginx/conf.d /var/www/certbot /etc/nginx/local-ssl; do
+    for path in /var/cache/nginx /var/log/nginx /etc/nginx/conf.d /var/www/certbot /etc/nginx/local-ssl; do
         if [ -e "$path" ]; then
             chown -R "${APP_UID}:${APP_GID}" "$path"
         fi

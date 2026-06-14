@@ -20,12 +20,7 @@ RUN set -ex \
     && adduser -u "${APP_UID}" -S -G www www \
     && mkdir -p /var/www/certbot /etc/letsencrypt /etc/nginx/local-ssl \
     && chown -R www:www /var/cache/nginx /var/log/nginx /etc/nginx/conf.d /var/www/certbot /etc/nginx/local-ssl \
-    && touch /var/run/nginx.pid \
-    && chown www:www /var/run/nginx.pid \
     && setcap 'cap_net_bind_service=+ep' /usr/sbin/nginx \
-    && sed -i 's/^\s*user\s\+nginx;\s*/# user nginx; # dropped: master runs as APP_UID via su-exec/' /etc/nginx/nginx.conf \
-    && sed -i 's|^error_log /var/log/nginx/error.log|error_log /dev/stderr|' /etc/nginx/nginx.conf \
-    && sed -i 's|^access_log /var/log/nginx/access.log|access_log /dev/stdout|' /etc/nginx/nginx.conf \
     && { \
         echo '#!/usr/bin/env bash'; \
         echo 'set -e'; \
@@ -33,6 +28,7 @@ RUN set -ex \
     } > /etc/periodic/monthly/certbot-renew \
     && chmod +x /etc/periodic/monthly/certbot-renew
 
+COPY nginx.conf /etc/nginx/nginx.conf
 COPY https.conf.template /etc/nginx/conf.d/default.conf.template
 COPY nginx-entrypoint.sh /usr/local/bin/nginx-entrypoint.sh
 RUN chmod +x /usr/local/bin/nginx-entrypoint.sh
