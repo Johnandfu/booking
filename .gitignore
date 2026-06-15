@@ -12,6 +12,7 @@ vendor/
 .phpunit*
 *.cache
 .vscode/
+.pnpm-store/
 tests/cover
 tests/coverage.xml
 tests/coverage
