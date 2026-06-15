@@ -19,7 +19,7 @@ tests/coverage
 tests/coding_standard.xml
 tests/junit.xml
 public
-web/dist
+# web/dist
 !web/public
 web/.pnpm-store
 storage/swagger/http.json

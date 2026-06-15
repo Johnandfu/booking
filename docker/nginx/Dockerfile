@@ -1,15 +1,15 @@
-FROM node:22-alpine AS web-build
+# FROM node:22-alpine AS web-build
 
-WORKDIR /var/www/hyperf-cms/web
-# 设置 Node.js 最大内存为 1.5GB
-ARG MINE_NODE_ENV=production
-# ENV NODE_OPTIONS=--max-old-space-size=1536
+# WORKDIR /var/www/hyperf-cms/web
+# # 设置 Node.js 最大内存为 1.5GB
+# ARG MINE_NODE_ENV=production
+# # ENV NODE_OPTIONS=--max-old-space-size=1536
 
-COPY web/ ./
-RUN npm install -g pnpm && pnpm install
+# COPY web/ ./
+# RUN npm install -g pnpm && pnpm install
 
-RUN echo "MINE_NODE_ENV=$MINE_NODE_ENV" \
-    && pnpm build --mode "$MINE_NODE_ENV"
+# RUN echo "MINE_NODE_ENV=$MINE_NODE_ENV" \
+#     && pnpm build --mode "$MINE_NODE_ENV"
 
 FROM nginx:stable-alpine
 
@@ -35,7 +35,7 @@ RUN set -ex \
 
 COPY docker/nginx/https.conf.template /etc/nginx/conf.d/default.conf.template
 COPY docker/nginx/nginx-entrypoint.sh /usr/local/bin/nginx-entrypoint.sh
-COPY --from=web-build /var/www/hyperf-cms/web/dist /var/www/hyperf-cms/web/dist
+#COPY --from=web-build /var/www/hyperf-cms/web/dist /var/www/hyperf-cms/web/dist
 RUN chmod +x /usr/local/bin/nginx-entrypoint.sh
 
 EXPOSE 80 443
