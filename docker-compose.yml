@@ -37,8 +37,8 @@ services:
 
   redis:
     image: redis:7-alpine
-    ports:
-      - "6379:6379"
+    # ports:
+    #   - "6379:6379"
     volumes:
       - hcms_redis_data:/data
     command: redis-server --appendonly yes --requirepass ${REDIS_AUTH}
@@ -53,8 +53,8 @@ services:
     image: mysql:8.4
     volumes:
       - hcms_mysql_data:/var/lib/mysql
-    ports:
-      - "3306:3306"
+    # ports:
+    #   - "3306:3306"
     command:
       - --max_connections=500
       - --wait_timeout=600
