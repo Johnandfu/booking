@@ -1,14 +1,12 @@
 FROM node:20-alpine3.20 AS web-build
 
-WORKDIR /var/www/hyperf-cms/web
+WORKDIR /var/www/hyperf-cms/
 
 ARG MINE_NODE_ENV=production
 
-COPY web/package.json web/pnpm-lock.yaml ./
-RUN npm install -g pnpm \
-    && pnpm install --frozen-lockfile
-
 COPY web/ ./
+RUN npm install -g pnpm && pnpm install
+
 RUN echo "MINE_NODE_ENV=$MINE_NODE_ENV" \
     && pnpm build --mode "$MINE_NODE_ENV"
 

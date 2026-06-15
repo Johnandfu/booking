@@ -10,3 +10,4 @@ types/auto-imports.d.ts
 types/components.d.ts
 tests/e2e/.output/*
 .pnpm-store/*
+.pnpm-lock.yaml

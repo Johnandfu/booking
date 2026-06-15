@@ -1,1 +1,0 @@
-import{b2 as a}from"./index-BCl7CGEN.js";function r(t){return a().get("/admin/cms/category/list",{params:t})}function c(t){return a().post("/admin/cms/category",t)}function o(t,e){return a().put(`/admin/cms/category/${t}`,e)}async function i(t){let e=null;for(const n of t)e=await a().delete(`/admin/cms/category/${n}`);return e}export{c,i as d,r as p,o as s};
