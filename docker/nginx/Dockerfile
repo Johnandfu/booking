@@ -1,8 +1,9 @@
 FROM node:22-alpine AS web-build
 
 WORKDIR /var/www/hyperf-cms/web
-
+# 设置 Node.js 最大内存为 1GB
 ARG MINE_NODE_ENV=production
+ENV NODE_OPTIONS=--max-old-space-size=512
 
 COPY web/ ./
 RUN npm install -g pnpm && pnpm install
