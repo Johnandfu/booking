@@ -1,0 +1,1 @@
+import{_ as e}from"./_plugin-vue_export-helper-DlAUqK2U.js";import{e as a,f as o,an as s,m as t}from"./index-DAPgGMDH.js";import"./__commonjsHelpers__-Cpj98o6Y.js";const n={};function c(r,f){return a(),o("div",t({class:"h-full bg-gray-1 dark-bg-dark-6"},r.$attrs),[s(r.$slots,"default")],16)}const i=e(n,[["render",c]]);export{i as default};
