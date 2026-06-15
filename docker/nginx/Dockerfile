@@ -1,6 +1,6 @@
-FROM node:20-alpine3.20 AS web-build
+FROM node:22-alpine AS web-build
 
-WORKDIR /var/www/hyperf-cms/
+WORKDIR /var/www/hyperf-cms/web
 
 ARG MINE_NODE_ENV=production
 
