@@ -1,3 +1,17 @@
+FROM node:20-alpine3.20 AS web-build
+
+WORKDIR /var/www/hyperf-cms/web
+
+ARG MINE_NODE_ENV=production
+
+COPY web/package.json web/pnpm-lock.yaml ./
+RUN npm install -g pnpm \
+    && pnpm install --frozen-lockfile
+
+COPY web/ ./
+RUN echo "MINE_NODE_ENV=$MINE_NODE_ENV" \
+    && pnpm build --mode "$MINE_NODE_ENV"
+
 FROM nginx:stable-alpine
 
 ARG ENABLE_SSL=false
@@ -20,8 +34,9 @@ RUN set -ex \
     } > /etc/periodic/monthly/certbot-renew \
     && chmod +x /etc/periodic/monthly/certbot-renew
 
-COPY https.conf.template /etc/nginx/conf.d/default.conf.template
-COPY nginx-entrypoint.sh /usr/local/bin/nginx-entrypoint.sh
+COPY docker/nginx/https.conf.template /etc/nginx/conf.d/default.conf.template
+COPY docker/nginx/nginx-entrypoint.sh /usr/local/bin/nginx-entrypoint.sh
+COPY --from=web-build /var/www/hyperf-cms/web/dist /var/www/hyperf-cms/web/dist
 RUN chmod +x /usr/local/bin/nginx-entrypoint.sh
 
 EXPOSE 80 443

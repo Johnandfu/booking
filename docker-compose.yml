@@ -8,8 +8,8 @@ volumes:
 services:
   nginx:
     build:
-      context: ./docker/nginx
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: docker/nginx/Dockerfile
       args:
         ENABLE_SSL: ${ENABLE_SSL}
         CERTBOT_DOMAIN: ${CERTBOT_DOMAIN}
@@ -19,7 +19,7 @@ services:
       - "80:80"
       - "443:443"
     volumes:
-      - ./:/var/www/hyperf-cms:ro
+      - ./:/var/www/hyperf-cms
       - hcms_certbot_data:/etc/letsencrypt
     environment:
       ENABLE_SSL: ${ENABLE_SSL}

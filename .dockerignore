@@ -7,3 +7,10 @@
 !storage/
 !composer.*
 !.env.example
+!docker/
+!docker/nginx/
+!docker/nginx/**
+!web/
+!web/**
+web/node_modules/
+web/dist/
