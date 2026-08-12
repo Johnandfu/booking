@@ -1,0 +1,11 @@
+---
+description: Database rules
+globs:
+  - backend/database/**
+alwaysApply: false
+---
+MySQL 8。
+核心字段建立索引。
+并发场景使用事务和行锁。
+Booking、Slot 的唯一性尽量由数据库保证。
+时间字段统一 UTC。

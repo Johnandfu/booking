@@ -1,0 +1,9 @@
+---
+description: SHOPLINE 集成规则
+alwaysApply: false
+---
+SHOPLINE API 必须以官方当前文档为唯一依据。
+开发前确认 API Version、Endpoint、HTTP Method、Request/Response Schema、OAuth Scope。
+禁止编造 API。
+Webhook 必须验证来源、记录 event、幂等处理、防重复执行。
+Access Token 禁止输出到日志。

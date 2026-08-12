@@ -1,0 +1,11 @@
+---
+description: Frontend 编码规则
+globs:
+  - admin/**
+  - shopline/**
+alwaysApply: false
+---
+Vue 3 + TypeScript。
+组件保持单一职责。
+API 请求集中管理。
+前端校验不能替代后端校验。

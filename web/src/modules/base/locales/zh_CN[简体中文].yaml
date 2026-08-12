@@ -161,44 +161,29 @@ baseMenu:
     attachmentList: 附件列表
     attachmentUpload: 上传附件
     attachmentDelete: 删除附件
-  cms:
-    index: CMS 管理
-    category: 栏目管理
-    article: 文章管理
-    banner: 轮播管理
-    teamMember: 团队管理
-    testimonial: 客户反馈
-    page: 单页管理
-    contactMessage: 留言管理
-    frontendI18n: 前台多语言
-    categoryList: 栏目列表
-    categoryCreate: 新增栏目
-    categoryUpdate: 更新栏目
-    categoryDelete: 删除栏目
-    articleList: 文章列表
-    articleCreate: 新增文章
-    articleUpdate: 更新文章
-    articleDelete: 删除文章
-    bannerList: 轮播列表
-    bannerCreate: 新增轮播
-    bannerUpdate: 更新轮播
-    bannerDelete: 删除轮播
-    teamMemberList: 团队列表
-    teamMemberCreate: 新增团队
-    teamMemberUpdate: 更新团队
-    teamMemberDelete: 删除团队
-    testimonialList: 反馈列表
-    testimonialCreate: 新增反馈
-    testimonialUpdate: 更新反馈
-    testimonialDelete: 删除反馈
-    pageList: 单页列表
-    pageCreate: 新增单页
-    pageUpdate: 更新单页
-    pageDelete: 删除单页
-    contactMessageList: 留言列表
-    contactMessageUpdate: 处理留言
-    contactMessageDelete: 删除留言
-    frontendI18nList: 多语言列表
-    frontendI18nCreate: 新增多语言
-    frontendI18nUpdate: 更新多语言
-    frontendI18nDelete: 删除多语言
+  booking:
+    index: 预约管理
+    booking: 预约单
+    bookingList: 预约列表
+    bookingCancel: 取消预约
+    shop: 店铺
+    shopList: 店铺列表
+    calendar: 日历
+    calendarList: 日历数据
+    service: 服务
+    serviceList: 服务列表
+    serviceSave: 保存服务
+    serviceDelete: 删除服务
+    location: 门店
+    locationList: 门店列表
+    locationSave: 保存门店
+    locationDelete: 删除门店
+    staff: 员工
+    staffList: 员工列表
+    staffSave: 保存员工
+    staffDelete: 删除员工
+    schedule: 排班
+    scheduleList: 排班列表
+    scheduleSave: 保存排班
+    scheduleDelete: 删除排班
+

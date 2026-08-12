@@ -1,0 +1,5 @@
+---
+description: Testing rules
+alwaysApply: false
+---
+至少测试：正常预约、Slot 已满、并发抢最后一个 Slot、重复预约、取消、改期、Webhook 重复、时区、Lock 超时。

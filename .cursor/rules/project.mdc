@@ -1,0 +1,14 @@
+---
+description: 项目总规则
+alwaysApply: true
+---
+先读取根目录 PROJECT.md。
+禁止猜测 SHOPLINE API。
+Booking 是独立业务域。
+MySQL 是最终数据源，Redis 只做临时锁。
+所有核心业务必须考虑并发和幂等。
+时间统一 UTC 存储，按 Shop timezone 计算。
+Controller 不直接调用 SHOPLINE API。
+不要无关重构。
+每次只完成明确任务。
+完成后运行测试并报告修改文件、数据库变化、测试结果和未完成事项。

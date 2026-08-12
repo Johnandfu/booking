@@ -12,7 +12,6 @@ declare(strict_types=1);
 
 use App\Exception\Handler\AppExceptionHandler;
 use App\Exception\Handler\BusinessExceptionHandler;
-use App\Exception\Handler\FrontendExceptionHandler;
 use App\Exception\Handler\JwtExceptionHandler;
 use App\Exception\Handler\ModeNotFoundHandler;
 use App\Exception\Handler\RateLimitHandler;
@@ -22,8 +21,6 @@ use App\Exception\Handler\ValidationExceptionHandler;
 return [
     'handler' => [
         'http' => [
-            // 处理前台页面异常
-            FrontendExceptionHandler::class,
             ModeNotFoundHandler::class,
             // 处理业务异常
             BusinessExceptionHandler::class,
@@ -37,7 +34,6 @@ return [
             RateLimitHandler::class,
             // 处理应用异常
             AppExceptionHandler::class,
-
         ],
     ],
 ];

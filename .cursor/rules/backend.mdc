@@ -1,0 +1,11 @@
+---
+description: Backend 编码规则
+globs:
+  - backend/**
+alwaysApply: false
+---
+PHP 8.3+。
+使用 DTO、Enum、Service Layer。
+避免巨型 Controller 和魔法字符串。
+事务边界必须明确。
+数据库约束不能只依赖 PHP 判断。

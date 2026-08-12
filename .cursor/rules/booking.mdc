@@ -1,0 +1,12 @@
+---
+description: Booking 核心规则
+globs:
+  - backend/app/Booking/**
+  - backend/app/Services/Booking/**
+alwaysApply: false
+---
+预约创建必须使用 Transaction + SELECT FOR UPDATE。
+Redis Lock 必须有 TTL，不能作为最终数据。
+必须防止 Slot 超卖、重复预约、并发抢最后一个 Slot 和非法状态转换。
+改期必须同时处理旧 Slot 释放和新 Slot 锁定。
+核心逻辑必须有自动化测试。

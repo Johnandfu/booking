@@ -11,8 +11,6 @@ declare(strict_types=1);
  */
 
 use App\Service\PassportService;
-use Intervention\Image\ImageManager;
-use Intervention\Image\Interfaces\ImageManagerInterface;
 use Mine\JwtAuth\Interfaces\CheckTokenInterface;
 use Mine\Upload\Factory;
 use Mine\Upload\UploadInterface;
@@ -20,5 +18,4 @@ use Mine\Upload\UploadInterface;
 return [
     UploadInterface::class => Factory::class,
     CheckTokenInterface::class => PassportService::class,
-   // ImageManagerInterface::class => new ImageManager(new Intervention\Image\Drivers\Gd\Driver())
 ];

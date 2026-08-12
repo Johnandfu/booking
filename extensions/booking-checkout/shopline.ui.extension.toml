@@ -1,0 +1,22 @@
+type = "checkout_ui_customizer"
+name = "booking-checkout"
+extension_points = [
+  "Checkout::Dynamic::Render"
+]
+
+[capabilities]
+network_access = false
+block_progress = false
+
+[settings]
+  [[settings.fields]]
+  key = "title"
+  type = "single_line_text_field"
+  name = "Title"
+  description = "Heading shown above the booking number field"
+
+  [[settings.fields]]
+  key = "help_text"
+  type = "single_line_text_field"
+  name = "Help text"
+  description = "Hint for customers entering booking_no"

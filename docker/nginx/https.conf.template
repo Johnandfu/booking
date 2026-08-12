@@ -80,8 +80,26 @@ server {
         access_log off;
     }
 
-    # 域名根路径直接显示 Hyperf 前台
+    # 域名根路径代理到 Hyperf
     location / {
+        proxy_pass http://hcms-hyperf;
+        proxy_http_version 1.1;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header X-Forwarded-Host $host;
+        proxy_set_header X-Forwarded-Port $server_port;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection $connection_upgrade;
+    }
+
+    # SHOPLINE 内嵌应用：允许被 myshopline.com iframe（不可使用 X-Frame-Options SAMEORIGIN）
+    location ^~ /shopline/ {
+        add_header Strict-Transport-Security "max-age=31536000" always;
+        add_header X-Content-Type-Options nosniff always;
+        add_header Content-Security-Policy "frame-ancestors https://*.myshopline.com https://admin.myshopline.com 'self';" always;
+
         proxy_pass http://hcms-hyperf;
         proxy_http_version 1.1;
         proxy_set_header Host $host;

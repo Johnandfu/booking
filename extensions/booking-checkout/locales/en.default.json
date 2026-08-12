@@ -1,0 +1,8 @@
+{
+  "bookingTitle": "Booking confirmation",
+  "bookingHelp": "Enter the booking number from your reservation (booking_no).",
+  "bookingLabel": "Booking number",
+  "apply": "Attach to order",
+  "applied": "Booking number attached. This order will confirm your reservation.",
+  "missing": "Please enter a booking number."
+}

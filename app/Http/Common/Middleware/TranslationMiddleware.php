@@ -12,7 +12,6 @@ declare(strict_types=1);
 
 namespace App\Http\Common\Middleware;
 
-use App\Service\Cms\CmsContentService;
 use Hyperf\Contract\TranslatorInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -21,41 +20,45 @@ use Psr\Http\Server\RequestHandlerInterface;
 
 class TranslationMiddleware implements MiddlewareInterface
 {
+    private const SUPPORTED_LOCALES = ['en', 'zh_CN', 'zh_TW'];
+
     public function __construct(
         private readonly TranslatorInterface $translator
     ) {}
 
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
-        $locale = $this->getLocale($request);
-        $this->translator->setLocale($locale);
+        $this->translator->setLocale($this->getLocale($request));
 
-        return $handler->handle(
-            $request->withAttribute('frontend_locale', $locale)
-        );
+        return $handler->handle($request);
     }
 
     protected function getLocale(ServerRequestInterface $request): string
     {
-        $cookieLang = (string) ($request->getCookieParams()['frontend_lang'] ?? '');
-        if ($cookieLang !== '') {
-            return $this->normalizeLocale($cookieLang);
-        }
-
         if ($request->hasHeader('Accept-Language')) {
-           return $this->normalizeLocale($request->getHeaderLine('Accept-Language'));
+            return $this->normalizeLocale($request->getHeaderLine('Accept-Language'));
         }
 
-        return CmsContentService::DEFAULT_FRONTEND_LOCALE;
+        return (string) config('translation.locale', 'en');
     }
 
     protected function normalizeLocale(string $locale): string
     {
-      
-        if(array_key_exists($locale,CmsContentService::FRONTEND_LOCALES)){
-            return $locale;
+        $primary = str_replace('-', '_', explode(',', $locale)[0]);
+        $primary = explode(';', $primary)[0];
+        $primary = trim($primary);
+
+        if (in_array($primary, self::SUPPORTED_LOCALES, true)) {
+            return $primary;
         }
 
-        return CmsContentService::DEFAULT_FRONTEND_LOCALE;
+        $short = explode('_', $primary)[0];
+        foreach (self::SUPPORTED_LOCALES as $supported) {
+            if (str_starts_with($supported, $short)) {
+                return $supported;
+            }
+        }
+
+        return (string) config('translation.locale', 'en');
     }
 }

@@ -12,7 +12,6 @@ declare(strict_types=1);
 
 namespace App\Repository;
 
-use App\Factory\Log;
 use App\Repository\Traits\BootTrait;
 use App\Repository\Traits\RepositoryOrderByTrait;
 use Hyperf\Collection\Collection;

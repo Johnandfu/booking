@@ -93,35 +93,11 @@ composer create-project mineadmin/mineadmin --keep-vcs
 [Element Plus 基于 Vue 3，面向设计师和开发者的组件库](https://element-plus.org/)
 
 [Swoole PHP协程框架](https://www.swoole.com)
+# SHOPLINE Calendar Booking
 
-[Vue](https://vuejs.org/)
+这是 Cursor Agent 开发用的项目骨架。
 
-[Vite](https://vitejs.cn/)
+先阅读 `PROJECT.md` 和 `.cursor/rules/`。
 
-[Jetbrains 生产力工具](https://www.jetbrains.com/)
+推荐：一次只让 Agent 实现一个 Phase，完成后测试，再进入下一阶段。
 
-## 通过 OSCS 安全认证
-[![OSCS Status](https://www.oscs1024.com/platform/badge/kanyxmo/MineAdmin.svg?size=large)](https://www.murphysec.com/dr/9ztZvuSN6OLFjCDGVo)
-
-## star 趋势
-
-[![Stargazers over time](https://starchart.cc/mineadmin/mineadmin.svg)](https://starchart.cc/mineadmin/mineadmin.svg)
-
-## 贡献者
-
-> 感谢所有参与 MineAdmin 开发的代码贡献者。 [[contributors](https://github.com/mineadmin/mineadmin/graphs/contributors)]
-<a href="https://github.com/mineadmin/mineadmin/graphs/contributors">
-<img src="https://contrib.rocks/image?repo=mineadmin/mineadmin" />
-</a>
-
-[![贡献者趋势](https://contributor-overtime-api.apiseven.com/contributors-svg?chart=contributorOverTime&repo=mineadmin/mineadmin)](https://www.apiseven.com/en/contributor-graph?chart=contributorOverTime&repo=mineadmin/mineadmin)
-
-## 演示图片
-[![pAdQKPJ.png](https://s21.ax1x.com/2024/10/22/pAdQKPJ.png)](https://imgse.com/i/pAdQKPJ)
-[![pAdQlx1.png](https://s21.ax1x.com/2024/10/22/pAdQlx1.png)](https://imgse.com/i/pAdQlx1)
-[![pAdQQ2R.png](https://s21.ax1x.com/2024/10/22/pAdQQ2R.png)](https://imgse.com/i/pAdQQ2R)
-[![pAdQGqK.png](https://s21.ax1x.com/2024/10/22/pAdQGqK.png)](https://imgse.com/i/pAdQGqK)
-[![pAdQYVO.png](https://s21.ax1x.com/2024/10/22/pAdQYVO.png)](https://imgse.com/i/pAdQYVO)
-[![pAdQNIe.png](https://s21.ax1x.com/2024/10/22/pAdQNIe.png)](https://imgse.com/i/pAdQNIe)
-[![pAdQaPH.png](https://s21.ax1x.com/2024/10/22/pAdQaPH.png)](https://imgse.com/i/pAdQaPH)
-[![pAdQdGd.png](https://s21.ax1x.com/2024/10/22/pAdQdGd.png)](https://imgse.com/i/pAdQdGd)

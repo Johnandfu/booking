@@ -1,0 +1,10 @@
+{
+  "name": "booking-checkout",
+  "private": true,
+  "version": "1.0.0",
+  "description": "SHOPLINE Checkout UI Customizer for Calendar Booking (booking_no)",
+  "scripts": {
+    "serve": "echo 'Run: sl extension serve (requires SHOPLINE CLI)'",
+    "push": "echo 'Run: sl extension push (requires SHOPLINE CLI)'"
+  }
+}

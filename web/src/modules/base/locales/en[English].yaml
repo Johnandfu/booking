@@ -126,44 +126,29 @@ baseMenu:
     attachmentList: Attachment List
     attachmentUpload: Attachment Upload
     attachmentDelete: Attachment Delete
-  cms:
-    index: CMS Management
-    category: Category Management
-    article: Article Management
-    banner: Banner Management
-    teamMember: Team Management
-    testimonial: Testimonials
-    page: Page Management
-    contactMessage: Contact Message Management
-    frontendI18n: Frontend I18n
-    categoryList: Category List
-    categoryCreate: Create Category
-    categoryUpdate: Update Category
-    categoryDelete: Delete Category
-    articleList: Article List
-    articleCreate: Create Article
-    articleUpdate: Update Article
-    articleDelete: Delete Article
-    bannerList: Banner List
-    bannerCreate: Create Banner
-    bannerUpdate: Update Banner
-    bannerDelete: Delete Banner
-    teamMemberList: Team List
-    teamMemberCreate: Create Team Member
-    teamMemberUpdate: Update Team Member
-    teamMemberDelete: Delete Team Member
-    testimonialList: Testimonial List
-    testimonialCreate: Create Testimonial
-    testimonialUpdate: Update Testimonial
-    testimonialDelete: Delete Testimonial
-    pageList: Page List
-    pageCreate: Create Page
-    pageUpdate: Update Page
-    pageDelete: Delete Page
-    contactMessageList: Contact Message List
-    contactMessageUpdate: Handle Contact Message
-    contactMessageDelete: Delete Contact Message
-    frontendI18nList: Frontend I18n List
-    frontendI18nCreate: Create Frontend I18n
-    frontendI18nUpdate: Update Frontend I18n
-    frontendI18nDelete: Delete Frontend I18n
+  booking:
+    index: Booking
+    booking: Bookings
+    bookingList: Booking list
+    bookingCancel: Cancel booking
+    shop: Shops
+    shopList: Shop list
+    calendar: Calendar
+    calendarList: Calendar data
+    service: Services
+    serviceList: Service list
+    serviceSave: Save service
+    serviceDelete: Delete service
+    location: Locations
+    locationList: Location list
+    locationSave: Save location
+    locationDelete: Delete location
+    staff: Staff
+    staffList: Staff list
+    staffSave: Save staff
+    staffDelete: Delete staff
+    schedule: Schedules
+    scheduleList: Schedule list
+    scheduleSave: Save schedule
+    scheduleDelete: Delete schedule
+
