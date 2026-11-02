@@ -6338,23 +6338,17 @@
         },
         {
             "name": "mineadmin/auth-jwt",
-            "version": "3.0.22",
+            "version": "v3.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mineadmin/JwtAuth.git",
-                "reference": "0ec066c212e0059fc836fa20b0dd4a2d359df895"
+                "reference": "2b5be10cb8f35129a3198ce8f295d728bdf77a37"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mineadmin/JwtAuth/zipball/0ec066c212e0059fc836fa20b0dd4a2d359df895",
-                "reference": "0ec066c212e0059fc836fa20b0dd4a2d359df895",
-                "shasum": "",
-                "mirrors": [
-                    {
-                        "url": "https://mirrors.aliyun.com/composer/dists/%package%/%reference%.%type%",
-                        "preferred": true
-                    }
-                ]
+                "url": "https://api.github.com/repos/mineadmin/JwtAuth/zipball/2b5be10cb8f35129a3198ce8f295d728bdf77a37",
+                "reference": "2b5be10cb8f35129a3198ce8f295d728bdf77a37",
+                "shasum": ""
             },
             "type": "library",
             "extra": {
@@ -6385,9 +6379,9 @@
             "description": "Mineadmin New Jwt Auth Component",
             "support": {
                 "issues": "https://github.com/mineadmin/JwtAuth/issues",
-                "source": "https://github.com/mineadmin/JwtAuth/tree/v3.0.1"
+                "source": "https://github.com/mineadmin/JwtAuth/tree/v3.2.0"
             },
-            "time": "2024-12-21T12:51:12+00:00"
+            "time": "2025-07-14T02:19:14+00:00"
         },
         {
             "name": "mineadmin/core",
