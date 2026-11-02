@@ -2892,26 +2892,20 @@
         },
         {
             "name": "hyperf/engine",
-            "version": "v2.14.0",
+            "version": "v2.15.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/hyperf/engine.git",
-                "reference": "74ec5130fa0838e285a24292a232ce455edccff8"
+                "reference": "15c282e8fcf8596f3400ccd21c32a18a37036b9a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/hyperf/engine/zipball/74ec5130fa0838e285a24292a232ce455edccff8",
-                "reference": "74ec5130fa0838e285a24292a232ce455edccff8",
-                "shasum": "",
-                "mirrors": [
-                    {
-                        "url": "https://mirrors.aliyun.com/composer/dists/%package%/%reference%.%type%",
-                        "preferred": true
-                    }
-                ]
+                "url": "https://api.github.com/repos/hyperf/engine/zipball/15c282e8fcf8596f3400ccd21c32a18a37036b9a",
+                "reference": "15c282e8fcf8596f3400ccd21c32a18a37036b9a",
+                "shasum": ""
             },
             "require": {
-                "hyperf/engine-contract": "~1.13.0",
+                "hyperf/engine-contract": "~1.14.0",
                 "php": ">=8.0"
             },
             "conflict": {
@@ -2921,10 +2915,11 @@
                 "friendsofphp/php-cs-fixer": "^3.0",
                 "hyperf/guzzle": "^3.0",
                 "hyperf/http-message": "^3.0",
+                "hyperf/laminas-mime": "^3.0",
                 "mockery/mockery": "^1.5",
                 "phpstan/phpstan": "^1.0",
                 "phpunit/phpunit": "^9.4",
-                "swoole/ide-helper": "5.*"
+                "swoole/ide-helper": "dev-master"
             },
             "suggest": {
                 "ext-sockets": "*",
@@ -2938,7 +2933,7 @@
                     "config": "Hyperf\\Engine\\ConfigProvider"
                 },
                 "branch-alias": {
-                    "dev-master": "2.14-dev"
+                    "dev-master": "2.15-dev"
                 }
             },
             "autoload": {
@@ -2962,7 +2957,7 @@
             ],
             "support": {
                 "issues": "https://github.com/hyperf/engine/issues",
-                "source": "https://github.com/hyperf/engine/tree/v2.14.0"
+                "source": "https://github.com/hyperf/engine/tree/v2.15.0"
             },
             "funding": [
                 {
@@ -2974,27 +2969,21 @@
                     "type": "open_collective"
                 }
             ],
-            "time": "2025-04-13T15:11:22+00:00"
+            "time": "2025-11-19T05:52:31+00:00"
         },
         {
             "name": "hyperf/engine-contract",
-            "version": "v1.13.0",
+            "version": "v1.14.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/hyperf/engine-contract.git",
-                "reference": "26a18ec0375147546bf9702b0fd737fdd2cec1d6"
+                "reference": "b6c8ff556fca5d4ffa29fba819fefc5e3572025d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/hyperf/engine-contract/zipball/26a18ec0375147546bf9702b0fd737fdd2cec1d6",
-                "reference": "26a18ec0375147546bf9702b0fd737fdd2cec1d6",
-                "shasum": "",
-                "mirrors": [
-                    {
-                        "url": "https://mirrors.aliyun.com/composer/dists/%package%/%reference%.%type%",
-                        "preferred": true
-                    }
-                ]
+                "url": "https://api.github.com/repos/hyperf/engine-contract/zipball/b6c8ff556fca5d4ffa29fba819fefc5e3572025d",
+                "reference": "b6c8ff556fca5d4ffa29fba819fefc5e3572025d",
+                "shasum": ""
             },
             "require": {
                 "php": ">=8.0"
@@ -3013,7 +3002,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.11-dev"
+                    "dev-master": "1.14-dev"
                 }
             },
             "autoload": {
@@ -3035,7 +3024,7 @@
             ],
             "support": {
                 "issues": "https://github.com/hyperf/engine-contract/issues",
-                "source": "https://github.com/hyperf/engine-contract/tree/v1.13.0"
+                "source": "https://github.com/hyperf/engine-contract/tree/v1.14.0"
             },
             "funding": [
                 {
@@ -3047,7 +3036,7 @@
                     "type": "open_collective"
                 }
             ],
-            "time": "2025-04-13T14:48:14+00:00"
+            "time": "2025-11-18T13:06:54+00:00"
         },
         {
             "name": "hyperf/event",
